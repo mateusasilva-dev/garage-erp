@@ -1,11 +1,37 @@
 /**
- * Estilos base e estrutura global para a tela de Ordens de Serviço (Perfil Mecânico).
- * Garante a estabilidade do layout e responsividade entre Mobile e Desktop.
- *
- * Regras principais:
- * - box-sizing: border-box: Aplica-se a todos os elementos para que padding e border não afetem a dimensão final calculada.
- * - FOUC protection: Reserva o espaço exato da <ge-sidebar> para evitar distorções do layout antes do carregamento do JS.
+ * @file ordens-de-servico.css
+ * @description Estilização da tela de Ordens de Serviço.
  */
+
+:root {
+    /* Superfícies e Componentes Plásticos */
+    --color-bg-body: #f3f4f6;
+    --color-bg-card: #ffffff;
+    --color-bg-sidebar-mobile: #f8f9fa;
+
+    /* Cores das Fontes */
+    --color-text-main: #1f2937;
+    --color-text-muted: #6b7280;
+
+    /* Botões e Interações */
+    --color-primary-base: #2563eb;
+    --color-primary-hover: #1d4ed8;
+    --color-primary-light: #3b82f6;
+
+    /* Distâncias e Contornos */
+    --color-border: #e5e7eb;
+    --radius-default: 8px;
+    --font-family-base: "Inter", sans-serif;
+}
+
+/**
+ * Utilitários Genéricos (Utility Classes)
+ * Isola as declarações `style` contidas soltas dentro do HTML mantendo o CSS coeso.
+ */
+.cursor-pointer {
+    cursor: pointer;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -17,7 +43,7 @@ body {
     height: 100vh;
     overflow: hidden;
     font-family: "Inter", sans-serif;
-    background-color: #f3f4f6;
+    background-color: var(--color-bg-body);
 }
 
 .app-layout {
@@ -45,7 +71,7 @@ ge-sidebar:not(:defined) {
     width: 255px;
     height: 100vh;
     height: 100dvh;
-    background-color: #1f2937;
+    background-color: var(--color-text-main);
     flex-shrink: 0;
 }
 
@@ -65,7 +91,7 @@ ge-sidebar:not(:defined) {
         width: 100vw;
         height: 61px;
         background-color: #f8f9fa;
-        border-bottom: 1.25px solid #e5e7eb;
+        border-bottom: 1.25px solid var(--color-border);
     }
 }
 
@@ -86,7 +112,7 @@ ge-sidebar:not(:defined) {
     font-weight: 500;
     font-size: 30px;
     line-height: 36px;
-    color: #1f2937;
+    color: var(--color-text-main);
 }
 
 .page-subtitle {
@@ -94,12 +120,12 @@ ge-sidebar:not(:defined) {
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
-    color: #6b7280;
+    color: var(--color-text-muted);
 }
 
 .card {
-    background-color: #ffffff;
-    border: 1px solid #e5e7eb;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
     border-radius: 8px;
     box-shadow:
         0px 1px 1.5px rgba(0, 0, 0, 0.1),
@@ -128,10 +154,10 @@ ge-sidebar:not(:defined) {
     height: 50px;
     display: flex;
     align-items: center;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--color-border);
     border-radius: 8px;
     padding: 0 16px 0 12px;
-    background-color: #ffffff;
+    background-color: var(--color-bg-card);
     min-width: 0;
 }
 
@@ -147,7 +173,7 @@ ge-sidebar:not(:defined) {
     width: 100%;
     font-family: "Inter", sans-serif;
     font-size: 16px;
-    color: #6b7280;
+    color: var(--color-text-muted);
     background: transparent;
 }
 
@@ -159,10 +185,10 @@ ge-sidebar:not(:defined) {
     align-items: center;
     justify-content: flex-start;
     position: relative;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--color-border);
     border-radius: 8px;
     padding: 0 12px;
-    background-color: #ffffff;
+    background-color: var(--color-bg-card);
     cursor: pointer;
 }
 
@@ -210,25 +236,25 @@ table {
 
 th {
     padding: 10px 16px;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid var(--color-border);
     font-weight: 500;
     font-size: 16px;
-    color: #6b7280;
+    color: var(--color-text-muted);
 }
 
 td {
     padding: 24px 16px;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid var(--color-border);
     vertical-align: top;
 }
 
 .text-primary {
-    color: #1f2937;
+    color: var(--color-text-main);
     font-size: 16px;
 }
 
 .text-secondary {
-    color: #6b7280;
+    color: var(--color-text-muted);
     font-size: 16px;
 }
 
@@ -280,7 +306,7 @@ td {
 .status-pendente {
     background-color: rgba(59, 130, 246, 0.2);
     border: 1px solid rgba(59, 130, 246, 0.4);
-    color: #3b82f6;
+    color: var(--color-primary-light);
 }
 
 .status-atrasado {
@@ -354,7 +380,7 @@ td {
             254,
             0.5
         ); /* Primary light blue tint used in design */
-        border: 1px solid #e5e7eb;
+        border: 1px solid var(--color-border);
         border-radius: 8px;
         padding: 17px;
         display: flex;
@@ -371,14 +397,14 @@ td {
     .order-id {
         margin: 0;
         font-size: 14px;
-        color: #6b7280;
+        color: var(--color-text-muted);
     }
 
     .order-client {
         margin: 0;
         font-size: 16px;
         font-weight: 500;
-        color: #1f2937;
+        color: var(--color-text-main);
     }
 
     .order-card-body {
@@ -393,15 +419,15 @@ td {
     }
 
     .order-card-body .label {
-        color: #6b7280;
+        color: var(--color-text-muted);
     }
 
     .order-card-body .value {
-        color: #1f2937;
+        color: var(--color-text-main);
     }
 
     .order-date {
-        color: #6b7280 !important;
+        color: var(--color-text-muted) !important;
     }
 
     .text-truncate {

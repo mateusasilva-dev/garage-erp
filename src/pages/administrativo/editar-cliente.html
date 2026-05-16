@@ -1,19 +1,31 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../../css/pages/administrativo/editar-cliente.css">
-    <title>Cadastro de clientes</title>
-</head>
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Editar Cliente - GarageERP</title>
+        <link
+            rel="icon"
+            href="../../assets/img/favicon-garageerp.png"
+            type="image/png"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="../../css/pages/administrativo/editar-cliente.css"
+        />
+    </head>
 
-     <body>
+    <body>
         <main class="container">
-
-                <a href="lista-clientes.html" class="link-voltar">
+            <a href="lista-clientes.html" class="link-voltar">
                 <i class="fas fa-arrow-left"></i> Voltar para Clientes
-                </a>
+            </a>
 
             <form class="card-edicao">
                 <h1>Editar Cliente</h1>
@@ -21,24 +33,27 @@
 
                 <div class="alerta-info">
                     <i class="fas fa-user"></i>
-                    <span>Preencha os dados do cliente. Todos os campos são obrigatórios.</span>
+                    <span
+                        >Preencha os dados do cliente. Todos os campos são
+                        obrigatórios.</span
+                    >
                 </div>
 
                 <div class="input-box">
                     <label class="nome">Nome Completo *</label>
-                    <input placeholder="Maria Santos" type="text">
+                    <input placeholder="Maria Santos" type="text" />
                     <p class="ajuda">Nome que aparecerá nos registros</p>
                 </div>
 
                 <div class="input-box">
                     <label class="nome">Telefone *</label>
-                    <input placeholder="(11) 97654-3210" type="tel">
+                    <input placeholder="(11) 97654-3210" type="tel" />
                     <p class="ajuda">Telefone para contato</p>
                 </div>
 
                 <div class="input-box">
                     <label class="nome">Email *</label>
-                    <input placeholder="maria@email.com" type="email">
+                    <input placeholder="maria@email.com" type="email" />
                     <p class="ajuda">Email para notificações</p>
                 </div>
 
@@ -46,13 +61,9 @@
                     <button type="button" class="btn-cancelar">Cancelar</button>
                     <button type="submit" class="btn-atualizar">
                         <i class="far fa-save"></i> Atualizar Cliente
-                    </button>  
+                    </button>
                 </div>
-
             </form>
-
         </main>
-    
     </body>
-
 </html>

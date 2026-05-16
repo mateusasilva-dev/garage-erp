@@ -1,13 +1,26 @@
-# IDEs e Editores
+# Vs Code
 .vscode/
 
-# Sistema Operacional
+# Sistemas Operacionais
 .DS_Store
 Thumbs.db
 desktop.ini
+*~
 
 # Logs
 *.log
 
-# Arquivos de ambiente/segredos
+# Variáveis de ambiente/segredos
 .env
+.env.*
+!.env.example
+
+# Arquivos Temporários
+*.tmp
+*.temp
+
+tmp/
+temp/
+
+# Cache
+.cache/

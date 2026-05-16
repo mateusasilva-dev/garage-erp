@@ -34,8 +34,8 @@ Projetado com foco em usabilidade e inclusão digital, o sistema atende desde o 
 
 # Código
 
-<li><a href="src/README.md"> Código Fonte</a></li>
+<li><a href="src/README.md">Código Fonte</a></li>
 
 # Apresentação
 
-<li><a href="presentation/README.md"> Apresentação da solução</a></li>
+<li><a href="presentation/README.md">Apresentação da solução</a></li>

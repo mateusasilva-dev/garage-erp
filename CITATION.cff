@@ -1,33 +1,50 @@
-# This CITATION.cff file was generated with cffinit.
-# Visit https://bit.ly/cffinit to generate yours today!
-
 cff-version: 1.2.0
-title: Web Application Template
+title: GarageERP
 message: >-
-  Repositório padrão para o Eixo 1 - Projeto 1: Aplicações
-  Web da PUC Minas.
+    Repositório do projeto GarageERP para o Eixo 1 - Projeto 1: Aplicações
+    Web da PUC Minas.
 type: software
 authors:
-  - given-names: Aluno 1
-    family-names: Nome Completo
-    email: aluno@pucminas.br
-    affiliation: PUC Minas
-  - given-names: Hugo
-    name-particle: 'B '
-    family-names: de Paula
-    name-suffix: Prof.
-    email: hugo@pucminas.br
-    affiliation: PUC Minas
-    orcid: 'https://orcid.org/0000-0002-6193-3205'
+    - given-names: Auanny Nayara
+      family-names: da Silva
+      email: aluno@pucminas.br
+      affiliation: PUC Minas
+    - given-names: Ivo Nascimento
+      family-names: Pereira Rodrigues
+      email: aluno@pucminas.br
+      affiliation: PUC Minas
+    - given-names: Mateus Almeida
+      family-names: Silva
+      email: aluno@pucminas.br
+      affiliation: PUC Minas
+    - given-names: Mateus Manaces
+      family-names: de Castro
+      email: aluno@pucminas.br
+      affiliation: PUC Minas
+    - given-names: Samara Oliveira
+      family-names: de Almeida
+      email: aluno@pucminas.br
+      affiliation: PUC Minas
+    - given-names: Marco Rodrigo
+      family-names: Costa
+      name-suffix: Prof.
+      email: marco.rodrigo@sga.pucminas.br
+      affiliation: PUC Minas
 repository-code: >-
-  https://github.com/ICEI-PUC-Minas-PMV-SI/WebApplicationProject-Template
+    https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2026-1-pe1-t1-pmv-si-2026-1-pe1-projgarageerp
 abstract: >-
-  Descrever resumidamente, em um ou dois parágrafos, o
-  projeto que foi desenvolvido.
+    O GarageERP é um sistema web desenvolvido para modernizar a gestão integrada 
+    de micro e pequenas oficinas mecânicas, substituindo métodos manuais por uma 
+    solução digital acessível e intuitiva. O projeto foca em otimizar processos 
+    essenciais, como o cadastro de clientes e veículos, a organização de ordens 
+    de serviço e o acompanhamento do histórico de manutenções.
 keywords:
-  - Desenvolvimento Web
-  - HTML
-  - CSS
-  - JavaScript
-  - Template
-date-released: '2024-06-23'
+    - Gestão de Oficinas
+    - ERP
+    - Ordem de Serviço
+    - HTML
+    - CSS
+    - JavaScript
+    - Desenvolvimento Web
+    - PUC Minas
+date-released: "2026-05-15"

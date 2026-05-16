@@ -1,19 +1,37 @@
 <!doctype html>
-<html lang="pt-br">
+<html lang="pt-BR">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Ordens de Serviço - GarageERP</title>
+        <link
+            rel="icon"
+            href="../../assets/img/favicon-garageerp.png"
+            type="image/png"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet"
+        />
         <link
             rel="stylesheet"
             href="../../css/pages/mecanico/ordens-de-servico.css"
         />
-        <title>Document</title>
     </head>
     <body>
         <!--
         /**
          * Container principal da aplicação.
          * Divide a tela na proporção Sidebar (Web Component) e Main Content da Página.
+         */
+        -->
+        <!--
+        /**
+         * @layout AppLayout
+         * @description Container Matriz. Segue o princípio de Single Responsibility 
+         * ao separar a gestão da barra de navegação (Sidebar) do container Principal.
          */
         -->
         <div class="app-layout">
@@ -33,7 +51,13 @@
 
             <!-- // Área delimitada para o conteúdo principal, contém transbordo (overflow) vertical nativo -->
             <main class="main-content">
-                <div class="content-header">
+                <!--
+                    /**
+                     * @component ContentHeader
+                     * @description Agrupa os títulos da página e seus Botões Principais de Ação (CTAs) em Flexbox.
+                     */
+                    -->
+                    <div class="content-header">
                     <h1 class="page-title">Ordens de Serviço</h1>
                     <p class="page-subtitle">Gerencie as ordens de serviço</p>
                 </div>
@@ -109,12 +133,11 @@
                                      * o identificador e exiba a informação correspondente sem backend/SGBD presente.
                                      */
                                     -->
-                                    <tr
-                                        onclick="
+                                    <tr class="cursor-pointer" onclick="
                                             window.location.href =
                                                 'ordem-de-servico.html?id=1'
                                         "
-                                        style="cursor: pointer"
+                                        class="cursor-pointer"
                                     >
                                         <td class="text-secondary">#1</td>
                                         <td class="text-primary">João Silva</td>
@@ -148,12 +171,11 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr
-                                        onclick="
+                                    <tr class="cursor-pointer" onclick="
                                             window.location.href =
                                                 'ordem-de-servico.html?id=2'
                                         "
-                                        style="cursor: pointer"
+                                        class="cursor-pointer"
                                     >
                                         <td class="text-secondary">#2</td>
                                         <td class="text-primary">
@@ -189,12 +211,11 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr
-                                        onclick="
+                                    <tr class="cursor-pointer" onclick="
                                             window.location.href =
                                                 'ordem-de-servico.html?id=3'
                                         "
-                                        style="cursor: pointer"
+                                        class="cursor-pointer"
                                     >
                                         <td class="text-secondary">#3</td>
                                         <td class="text-primary">
@@ -230,12 +251,11 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr
-                                        onclick="
+                                    <tr class="cursor-pointer" onclick="
                                             window.location.href =
                                                 'ordem-de-servico.html?id=4'
                                         "
-                                        style="cursor: pointer"
+                                        class="cursor-pointer"
                                     >
                                         <td class="text-secondary">#4</td>
                                         <td class="text-primary">João Silva</td>
@@ -269,12 +289,11 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr
-                                        onclick="
+                                    <tr class="cursor-pointer" onclick="
                                             window.location.href =
                                                 'ordem-de-servico.html?id=5'
                                         "
-                                        style="cursor: pointer"
+                                        class="cursor-pointer"
                                     >
                                         <td class="text-secondary">#5</td>
                                         <td class="text-primary">Caio Rocha</td>
@@ -309,12 +328,11 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr
-                                        onclick="
+                                    <tr class="cursor-pointer" onclick="
                                             window.location.href =
                                                 'ordem-de-servico.html?id=6'
                                         "
-                                        style="cursor: pointer"
+                                        class="cursor-pointer"
                                     >
                                         <td class="text-secondary">#6</td>
                                         <td class="text-primary">
@@ -364,12 +382,12 @@
                         <div class="mobile-cards-container mobile-only">
                             <!-- // Compartilha da mesma lógica de redirecionamento (?id=X) -->
                             <div
-                                class="order-card"
+                                class="order-card cursor-pointer"
                                 onclick="
                                     window.location.href =
                                         'ordem-de-servico.html?id=1'
                                 "
-                                style="cursor: pointer"
+                                class="cursor-pointer"
                             >
                                 <div class="order-card-header">
                                     <div>
@@ -402,12 +420,12 @@
                             </div>
 
                             <div
-                                class="order-card"
+                                class="order-card cursor-pointer"
                                 onclick="
                                     window.location.href =
                                         'ordem-de-servico.html?id=2'
                                 "
-                                style="cursor: pointer"
+                                class="cursor-pointer"
                             >
                                 <div class="order-card-header">
                                     <div>
@@ -442,12 +460,12 @@
                             </div>
 
                             <div
-                                class="order-card"
+                                class="order-card cursor-pointer"
                                 onclick="
                                     window.location.href =
                                         'ordem-de-servico.html?id=3'
                                 "
-                                style="cursor: pointer"
+                                class="cursor-pointer"
                             >
                                 <div class="order-card-header">
                                     <div>
@@ -482,12 +500,12 @@
                             </div>
 
                             <div
-                                class="order-card"
+                                class="order-card cursor-pointer"
                                 onclick="
                                     window.location.href =
                                         'ordem-de-servico.html?id=4'
                                 "
-                                style="cursor: pointer"
+                                class="cursor-pointer"
                             >
                                 <div class="order-card-header">
                                     <div>
@@ -520,12 +538,12 @@
                             </div>
 
                             <div
-                                class="order-card"
+                                class="order-card cursor-pointer"
                                 onclick="
                                     window.location.href =
                                         'ordem-de-servico.html?id=5'
                                 "
-                                style="cursor: pointer"
+                                class="cursor-pointer"
                             >
                                 <div class="order-card-header">
                                     <div>
@@ -559,12 +577,12 @@
                             </div>
 
                             <div
-                                class="order-card"
+                                class="order-card cursor-pointer"
                                 onclick="
                                     window.location.href =
                                         'ordem-de-servico.html?id=6'
                                 "
-                                style="cursor: pointer"
+                                class="cursor-pointer"
                             >
                                 <div class="order-card-header">
                                     <div>

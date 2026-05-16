@@ -1,19 +1,31 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../../css/pages/administrativo/editar-veiculo.css">
-    <title>Cadastro de veículos</title>
-</head>
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Editar Veículo - GarageERP</title>
+        <link
+            rel="icon"
+            href="../../assets/img/favicon-garageerp.png"
+            type="image/png"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="../../css/pages/administrativo/editar-veiculo.css"
+        />
+    </head>
 
-     <body>
+    <body>
         <main class="container">
-
-                <a href="lista-veiculos.html" class="link-voltar">
+            <a href="lista-veiculos.html" class="link-voltar">
                 <i class="fas fa-arrow-left"></i> Voltar para Veículos
-                </a>
+            </a>
 
             <form class="card-edicao">
                 <h1>Editar Veículo</h1>
@@ -21,36 +33,39 @@
 
                 <div class="alerta-info">
                     <i class="fas fa-car"></i>
-                    <span>Cadastrre o veículo vinculando ao proprietário. Todos os campos são obrigatórios.</span>
+                    <span
+                        >Cadastrre o veículo vinculando ao proprietário. Todos
+                        os campos são obrigatórios.</span
+                    >
                 </div>
 
                 <div class="input-box">
                     <label class="nome">Proprietário *</label>
-                    <input type="text">
+                    <input type="text" />
                     <p class="ajuda">Cliente dono do veículo</p>
                 </div>
 
                 <div class="input-box">
                     <label class="nome">Marca *</label>
-                    <input placeholder="Chevrolet" type="text">
+                    <input placeholder="Chevrolet" type="text" />
                     <p class="ajuda">Ex: Volkswagen, Fiat, Chevrolet</p>
                 </div>
 
                 <div class="input-box">
                     <label class="nome">Modelo *</label>
-                    <input placeholder="Onix" type="text">
+                    <input placeholder="Onix" type="text" />
                     <p class="ajuda">Ex: Gol, Uno, Onix</p>
                 </div>
 
                 <div class="input-box">
                     <label class="nome">Placa *</label>
-                    <input placeholder="GHI-9012" type="text">
+                    <input placeholder="GHI-9012" type="text" />
                     <p class="ajuda">Formato: ABC-1234</p>
                 </div>
 
                 <div class="input-box">
                     <label class="nome">Ano *</label>
-                    <input placeholder="2021" type="data">
+                    <input placeholder="2021" type="data" />
                     <p class="ajuda">Ano de fabricação do veículo</p>
                 </div>
 
@@ -60,11 +75,7 @@
                         <i class="far fa-save"></i> Atualizar Veículo
                     </button>
                 </div>
-
             </form>
-
         </main>
-
     </body>
-
 </html>

@@ -301,7 +301,7 @@ class GarageErpSidebar extends HTMLElement {
           <path d="M3.99902 5.99829H19.9947M3.99902 11.9967H19.9947M3.99902 17.995H19.9947" stroke="#1F2937" stroke-width="1.99946" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
-        <h2 class="brand-text">Garage ERP</h2>
+        <h2 class="brand-text">GarageERP</h2>
       </div>
 
       <div class="overlay" aria-hidden="true"></div>
@@ -313,7 +313,7 @@ class GarageErpSidebar extends HTMLElement {
                <img src="../../assets/img/logo-garageerp.png" alt="Logo GarageERP" />
             </div>
             <div class="brand-text">
-              <strong>Garage ERP</strong>
+              <strong>GarageERP</strong>
               <span>Sistema de Gestão</span>
             </div>
           </div>
@@ -384,6 +384,7 @@ class GarageErpSidebar extends HTMLElement {
         const overlay = this.shadowRoot.querySelector(".overlay");
         const menuBtn = this.shadowRoot.querySelector(".menu-btn");
         const closeBtn = this.shadowRoot.querySelector(".close-menu");
+        const logoutBtn = this.shadowRoot.querySelector(".logout");
 
         // Alternar visibilidade das camadas Mobile do menu Sidebar por meio de atribuições via classes
         const toggleMenu = () => {
@@ -395,6 +396,14 @@ class GarageErpSidebar extends HTMLElement {
         if (menuBtn) menuBtn.addEventListener("click", toggleMenu);
         if (closeBtn) closeBtn.addEventListener("click", toggleMenu);
         if (overlay) overlay.addEventListener("click", toggleMenu);
+
+        // Ação de Logout: Redireciona para o login base
+        if (logoutBtn) {
+            logoutBtn.addEventListener("click", () => {
+                // FEAT: No futuro, adicionar limpeza de tokens (ex: localStorage.removeItem('authToken'))
+                window.location.href = "../../index.html";
+            });
+        }
     }
 }
 
