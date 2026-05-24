@@ -18,7 +18,7 @@
 
         <link
             rel="stylesheet"
-            href="../../css/pages/proprietario/nova-ordem-de-servico.css"
+            href="../../css/pages/administrativo/nova-ordem.css"
         />
     </head>
     <body>
@@ -41,15 +41,15 @@
                 - type: Usado pelo script interno da Sidebar para determinar o conjunto de rotas ("mecanico", "admin", "proprietario").
             -->
             <ge-sidebar
-                user-name="Carlos Silva"
-                role="Proprietário"
-                type="proprietario"
+                user-name="Maria Santos"
+                role="Administrativo"
+                type="admin"
             ></ge-sidebar>
 
             <!-- Área delimitada para o conteúdo principal, contém transbordo (overflow) vertical nativo -->
             <main class="main-content">
                 <div class="page-container">
-                    <a href="ordens-de-servico.html" class="btn-back">
+                    <a href="listar-ordens.html" class="btn-back">
                         <img
                             src="../../assets/icons/icon-left-arrow.svg"
                             alt="Ícone Voltar"
@@ -201,7 +201,7 @@
                                     class="btn-cancel"
                                     onclick="
                                         window.location.href =
-                                            'ordens-de-servico.html'
+                                            'listar-ordens.html'
                                     "
                                 >
                                     Cancelar

@@ -22,60 +22,85 @@
     </head>
 
     <body>
-        <main class="container">
-            <a href="lista-veiculos.html" class="link-voltar">
-                <i class="fas fa-arrow-left"></i> Voltar para Veículos
-            </a>
+        <div class="app-layout">
+            <!-- AQUI A MÁGICA ACONTECE -->
+            <ge-sidebar
+                user-name="Carlos Silva"
+                role="Proprietário"
+                type="proprietario"
+            >
+            </ge-sidebar>
 
-            <form class="card-edicao">
-                <h1>Editar Veículo</h1>
-                <p class="subtitulo">Atualize as informações do veículo</p>
+            <main class="main-content">
+                <a href="listar-veiculos.html" class="link-voltar">
+                    <img
+                        src="../../assets/icons/icon-left-arrow.svg"
+                        alt="Voltar"
+                    />
+                    Voltar para Veículos
+                </a>
 
-                <div class="alerta-info">
-                    <i class="fas fa-car"></i>
-                    <span
-                        >Cadastrre o veículo vinculando ao proprietário. Todos
-                        os campos são obrigatórios.</span
-                    >
-                </div>
+                <form class="card-edicao">
+                    <div>
+                        <h1>Editar Veículo</h1>
+                        <p class="subtitulo">
+                            Atualize as informações do veículo
+                        </p>
+                    </div>
 
-                <div class="input-box">
-                    <label class="nome">Proprietário *</label>
-                    <input type="text" />
-                    <p class="ajuda">Cliente dono do veículo</p>
-                </div>
+                    <div class="alerta-info">
+                        <img src="../../assets/icons/icon-car.svg" alt="" />
+                        <span
+                            >Cadastre o veículo vinculando ao proprietário.
+                            Todos os campos são obrigatórios.</span
+                        >
+                    </div>
 
-                <div class="input-box">
-                    <label class="nome">Marca *</label>
-                    <input placeholder="Chevrolet" type="text" />
-                    <p class="ajuda">Ex: Volkswagen, Fiat, Chevrolet</p>
-                </div>
+                    <div class="input-box">
+                        <label>Proprietário *</label>
+                        <input placeholder="João Silva" type="text" />
+                        <p class="ajuda">Cliente dono do veículo</p>
+                    </div>
 
-                <div class="input-box">
-                    <label class="nome">Modelo *</label>
-                    <input placeholder="Onix" type="text" />
-                    <p class="ajuda">Ex: Gol, Uno, Onix</p>
-                </div>
+                    <div class="input-box">
+                        <label>Marca *</label>
+                        <input placeholder="Chevrolet" type="text" />
+                        <p class="ajuda">Ex: Volkswagen, Fiat, Chevrolet</p>
+                    </div>
 
-                <div class="input-box">
-                    <label class="nome">Placa *</label>
-                    <input placeholder="GHI-9012" type="text" />
-                    <p class="ajuda">Formato: ABC-1234</p>
-                </div>
+                    <div class="input-box">
+                        <label>Modelo *</label>
+                        <input placeholder="Onix" type="text" />
+                        <p class="ajuda">Ex: Gol, Uno, Onix</p>
+                    </div>
 
-                <div class="input-box">
-                    <label class="nome">Ano *</label>
-                    <input placeholder="2021" type="data" />
-                    <p class="ajuda">Ano de fabricação do veículo</p>
-                </div>
+                    <div class="input-box">
+                        <label>Placa *</label>
+                        <input placeholder="GHI-9012" type="text" />
+                        <p class="ajuda">Formato: ABC-1234</p>
+                    </div>
 
-                <div class="acoes-form">
-                    <button type="button" class="btn-cancelar">Cancelar</button>
-                    <button type="submit" class="btn-atualizar">
-                        <i class="far fa-save"></i> Atualizar Veículo
-                    </button>
-                </div>
-            </form>
-        </main>
+                    <div class="input-box">
+                        <label>Ano *</label>
+                        <input placeholder="2021" type="text" />
+                        <p class="ajuda">Ano de fabricação do veículo</p>
+                    </div>
+
+                    <div class="acoes-form">
+                        <button type="button" class="btn-cancelar">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="btn-atualizar">
+                            <img
+                                src="../../assets/icons/icon-save.svg"
+                                alt=""
+                            />
+                            Atualizar Veículo
+                        </button>
+                    </div>
+                </form>
+            </main>
+        </div>
+        <script src="../../js/components/Sidebar.js"></script>
     </body>
 </html>

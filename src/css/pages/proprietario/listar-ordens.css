@@ -1,5 +1,5 @@
 /**
- * @file ordens-de-servico.css
+ * @file listar-ordens.css
  * @description Estilização da tela de Ordens de Serviço.
  */
 
@@ -24,22 +24,14 @@
     --font-family-base: "Inter", sans-serif;
 }
 
-/**
- * Utilitários Genéricos (Utility Classes)
- * Isola as declarações `style` contidas soltas dentro do HTML mantendo o CSS coeso.
- */
-.cursor-pointer {
-    cursor: pointer;
-}
-
 * {
     box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
 html,
 body {
-    margin: 0;
-    padding: 0;
     height: 100vh;
     overflow: hidden;
     font-family: "Inter", sans-serif;
@@ -55,13 +47,16 @@ body {
 /* Área central de listagem, permite scroll individual isolando a barra lateral (Sidebar) */
 .main-content {
     flex: 1;
-    padding: 24px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 24px;
     overflow-y: auto;
 }
 
 /**
  * Reserva de Espaço da Sidebar (<ge-sidebar>).
- * Evita o piscar de tela (FOUC) definindo estaticamente as dimensões do Web Component antes do HTML parse processá-lo.
  */
 ge-sidebar:not(:defined) {
     display: block;
@@ -76,15 +71,15 @@ ge-sidebar:not(:defined) {
 @media (max-width: 760px) {
     .app-layout {
         flex-direction: column;
+        gap: 0;
     }
     .main-content {
-        padding-top: 60px; /* Compensa o header mobile de 60px */
         padding: 16px;
-        padding-top: 76px;
+        padding-top: 89px; /* Compensa o header mobile de 73px + padding de 16px */
     }
     ge-sidebar:not(:defined) {
         width: 100vw;
-        height: 61px;
+        height: 73px;
         background-color: #f8f9fa;
         border-bottom: 1.25px solid var(--color-border);
     }
@@ -92,7 +87,6 @@ ge-sidebar:not(:defined) {
 
 /**
  * Cabeçalhos e Container de Cards (.card).
- * Define a caixa branca principal e as disposições flexíveis do menu de cabeçalho.
  */
 
 .content-header {
@@ -100,7 +94,6 @@ ge-sidebar:not(:defined) {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 24px;
 }
 
 .header-titles {
@@ -114,15 +107,18 @@ ge-sidebar:not(:defined) {
     color: var(--color-bg-card);
     border: none;
     border-radius: 8px;
-    padding: 10px 20px;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.2s ease;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
+    width: 180.146px; /* Largura exata do Figma */
+    height: 55.952px; /* Altura exata do Figma */
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+    text-decoration: none;
 }
 
 .btn-primary img {
@@ -132,18 +128,11 @@ ge-sidebar:not(:defined) {
 
 .btn-primary:hover {
     background-color: var(--color-primary-hover);
-}
-
-.desktop-only-inline {
-    display: inline;
-}
-
-.mobile-only-inline {
-    display: none;
+    transform: translateY(-1px);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .page-title {
-    margin: 0;
     font-weight: 500;
     font-size: 30px;
     line-height: 36px;
@@ -151,7 +140,6 @@ ge-sidebar:not(:defined) {
 }
 
 .page-subtitle {
-    margin: 0;
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
@@ -162,9 +150,7 @@ ge-sidebar:not(:defined) {
     background-color: var(--color-bg-card);
     border: 1px solid var(--color-border);
     border-radius: 8px;
-    box-shadow:
-        0px 1px 1.5px rgba(0, 0, 0, 0.1),
-        0px 1px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -173,54 +159,48 @@ ge-sidebar:not(:defined) {
 .card-header {
     padding: 24px;
     display: flex;
-    /* Alinha ao topo (flex-start) garantindo que inputs de alturas distintas permaneçam regulares. */
-    align-items: flex-start;
+    align-items: flex-start; /* Alinhamento ao topo conforme Figma */
     gap: 16px;
 }
 
 /**
  * Controles de Busca e Filtro.
- * Modela os botões e áreas de input textual (busca) e o campo seletor (status).
  */
 
-/* Container da barra de pesquisa -> ocupa espaço remanescente no Desktop (flex: 1) */
 .search-input {
     flex: 1;
-    height: 50px;
+    height: 50.46px; /* Altura exata do Figma */
     display: flex;
     align-items: center;
     border: 1px solid var(--color-border);
     border-radius: 8px;
-    padding: 0 16px 0 12px;
+    padding: 0 16px;
     background-color: var(--color-bg-card);
-    min-width: 0;
 }
 
 .search-input img {
     width: 20px;
     height: 20px;
-    margin-right: 8px;
+    margin-right: 12px;
 }
 
 .search-input input {
     border: none;
     outline: none;
     width: 100%;
-    font-family: "Inter", sans-serif;
     font-size: 16px;
-    color: var(--color-text-muted);
+    font-weight: 400;
+    color: var(--color-text-main);
     background: transparent;
 }
 
-/* Área delimitadora geométrica do Filtro (Retangular no Desktop e expansível no Mobile). */
 .filter-dropdown {
-    width: 192px;
-    height: 40px;
+    width: 191.987px; /* Largura exata do Figma */
+    height: 39.652px; /* Altura exata do Figma */
     display: flex;
     align-items: center;
-    justify-content: flex-start;
     position: relative;
-    border: 1px solid var(--color-border);
+    border: 1.246px solid var(--color-border);
     border-radius: 8px;
     padding: 0 12px;
     background-color: var(--color-bg-card);
@@ -228,16 +208,10 @@ ge-sidebar:not(:defined) {
 }
 
 .filter-dropdown img {
-    width: 20px;
-    height: 20px;
+    width: 19.982px;
+    height: 19.982px;
 }
 
-/**
- * Estratégia de Dropdown Transparente (Opacity 0).
- * O elemento nativo <select> assume uma camada 100% visível, porém invisível aos olhos (opacity 0).
- * Ao interagir na área, o Menu Nativo de opções do Dispositivo (Android/iOS) ou Navegador é exebido,
- * provêindo melhor UX e mantendo o design UI unificado.
- */
 .filter-select {
     opacity: 0;
     position: absolute;
@@ -246,12 +220,11 @@ ge-sidebar:not(:defined) {
     width: 100%;
     height: 100%;
     cursor: pointer;
+    z-index: 2;
 }
 
 /**
- * Estrutura Geral da Tabela (Desktop).
- * Inclui os alinhamentos base em formato de tabela, listando cabeçalhos e células.
- * Também detém classes de tipografia base (text-primary, text-secondary).
+ * Estrutura da Tabela (Desktop).
  */
 
 .card-content {
@@ -260,62 +233,122 @@ ge-sidebar:not(:defined) {
 
 .table-container {
     width: 100%;
-    overflow-x: auto;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    text-align: left;
 }
 
 th {
-    padding: 10px 16px;
+    padding: 12px 16px;
     border-bottom: 1px solid var(--color-border);
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
     color: var(--color-text-muted);
+    text-align: left;
+}
+
+tr {
+    position: relative;
+    transition: background-color 0.2s;
+}
+
+tr:hover {
+    background-color: rgba(219, 234, 254, 0.3);
 }
 
 td {
-    padding: 24px 16px;
+    padding: 20px 16px;
     border-bottom: 1px solid var(--color-border);
-    vertical-align: top;
+    vertical-align: middle;
+}
+
+.row-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.status-badge,
+.actions-container {
+    position: relative;
+    z-index: 2;
+}
+
+.actions-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.btn-icon:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.btn-delete:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+.btn-icon img {
+    width: 20px;
+    height: 20px;
+    transition: all 0.2s ease;
+}
+
+.btn-delete:hover img {
+    filter: brightness(0) saturate(100%) invert(32%) sepia(89%) saturate(1915%)
+        hue-rotate(338deg) brightness(98%) contrast(93%);
+    transform: scale(1.1);
 }
 
 .text-primary {
     color: var(--color-text-main);
     font-size: 16px;
+    font-weight: 400;
 }
 
 .text-secondary {
     color: var(--color-text-muted);
     font-size: 16px;
+    font-weight: 400;
 }
 
 .text-sm {
     font-size: 14px;
+    font-weight: 400;
 }
 
 .m-0 {
     margin: 0;
 }
 
-.vehicle-info p {
-    line-height: 1.5;
-}
-
 /**
  * Status Badges.
- * Estados visuais coloridos e auto contidos que classificam as OS (Andamento, Concluído...).
- * Desenvolvidos de forma reutilizável, aplicáveis às Tables (Desktop) e aos Cards (Mobile).
  */
 
 .status-badge {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 6px 11px;
+    padding: 6px 12px;
     border-radius: 8px;
     font-weight: 500;
     font-size: 14px;
@@ -326,57 +359,30 @@ td {
     height: 16px;
 }
 
-.btn-icon {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    transition: background-color 0.2s;
-}
-
-.btn-icon:hover {
-    background-color: #fee2e2;
-}
-
-.btn-icon img {
-    width: 20px;
-    height: 20px;
-}
-
 .status-concluido {
-    background-color: rgba(16, 185, 129, 0.2);
-    border: 1px solid rgba(16, 185, 129, 0.4);
+    background-color: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
     color: #10b981;
 }
 
 .status-andamento {
-    background-color: rgba(245, 158, 11, 0.2);
-    border: 1px solid rgba(245, 158, 11, 0.4);
+    background-color: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.3);
     color: #f59e0b;
 }
 
 .status-pendente {
-    background-color: rgba(59, 130, 246, 0.2);
-    border: 1px solid rgba(59, 130, 246, 0.4);
+    background-color: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.3);
     color: var(--color-primary-light);
 }
 
 .status-atrasado {
-    background-color: rgba(239, 68, 68, 0.2);
-    border: 1px solid rgba(239, 68, 68, 0.4);
+    background-color: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
     color: #ef4444;
 }
 
-/**
- * Classes Utilitárias de Visibilidade (Alternância de Interface).
- * Define qual container (Table vs Cards) renderizado baseano-se na largura viewport.
- */
-
-/* Esconde cards mobile nativamente no desktop */
 .desktop-only {
     display: block;
 }
@@ -384,12 +390,7 @@ td {
     display: none;
 }
 
-/**
- * Adaptações Mobile (Mobile Styles).
- * Breakpoint: 760px. Dispara a reescrita do grid global focada em displays verticais da Aplicação.
- */
 @media (max-width: 760px) {
-    /* Troca Tabela pelos Cards Listáveis. */
     .desktop-only {
         display: none;
     }
@@ -399,71 +400,75 @@ td {
         gap: 12px;
     }
 
-    /* Adaptação de tipografia para mobile */
-    .page-title {
-        font-size: 24px;
-        line-height: 32px;
-    }
-
     .content-header {
         flex-direction: column;
         align-items: flex-start;
-        gap: 16px;
+        gap: 20px;
     }
 
     .btn-primary {
         width: 100%;
-        padding: 14px;
-        text-align: center;
-        display: flex;
-        justify-content: center;
+        height: 55.952px;
     }
 
-    .desktop-only-inline {
-        display: none;
-    }
-
-    .mobile-only-inline {
-        display: inline;
-    }
-
-    /* O container de controle de filtros quebra em coluna */
     .card-header {
         flex-direction: column;
         align-items: stretch;
-        padding: 24px;
-        gap: 16px;
+        padding: 24px; /* Ajustado para p-[23.993px] do Figma */
+        gap: 15.989px; /* Gap exato do Figma 73:10365 */
     }
 
-    /* "flex: none" necessário para evitar que herdado layout flex interfira na altura da caixa */
     .search-input {
-        flex: none;
         width: 100%;
-        height: 50px;
+        height: 50.46px; /* Altura exata do Figma no mobile 73:10367 */
     }
-
     .filter-dropdown {
-        flex: none;
         width: 100%;
-        height: 40px;
-        padding: 0 12px;
-        justify-content: flex-start;
+        height: 39.652px; /* Altura exata do Figma no mobile 73:10373 */
     }
 
-    /* Layout interno dos cards da Listagem Mobile */
+    /* Transformando o card em um container que permita o link absoluto e tenha transition */
     .order-card {
-        background-color: rgba(
-            219,
-            234,
-            254,
-            0.5
-        ); /* Primary light blue tint used in design */
-        border: 1px solid var(--color-border);
+        position: relative;
+        background-color: rgba(219, 234, 254, 0.5);
+        border: 1.246px solid var(--color-border);
         border-radius: 8px;
-        padding: 17px;
+        padding: 16px;
         display: flex;
         flex-direction: column;
         gap: 12px;
+        transition:
+            background-color 0.2s,
+            transform 0.2s,
+            box-shadow 0.2s;
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .order-card:hover {
+        background-color: #f9fafb;
+    }
+
+    .order-card-link {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 10;
+        border-radius: 8px;
+    }
+
+    .order-card-header,
+    .order-card-body {
+        position: relative;
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    .order-card-header .actions-container,
+    .order-card-header .status-badge {
+        pointer-events: auto;
+        z-index: 11;
     }
 
     .order-card-header {
@@ -472,55 +477,41 @@ td {
         align-items: flex-start;
     }
 
-    .order-id {
-        margin: 0;
-        font-size: 14px;
-        color: var(--color-text-muted);
+    .order-client {
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--color-text-main);
+        margin-bottom: 4px;
+        line-height: 24px;
     }
 
-    .order-client {
-        margin: 0;
-        font-size: 16px;
+    .order-id {
+        font-size: 14px;
+        font-weight: 400;
+        color: var(--color-text-muted);
+        line-height: 20px;
+    }
+
+    .order-card-body p {
+        font-size: 14px;
+        color: var(--color-text-muted);
+        margin-bottom: 4px;
+        line-height: 20px;
+    }
+
+    .order-card-body .label {
         font-weight: 500;
         color: var(--color-text-main);
     }
 
-    .order-card-body {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .order-card-body p {
-        margin: 0;
-        font-size: 14px;
-    }
-
-    .order-card-body .label {
-        color: var(--color-text-muted);
-    }
-
     .order-card-body .value {
-        color: var(--color-text-main);
+        font-weight: 400;
     }
 
     .order-date {
-        color: var(--color-text-muted) !important;
-    }
-
-    .text-truncate {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .status-badge {
-        font-size: 12px;
-        padding: 5px 11px;
-    }
-
-    .status-badge img {
-        width: 12px;
-        height: 12px;
+        font-weight: 400 !important;
+        font-size: 14px;
+        color: var(--color-text-muted);
+        margin-top: 8px !important;
     }
 }

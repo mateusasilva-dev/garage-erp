@@ -98,27 +98,43 @@ class GarageErpSidebar extends HTMLElement {
                 {
                     label: "Ordens de Serviço",
                     icon: svgs.os,
-                    url: "ordens-de-servico",
+                    url: "listar-ordens",
                 },
             ],
             admin: [
                 { label: "Dashboard", icon: svgs.dashboard, url: "dashboard" },
-                { label: "Clientes", icon: svgs.clientes, url: "clientes" },
-                { label: "Veículos", icon: svgs.veiculos, url: "veiculos" },
+                {
+                    label: "Clientes",
+                    icon: svgs.clientes,
+                    url: "listar-clientes",
+                },
+                {
+                    label: "Veículos",
+                    icon: svgs.veiculos,
+                    url: "listar-veiculos",
+                },
                 {
                     label: "Ordens de Serviço",
                     icon: svgs.os,
-                    url: "ordens-de-servico",
+                    url: "listar-ordens",
                 },
             ],
             proprietario: [
                 { label: "Dashboard", icon: svgs.dashboard, url: "dashboard" },
-                { label: "Clientes", icon: svgs.clientes, url: "clientes" },
-                { label: "Veículos", icon: svgs.veiculos, url: "veiculos" },
+                {
+                    label: "Clientes",
+                    icon: svgs.clientes,
+                    url: "listar-clientes",
+                },
+                {
+                    label: "Veículos",
+                    icon: svgs.veiculos,
+                    url: "listar-veiculos",
+                },
                 {
                     label: "Ordens de Serviço",
                     icon: svgs.os,
-                    url: "ordens-de-servico",
+                    url: "listar-ordens",
                 },
                 {
                     label: "Relatórios",
@@ -614,20 +630,52 @@ class GarageErpSidebar extends HTMLElement {
                         ${navLinks
                             .map((link) => {
                                 const currentPath = window.location.pathname;
-                                const isOrdemDetalhe =
-                                    link.url === "ordens-de-servico" &&
-                                    currentPath.endsWith(
-                                        "/ordem-de-servico.html",
-                                    );
                                 const isClienteDetalhe =
-                                    link.url === "clientes" &&
+                                    link.url === "listar-clientes" &&
                                     currentPath.endsWith("/cliente.html");
+                                const isNovoCliente =
+                                    link.url === "listar-clientes" &&
+                                    currentPath.endsWith("/novo-cliente.html");
+                                const isEditarCliente =
+                                    link.url === "listar-clientes" &&
+                                    currentPath.endsWith(
+                                        "/editar-cliente.html",
+                                    );
+
+                                const isVeiculoDetalhe =
+                                    link.url === "listar-veiculos" &&
+                                    currentPath.endsWith("/veiculo.html");
+                                const isNovoVeiculo =
+                                    link.url === "listar-veiculos" &&
+                                    currentPath.endsWith("/novo-veiculo.html");
+                                const isEditarVeiculo =
+                                    link.url === "listar-veiculos" &&
+                                    currentPath.endsWith(
+                                        "/editar-veiculo.html",
+                                    );
+
+                                const isOrdemDetalhe =
+                                    link.url === "listar-ordens" &&
+                                    currentPath.endsWith("/ordem.html");
+                                const isNovaOrdem =
+                                    link.url === "listar-ordens" &&
+                                    currentPath.endsWith("/nova-ordem.html");
+                                const isEditarOrdem =
+                                    link.url === "listar-ordens" &&
+                                    currentPath.endsWith("/editar-ordem.html");
 
                                 // Marca como ativo se a URL atual contiver o nome do link, ou se estiver na raiz e for o dashboard
                                 const isActive =
                                     currentPath.includes(link.url) ||
-                                    isOrdemDetalhe ||
                                     isClienteDetalhe ||
+                                    isNovoCliente ||
+                                    isEditarCliente ||
+                                    isVeiculoDetalhe ||
+                                    isNovoVeiculo ||
+                                    isEditarVeiculo ||
+                                    isOrdemDetalhe ||
+                                    isNovaOrdem ||
+                                    isEditarOrdem ||
                                     (currentPath.endsWith("/") &&
                                         link.url === "dashboard")
                                         ? "active"

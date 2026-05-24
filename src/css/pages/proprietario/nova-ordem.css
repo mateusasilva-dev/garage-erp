@@ -1,6 +1,6 @@
-/*
-   RESET & BASE STYLES
-   Layout base para a página não vazar (sem scrolls extras)
+/* 
+    RESET & BASE STYLES
+    Layout base para a página não vazar (sem scrolls extras) 
 */
 html,
 body {
@@ -12,8 +12,8 @@ body {
     background-color: #f3f4f6;
 }
 
-/*
-   VARIABLES (Design System)
+/* 
+   VARIABLES (Design System) 
 */
 :root {
     /* Cores de Identidade e Texto */
@@ -29,9 +29,7 @@ body {
     --color-btn-cancel-hover: #f9fafb;
 }
 
-/*
-   LAYOUT STRUCTURE
-*/
+/* LAYOUT STRUCTURE */
 .app-layout {
     display: flex;
     height: 100vh;
@@ -40,7 +38,7 @@ body {
 
 .main-content {
     flex: 1;
-    padding: 24px;
+    padding: 32px;
     overflow-y: auto; /* Permite rolagem apenas no conteúdo da página */
 }
 
@@ -57,8 +55,8 @@ ge-sidebar:not(:defined) {
     flex-shrink: 0;
 }
 
-/*
-   COMPONENTS
+/* 
+    COMPONENTS 
 */
 
 /* Container Principal da Página */
@@ -293,6 +291,7 @@ textarea.form-control {
     }
 
     .main-content {
+        padding: 16px;
         padding-top: 85px;
     }
 

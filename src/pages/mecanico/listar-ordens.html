@@ -17,70 +17,26 @@
         />
         <link
             rel="stylesheet"
-            href="../../css/pages/administrativo/ordens-de-servico.css"
+            href="../../css/pages/mecanico/listar-ordens.css"
         />
     </head>
     <body>
-        <!--
-            Container principal da aplicação.
-            Divide a tela na proporção Sidebar (Web Component) e Main Content da Página.
-        -->
-        <!--
-        /**
-         * @layout AppLayout
-         * @description Container Matriz. Segue o princípio de Single Responsibility 
-         * ao separar a gestão da barra de navegação (Sidebar) do container Principal.
-         */
-        -->
         <div class="app-layout">
-            <!--
-                Componente Customizado da Barra Lateral.
-                - user-name: Nome do perfil a ser exibido (Mockup).
-                - role: Função do funcionário.
-                - type: Usado pelo script interno da Sidebar para determinar o conjunto de rotas ("mecanico", "admin", "proprietario").
-            -->
             <ge-sidebar
-                user-name="Maria Santos"
-                role="Administrativo"
-                type="admin"
+                user-name="João Mecânico"
+                role="Mecânico"
+                type="mecanico"
             >
             </ge-sidebar>
 
-            <!-- Área delimitada para o conteúdo principal, contém transbordo (overflow) vertical nativo -->
             <main class="main-content">
-                <!--
-                    /**
-                     * @component ContentHeader
-                     * @description Agrupa os títulos da página e seus Botões Principais de Ação (CTAs) em Flexbox.
-                     */
-                    -->
                 <div class="content-header">
-                    <div class="header-titles">
-                        <h1 class="page-title">Ordens de Serviço</h1>
-                        <p class="page-subtitle">
-                            Gerencie as ordens de serviço
-                        </p>
-                    </div>
-                    <button
-                        class="btn-primary"
-                        onclick="
-                            window.location.href = 'nova-ordem-de-servico.html'
-                        "
-                    >
-                        <img
-                            src="../../assets/icons/icon-white-plus.svg"
-                            alt="+"
-                        />
-                        <span>Nova Ordem</span>
-                    </button>
+                    <h1 class="page-title">Ordens de Serviço</h1>
+                    <p class="page-subtitle">Gerencie as ordens de serviço</p>
                 </div>
 
                 <div class="card">
-                    <!--
-                        Header do conteúdo: Agrupa a Barra de Busca e as Opções de Status (Filtro).
-                    -->
                     <div class="card-header">
-                        <!-- Campo visual de busca por texto livre (Atuará no front ou back futuramente) -->
                         <div class="search-input">
                             <img
                                 src="../../assets/icons/icon-search.svg"
@@ -92,11 +48,6 @@
                             />
                         </div>
 
-                        <!--
-                            Dropdown de fltro de status de OS.
-                            Truque CSS: <select> renderizado por cima deste elemento pai com `opacity: 0`.
-                            Isso invoca o widget nativo de opções nativo de cada SO ao invés de codificar um do zero.
-                        -->
                         <div class="filter-dropdown">
                             <select class="filter-select">
                                 <option value="">Todos os status</option>
@@ -115,10 +66,6 @@
                     </div>
 
                     <div class="card-content">
-                        <!--
-                            Listagem formato Tabela - Desktop (Largura > 760px).
-                            Exibição condensada em linha que prioriza múltiplas colunas informativas.
-                        -->
                         <div class="table-container desktop-only">
                             <table>
                                 <thead>
@@ -126,28 +73,23 @@
                                         <th style="width: 80px">ID</th>
                                         <th style="width: 216px">Cliente</th>
                                         <th style="width: 238px">Veículo</th>
-                                        <th style="width: 481px">Serviços</th>
+                                        <th style="width: 529px">Serviços</th>
                                         <th style="width: 187px">Data</th>
                                         <th style="width: 112px">Status</th>
-                                        <th>Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody class="clickable-rows">
-                                    <!--
-                                        MOCKUP DE ROTAS INTERNAS:
-                                        Propagamos artificialmente ?id=1, ?id=2 na url, para que a tela
-                                        de detalhes `ordem-de-servico.html` extraia pela query string
-                                        o identificador e exiba a informação correspondente sem backend/SGBD presente.
-                                    -->
-                                    <tr
-                                        class="cursor-pointer"
-                                        onclick="
-                                            window.location.href =
-                                                'ordem-de-servico.html?id=1'
-                                        "
-                                        class="cursor-pointer"
-                                    >
-                                        <td class="text-secondary">#1</td>
+                                    <tr>
+                                        <td>
+                                            <a
+                                                href="ordem.html"
+                                                class="row-link"
+                                            ></a
+                                            ><span
+                                                class="text-secondary text-sm"
+                                                >#1</span
+                                            >
+                                        </td>
                                         <td class="text-primary">João Silva</td>
                                         <td>
                                             <div class="vehicle-info">
@@ -178,31 +120,18 @@
                                                 <span>Concluído</span>
                                             </div>
                                         </td>
-                                        <td>
-                                            <button
-                                                class="btn-icon"
-                                                title="Excluir"
-                                                onclick="
-                                                    event.stopPropagation();
-                                                    alert('Excluir O.S.');
-                                                "
-                                            >
-                                                <img
-                                                    src="../../assets/icons/icon-gray-trash.svg"
-                                                    alt="Excluir"
-                                                />
-                                            </button>
-                                        </td>
                                     </tr>
-                                    <tr
-                                        class="cursor-pointer"
-                                        onclick="
-                                            window.location.href =
-                                                'ordem-de-servico.html?id=2'
-                                        "
-                                        class="cursor-pointer"
-                                    >
-                                        <td class="text-secondary">#2</td>
+                                    <tr>
+                                        <td>
+                                            <a
+                                                href="ordem.html"
+                                                class="row-link"
+                                            ></a
+                                            ><span
+                                                class="text-secondary text-sm"
+                                                >#2</span
+                                            >
+                                        </td>
                                         <td class="text-primary">
                                             Maria Santos
                                         </td>
@@ -235,31 +164,18 @@
                                                 <span>Em Andamento</span>
                                             </div>
                                         </td>
-                                        <td>
-                                            <button
-                                                class="btn-icon"
-                                                title="Excluir"
-                                                onclick="
-                                                    event.stopPropagation();
-                                                    alert('Excluir O.S.');
-                                                "
-                                            >
-                                                <img
-                                                    src="../../assets/icons/icon-gray-trash.svg"
-                                                    alt="Excluir"
-                                                />
-                                            </button>
-                                        </td>
                                     </tr>
-                                    <tr
-                                        class="cursor-pointer"
-                                        onclick="
-                                            window.location.href =
-                                                'ordem-de-servico.html?id=3'
-                                        "
-                                        class="cursor-pointer"
-                                    >
-                                        <td class="text-secondary">#3</td>
+                                    <tr>
+                                        <td>
+                                            <a
+                                                href="ordem.html"
+                                                class="row-link"
+                                            ></a
+                                            ><span
+                                                class="text-secondary text-sm"
+                                                >#3</span
+                                            >
+                                        </td>
                                         <td class="text-primary">
                                             Pedro Oliveira
                                         </td>
@@ -292,31 +208,18 @@
                                                 <span>Pendente</span>
                                             </div>
                                         </td>
-                                        <td>
-                                            <button
-                                                class="btn-icon"
-                                                title="Excluir"
-                                                onclick="
-                                                    event.stopPropagation();
-                                                    alert('Excluir O.S.');
-                                                "
-                                            >
-                                                <img
-                                                    src="../../assets/icons/icon-gray-trash.svg"
-                                                    alt="Excluir"
-                                                />
-                                            </button>
-                                        </td>
                                     </tr>
-                                    <tr
-                                        class="cursor-pointer"
-                                        onclick="
-                                            window.location.href =
-                                                'ordem-de-servico.html?id=4'
-                                        "
-                                        class="cursor-pointer"
-                                    >
-                                        <td class="text-secondary">#4</td>
+                                    <tr>
+                                        <td>
+                                            <a
+                                                href="ordem.html"
+                                                class="row-link"
+                                            ></a
+                                            ><span
+                                                class="text-secondary text-sm"
+                                                >#4</span
+                                            >
+                                        </td>
                                         <td class="text-primary">João Silva</td>
                                         <td>
                                             <div class="vehicle-info">
@@ -347,31 +250,18 @@
                                                 <span>Atrasado</span>
                                             </div>
                                         </td>
-                                        <td>
-                                            <button
-                                                class="btn-icon"
-                                                title="Excluir"
-                                                onclick="
-                                                    event.stopPropagation();
-                                                    alert('Excluir O.S.');
-                                                "
-                                            >
-                                                <img
-                                                    src="../../assets/icons/icon-gray-trash.svg"
-                                                    alt="Excluir"
-                                                />
-                                            </button>
-                                        </td>
                                     </tr>
-                                    <tr
-                                        class="cursor-pointer"
-                                        onclick="
-                                            window.location.href =
-                                                'ordem-de-servico.html?id=5'
-                                        "
-                                        class="cursor-pointer"
-                                    >
-                                        <td class="text-secondary">#5</td>
+                                    <tr>
+                                        <td>
+                                            <a
+                                                href="ordem.html"
+                                                class="row-link"
+                                            ></a
+                                            ><span
+                                                class="text-secondary text-sm"
+                                                >#5</span
+                                            >
+                                        </td>
                                         <td class="text-primary">Caio Rocha</td>
                                         <td>
                                             <div class="vehicle-info">
@@ -403,31 +293,18 @@
                                                 <span>Pendente</span>
                                             </div>
                                         </td>
-                                        <td>
-                                            <button
-                                                class="btn-icon"
-                                                title="Excluir"
-                                                onclick="
-                                                    event.stopPropagation();
-                                                    alert('Excluir O.S.');
-                                                "
-                                            >
-                                                <img
-                                                    src="../../assets/icons/icon-gray-trash.svg"
-                                                    alt="Excluir"
-                                                />
-                                            </button>
-                                        </td>
                                     </tr>
-                                    <tr
-                                        class="cursor-pointer"
-                                        onclick="
-                                            window.location.href =
-                                                'ordem-de-servico.html?id=6'
-                                        "
-                                        class="cursor-pointer"
-                                    >
-                                        <td class="text-secondary">#6</td>
+                                    <tr>
+                                        <td>
+                                            <a
+                                                href="ordem.html"
+                                                class="row-link"
+                                            ></a
+                                            ><span
+                                                class="text-secondary text-sm"
+                                                >#6</span
+                                            >
+                                        </td>
                                         <td class="text-primary">
                                             Erick Barbosa
                                         </td>
@@ -461,40 +338,17 @@
                                                 <span>Em Andamento</span>
                                             </div>
                                         </td>
-                                        <td>
-                                            <button
-                                                class="btn-icon"
-                                                title="Excluir"
-                                                onclick="
-                                                    event.stopPropagation();
-                                                    alert('Excluir O.S.');
-                                                "
-                                            >
-                                                <img
-                                                    src="../../assets/icons/icon-gray-trash.svg"
-                                                    alt="Excluir"
-                                                />
-                                            </button>
-                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
 
-                        <!--
-                            Listagem formato Cards - Mobile (Largura <= 760px).
-                            Os componentes da tabela viram "Blocos de Informação Vertical" (.order-card).
-                        -->
                         <div class="mobile-cards-container mobile-only">
-                            <!-- Compartilha da mesma lógica de redirecionamento (?id=X) -->
-                            <div
-                                class="order-card cursor-pointer"
-                                onclick="
-                                    window.location.href =
-                                        'ordem-de-servico.html?id=1'
-                                "
-                                class="cursor-pointer"
-                            >
+                            <div class="order-card">
+                                <a
+                                    href="ordem.html"
+                                    class="order-card-link"
+                                ></a>
                                 <div class="order-card-header">
                                     <div>
                                         <p class="order-id">#1</p>
@@ -507,19 +361,6 @@
                                         />
                                         <span>Concluído</span>
                                     </div>
-                                    <button
-                                        class="btn-icon"
-                                        title="Excluir"
-                                        onclick="
-                                            event.stopPropagation();
-                                            alert('Excluir O.S.');
-                                        "
-                                    >
-                                        <img
-                                            src="../../assets/icons/icon-gray-trash.svg"
-                                            alt="Excluir"
-                                        />
-                                    </button>
                                 </div>
                                 <div class="order-card-body">
                                     <p>
@@ -538,14 +379,11 @@
                                 </div>
                             </div>
 
-                            <div
-                                class="order-card cursor-pointer"
-                                onclick="
-                                    window.location.href =
-                                        'ordem-de-servico.html?id=2'
-                                "
-                                class="cursor-pointer"
-                            >
+                            <div class="order-card">
+                                <a
+                                    href="ordem.html"
+                                    class="order-card-link"
+                                ></a>
                                 <div class="order-card-header">
                                     <div>
                                         <p class="order-id">#2</p>
@@ -560,19 +398,6 @@
                                         />
                                         <span>Em Andamento</span>
                                     </div>
-                                    <button
-                                        class="btn-icon"
-                                        title="Excluir"
-                                        onclick="
-                                            event.stopPropagation();
-                                            alert('Excluir O.S.');
-                                        "
-                                    >
-                                        <img
-                                            src="../../assets/icons/icon-gray-trash.svg"
-                                            alt="Excluir"
-                                        />
-                                    </button>
                                 </div>
                                 <div class="order-card-body">
                                     <p>
@@ -591,14 +416,11 @@
                                 </div>
                             </div>
 
-                            <div
-                                class="order-card cursor-pointer"
-                                onclick="
-                                    window.location.href =
-                                        'ordem-de-servico.html?id=3'
-                                "
-                                class="cursor-pointer"
-                            >
+                            <div class="order-card">
+                                <a
+                                    href="ordem.html"
+                                    class="order-card-link"
+                                ></a>
                                 <div class="order-card-header">
                                     <div>
                                         <p class="order-id">#3</p>
@@ -613,19 +435,6 @@
                                         />
                                         <span>Pendente</span>
                                     </div>
-                                    <button
-                                        class="btn-icon"
-                                        title="Excluir"
-                                        onclick="
-                                            event.stopPropagation();
-                                            alert('Excluir O.S.');
-                                        "
-                                    >
-                                        <img
-                                            src="../../assets/icons/icon-gray-trash.svg"
-                                            alt="Excluir"
-                                        />
-                                    </button>
                                 </div>
                                 <div class="order-card-body">
                                     <p>
@@ -644,14 +453,11 @@
                                 </div>
                             </div>
 
-                            <div
-                                class="order-card cursor-pointer"
-                                onclick="
-                                    window.location.href =
-                                        'ordem-de-servico.html?id=4'
-                                "
-                                class="cursor-pointer"
-                            >
+                            <div class="order-card">
+                                <a
+                                    href="ordem.html"
+                                    class="order-card-link"
+                                ></a>
                                 <div class="order-card-header">
                                     <div>
                                         <p class="order-id">#4</p>
@@ -664,19 +470,6 @@
                                         />
                                         <span>Atrasado</span>
                                     </div>
-                                    <button
-                                        class="btn-icon"
-                                        title="Excluir"
-                                        onclick="
-                                            event.stopPropagation();
-                                            alert('Excluir O.S.');
-                                        "
-                                    >
-                                        <img
-                                            src="../../assets/icons/icon-gray-trash.svg"
-                                            alt="Excluir"
-                                        />
-                                    </button>
                                 </div>
                                 <div class="order-card-body">
                                     <p>
@@ -695,14 +488,11 @@
                                 </div>
                             </div>
 
-                            <div
-                                class="order-card cursor-pointer"
-                                onclick="
-                                    window.location.href =
-                                        'ordem-de-servico.html?id=5'
-                                "
-                                class="cursor-pointer"
-                            >
+                            <div class="order-card">
+                                <a
+                                    href="ordem.html"
+                                    class="order-card-link"
+                                ></a>
                                 <div class="order-card-header">
                                     <div>
                                         <p class="order-id">#5</p>
@@ -715,19 +505,6 @@
                                         />
                                         <span>Pendente</span>
                                     </div>
-                                    <button
-                                        class="btn-icon"
-                                        title="Excluir"
-                                        onclick="
-                                            event.stopPropagation();
-                                            alert('Excluir O.S.');
-                                        "
-                                    >
-                                        <img
-                                            src="../../assets/icons/icon-gray-trash.svg"
-                                            alt="Excluir"
-                                        />
-                                    </button>
                                 </div>
                                 <div class="order-card-body">
                                     <p>
@@ -747,14 +524,11 @@
                                 </div>
                             </div>
 
-                            <div
-                                class="order-card cursor-pointer"
-                                onclick="
-                                    window.location.href =
-                                        'ordem-de-servico.html?id=6'
-                                "
-                                class="cursor-pointer"
-                            >
+                            <div class="order-card">
+                                <a
+                                    href="ordem.html"
+                                    class="order-card-link"
+                                ></a>
                                 <div class="order-card-header">
                                     <div>
                                         <p class="order-id">#6</p>
@@ -769,19 +543,6 @@
                                         />
                                         <span>Em Andamento</span>
                                     </div>
-                                    <button
-                                        class="btn-icon"
-                                        title="Excluir"
-                                        onclick="
-                                            event.stopPropagation();
-                                            alert('Excluir O.S.');
-                                        "
-                                    >
-                                        <img
-                                            src="../../assets/icons/icon-gray-trash.svg"
-                                            alt="Excluir"
-                                        />
-                                    </button>
                                 </div>
                                 <div class="order-card-body">
                                     <p>

@@ -9,10 +9,8 @@
     --cor1: #1f2937;
     --cor2: #6b7280;
     --cor-background: #e5e7eb;
-    --cor-andamento: #f59e0b;
-    --cor-concluido: #10b981;
-    --cor-pendente: #3b82f6;
     --cor-atrasado: #ef4444;
+    --cor-concluido: #10b981;
 }
 
 html,
@@ -78,53 +76,58 @@ ge-sidebar:not(:defined) {
     width: fit-content;
 }
 
-.card {
+.cartao {
     background: #ffffff;
     border: 1.246px solid #e5e7eb;
     border-radius: 8px;
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-.vehicle-container {
+.cabecalho-cliente {
     display: flex;
-    padding: 24px;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    padding: 24px;
     width: 100%;
 }
 
-.vehicle-info {
+.linha-info {
     display: flex;
     align-items: center;
     gap: 16px;
 }
 
-.vehicle-img {
-    width: 64px;
-    height: 64px;
-    background: rgba(59, 130, 246, 0.1);
-    border-radius: 8px;
+.avatar-cliente {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--cor-default);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
 }
 
-.vehicle-text h2 {
-    font-size: 24px;
+.cabecalho-cliente h1 {
+    font-size: 30px;
     font-weight: 500;
+    line-height: 36px;
     color: var(--cor1);
-    margin-bottom: 4px;
+    margin-bottom: 12px;
 }
 
-.vehicle-text p {
-    font-size: 16px;
-    color: var(--cor2);
-}
-
-.vehicle-container-button {
+.dados-contato {
     display: flex;
-    gap: 12px;
+    align-items: center;
+    gap: 16px;
+}
+
+.dados-contato span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--cor2);
+    font-size: 16px;
 }
 
 .botao {
@@ -134,6 +137,8 @@ ge-sidebar:not(:defined) {
     align-items: center;
     gap: 8px;
     border-radius: 8px;
+    background: var(--cor-default);
+    color: #ffffff;
     font-size: 16px;
     font-weight: 500;
     text-decoration: none;
@@ -142,14 +147,9 @@ ge-sidebar:not(:defined) {
     cursor: pointer;
 }
 
-.btn-editar {
+.botao-secundario {
     background: var(--cor-background);
     color: var(--cor1);
-}
-
-.btn-nova-ordem {
-    background: var(--cor-default);
-    color: #ffffff;
 }
 
 .botao:hover {
@@ -157,67 +157,109 @@ ge-sidebar:not(:defined) {
     filter: brightness(1.05);
 }
 
-.history-container {
-    display: flex;
-    flex-direction: column;
-    padding: 24px;
+.grade-conteudo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 24px;
 }
 
-.history-title {
+.cartao-veiculos,
+.cartao-historico {
+    padding: 24px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 24px;
 }
 
-.history-title h2 {
+.titulo-cartao {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cartao h2 {
     font-size: 18px;
     font-weight: 500;
     color: var(--cor1);
 }
 
-.history-title p {
-    font-size: 14px;
-    color: var(--cor2);
-}
-
+.lista-veiculos,
 .lista-historico {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-.history-card {
+.campo-veiculo {
     display: flex;
-    padding: 16px;
-    justify-content: space-between;
-    align-items: flex-start;
+    padding: 17px;
+    align-items: center;
+    gap: 16px;
+    border-radius: 8px;
+    border: 1.246px solid #e5e7eb;
+    background: rgba(219, 234, 254, 0.5);
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.campo-veiculo:hover {
+    background: rgba(219, 234, 254, 0.8);
+}
+
+.icone-caixa {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    background: rgba(59, 130, 246, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.campo-veiculo p {
+    color: var(--cor1);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.campo-veiculo span {
+    color: var(--cor2);
+    font-size: 16px;
+}
+
+.bloco-status {
     border-radius: 8px;
     border: 1.246px solid transparent;
-    text-decoration: none;
-    transition: transform 0.2s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
-.history-card:hover {
-    transform: translateX(4px);
+.status-atrasado {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.3);
 }
 
-.history-card-pendente {
-    background: rgba(59, 130, 246, 0.1);
-    border-color: rgba(59, 130, 246, 0.3);
-}
-
-.history-card-concluido {
+.status-concluido {
     background: rgba(16, 185, 129, 0.1);
     border-color: rgba(16, 185, 129, 0.3);
 }
 
-.history-content {
+.status-topo {
     display: flex;
+    padding: 16px;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.linha-status {
+    display: flex;
+    align-items: flex-start;
     gap: 16px;
 }
 
-.icone-status-circular {
+.icone-status {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -227,38 +269,22 @@ ge-sidebar:not(:defined) {
     flex-shrink: 0;
 }
 
-.history-card-pendente .icone-status-circular { background: rgba(59, 130, 246, 0.1); }
-.history-card-concluido .icone-status-circular { background: rgba(16, 185, 129, 0.1); }
+.status-atrasado .icone-status { background: rgba(239, 68, 68, 0.1); }
+.status-concluido .icone-status { background: rgba(16, 185, 129, 0.1); }
 
-.history-os {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.history-data {
+.data-status {
     display: flex;
     align-items: center;
     gap: 8px;
     color: var(--cor2);
     font-size: 14px;
+    margin-bottom: 4px;
 }
 
-.history-service {
+.linha-status p {
+    color: var(--cor1);
     font-size: 16px;
     font-weight: 500;
-    color: var(--cor1);
-}
-
-.history-info-conclusao {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 4px;
-    padding-top: 8px;
-    border-top: 1.246px solid rgba(229, 231, 235, 0.5);
-    color: var(--cor2);
-    font-size: 14px;
 }
 
 .badge {
@@ -272,10 +298,16 @@ ge-sidebar:not(:defined) {
     border: 1.246px solid transparent;
 }
 
-.badge-pendente {
-    color: var(--cor-pendente);
-    background: rgba(59, 130, 246, 0.2);
-    border-color: rgba(59, 130, 246, 0.4);
+.badge img {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.badge-atrasado {
+    color: var(--cor-atrasado);
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.4);
 }
 
 .badge-concluido {
@@ -284,33 +316,55 @@ ge-sidebar:not(:defined) {
     border-color: rgba(16, 185, 129, 0.4);
 }
 
-.badge img {
-    width: 20px;
-    height: 20px;
+.aviso {
+    display: flex;
+    padding: 9px 16px 8px;
+    align-items: center;
+    gap: 8px;
+    border-top: 1.246px solid transparent;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.aviso-atrasado {
+    color: var(--cor-atrasado);
+    background: rgba(239, 68, 68, 0.05);
+    border-top-color: rgba(239, 68, 68, 0.2);
+}
+
+.aviso-concluido {
+    color: var(--cor2);
+    background: transparent;
+    border-top-color: rgba(229, 231, 235, 0.5);
+    font-weight: 400;
+}
+
+.botao-grande {
+    width: 100%;
+    padding: 14px;
+    font-size: 18px;
+}
+
+@media (max-width: 1024px) {
+    .grade-conteudo {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 768px) {
-    .vehicle-container {
+    .cabecalho-cliente {
         flex-direction: column;
         align-items: flex-start;
-        gap: 20px;
+        gap: 24px;
     }
 
-    .vehicle-container-button {
-        width: 100%;
+    .dados-contato {
         flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
     }
 
-    .botao {
+    .cabecalho-cliente .botao {
         width: 100%;
-    }
-
-    .history-card {
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .badge {
-        width: fit-content;
     }
 }

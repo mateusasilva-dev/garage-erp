@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Clientes - GarageERP</title>
+        <link
+            rel="icon"
+            href="../../assets/img/favicon-garageerp.png"
+            type="image/png"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="../../css/pages/proprietario/listar-clientes.css"
+        />
+    </head>
+    <body>
+        <div class="app-layout">
+            <ge-sidebar
+                user-name="Carlos Silva"
+                role="Proprietário"
+                type="proprietario"
+            >
+            </ge-sidebar>
+
+            <main class="main-content">
+                <header class="header">
+                    <div class="header-textos">
+                        <h1>Clientes</h1>
+                        <p>Gerencie seus clientes</p>
+                    </div>
+                    <a href="novo-cliente.html" class="header-botao">
+                        <img
+                            src="../../assets/icons/icon-white-plus.svg"
+                            alt=""
+                        />
+                        Novo Cliente
+                    </a>
+                </header>
+
+                <section class="pesquisa">
+                    <div class="busca">
+                        <img
+                            src="../../assets/icons/icon-search.svg"
+                            alt="Buscar"
+                        />
+                        <input
+                            type="text"
+                            class="search"
+                            placeholder="Buscar por nome, email ou telefone..."
+                        />
+                    </div>
+
+                    <div class="lista">
+                        <!-- Cliente 1 -->
+                        <div class="card">
+                            <div class="card-topo">
+                                <div class="icone-letra">J</div>
+                                <div class="card-acoes">
+                                    <a href="editar-cliente.html">
+                                        <img
+                                            src="../../assets/icons/icon-edit.svg"
+                                            alt="Editar"
+                                        />
+                                    </a>
+                                    <img
+                                        src="../../assets/icons/icon-gray-trash.svg"
+                                        alt="Excluir"
+                                    />
+                                </div>
+                            </div>
+                            <h2 class="nome-cliente">João Silva</h2>
+                            <div class="info-cliente">
+                                <img
+                                    src="../../assets/icons/icon-email.svg"
+                                    alt=""
+                                />
+                                joao@email.com
+                            </div>
+                            <div class="info-cliente">
+                                <img
+                                    src="../../assets/icons/icon-phone.svg"
+                                    alt=""
+                                />
+                                (11) 98765-4321
+                            </div>
+                            <button class="historico">Ver Detalhes</button>
+                        </div>
+
+                        <!-- Cliente 2 -->
+                        <div class="card">
+                            <div class="card-topo">
+                                <div class="icone-letra">M</div>
+                                <div class="card-acoes">
+                                    <a href="editar-cliente.html">
+                                        <img
+                                            src="../../assets/icons/icon-edit.svg"
+                                            alt="Editar"
+                                        />
+                                    </a>
+                                    <img
+                                        src="../../assets/icons/icon-gray-trash.svg"
+                                        alt="Excluir"
+                                    />
+                                </div>
+                            </div>
+                            <h2 class="nome-cliente">Maria Santos</h2>
+                            <div class="info-cliente">
+                                <img
+                                    src="../../assets/icons/icon-email.svg"
+                                    alt=""
+                                />
+                                maria@email.com
+                            </div>
+                            <div class="info-cliente">
+                                <img
+                                    src="../../assets/icons/icon-phone.svg"
+                                    alt=""
+                                />
+                                (11) 97654-3210
+                            </div>
+                            <button class="historico">Ver Detalhes</button>
+                        </div>
+
+                        <!-- Cliente 3 -->
+                        <div class="card">
+                            <div class="card-topo">
+                                <div class="icone-letra">P</div>
+                                <div class="card-acoes">
+                                    <a href="editar-cliente.html">
+                                        <img
+                                            src="../../assets/icons/icon-edit.svg"
+                                            alt="Editar"
+                                        />
+                                    </a>
+                                    <img
+                                        src="../../assets/icons/icon-gray-trash.svg"
+                                        alt="Excluir"
+                                    />
+                                </div>
+                            </div>
+                            <h2 class="nome-cliente">Pedro Oliveira</h2>
+                            <div class="info-cliente">
+                                <img
+                                    src="../../assets/icons/icon-email.svg"
+                                    alt=""
+                                />
+                                pedro@email.com
+                            </div>
+                            <div class="info-cliente">
+                                <img
+                                    src="../../assets/icons/icon-phone.svg"
+                                    alt=""
+                                />
+                                (11) 96543-2109
+                            </div>
+                            <button class="historico">Ver Detalhes</button>
+                        </div>
+
+                        <!-- Cliente 4 -->
+                        <div class="card">
+                            <div class="card-topo">
+                                <div class="icone-letra">C</div>
+                                <div class="card-acoes">
+                                    <a href="editar-cliente.html">
+                                        <img
+                                            src="../../assets/icons/icon-edit.svg"
+                                            alt="Editar"
+                                        />
+                                    </a>
+                                    <img
+                                        src="../../assets/icons/icon-gray-trash.svg"
+                                        alt="Excluir"
+                                    />
+                                </div>
+                            </div>
+                            <h2 class="nome-cliente">Caio Rocha</h2>
+                            <div class="info-cliente">
+                                <img
+                                    src="../../assets/icons/icon-email.svg"
+                                    alt=""
+                                />
+                                caio@email.com
+                            </div>
+                            <div class="info-cliente">
+                                <img
+                                    src="../../assets/icons/icon-phone.svg"
+                                    alt=""
+                                />
+                                (83) 28193-1513
+                            </div>
+                            <button class="historico">Ver Detalhes</button>
+                        </div>
+
+                        <!-- Cliente 5 -->
+                        <div class="card">
+                            <div class="card-topo">
+                                <div class="icone-letra">E</div>
+                                <div class="card-acoes">
+                                    <a href="editar-cliente.html">
+                                        <img
+                                            src="../../assets/icons/icon-edit.svg"
+                                            alt="Editar"
+                                        />
+                                    </a>
+                                    <img
+                                        src="../../assets/icons/icon-gray-trash.svg"
+                                        alt="Excluir"
+                                    />
+                                </div>
+                            </div>
+                            <h2 class="nome-cliente">Erick Barbosa</h2>
+                            <div class="info-cliente">
+                                <img
+                                    src="../../assets/icons/icon-email.svg"
+                                    alt=""
+                                />
+                                erick@email.com
+                            </div>
+                            <div class="info-cliente">
+                                <img
+                                    src="../../assets/icons/icon-phone.svg"
+                                    alt=""
+                                />
+                                (32) 92813-1513
+                            </div>
+                            <button class="historico">Ver Detalhes</button>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <script src="../../js/components/Sidebar.js"></script>
+    </body>
+</html>

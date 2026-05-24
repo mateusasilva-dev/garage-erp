@@ -1,31 +1,46 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="../../assets/img/favicon-garageerp.png" type="image/x-icon">
-    <link rel="stylesheet" href="../../css/pages/administrativo/editar-ordem.css">
-    <title>Editar Ordem de Serviço</title>
-</head>
-<body>
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Editar Ordem de Serviço - GarageERP</title>
+        <link
+            rel="icon"
+            href="../../assets/img/favicon-garageerp.png"
+            type="image/png"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="../../css/pages/proprietario/editar-ordem.css"
+        />
+    </head>
+    <body>
+        <div class="app-layout">
+            <ge-sidebar
+                user-name="Carlos Silva"
+                role="Proprietário"
+                type="proprietario"
+            >
+            </ge-sidebar>
 
-    <div class="app-layout">
-        <!-- AQUI A MÁGICA ACONTECE -->
-        <ge-sidebar
-            user-name="Carlos Silva"
-            role="Proprietário"
-            type="proprietario"
-        >
-        </ge-sidebar>
-        <div class="principal">
-            <header>
-                <button class="btn-voltar">
-                    <img src="../../assets/icons/icon-left-arrow.svg" alt="Voltar">
-                    <a href="../proprietario/ordens-de-servico.html" class="btn-voltar">Voltar para Ordens de Serviço</a>
-                </button>
-            </header>
             <main class="main-content">
-                <form method="post">
+                <header class="content-header">
+                    <a href="listar-ordens.html" class="btn-voltar">
+                        <img
+                            src="../../assets/icons/icon-left-arrow.svg"
+                            alt="Voltar"
+                        />
+                        <span>Voltar para Ordens de Serviço</span>
+                    </a>
+                </header>
+
+                <div class="form-card">
                     <div class="form-title">
                         <h1>Editar Ordem de Serviço</h1>
                         <p>Atualize as informações da ordem</p>
@@ -33,73 +48,187 @@
 
                     <div class="form-body">
                         <div class="form-info">
-                            <img src="../../assets/icons/icon-blue-clipboard-list.svg" alt="">
-                            <div class="form-alerta">
-                                <h2>Atualize as informações da ordem de serviço</h2>
-                                <p>Você pode alterar o mecânico responsável, status e descrição dos serviços.</p>
+                            <img
+                                src="../../assets/icons/icon-blue-clipboard-list.svg"
+                                alt=""
+                            />
+                            <div class="info-text">
+                                <h2>
+                                    Atualize as informações da ordem de serviço
+                                </h2>
+                                <p>
+                                    Você pode alterar o mecânico responsável,
+                                    status e descrição dos serviços.
+                                </p>
                             </div>
                         </div>
-                        <div class="form-inputbox">
-                            <label for="">Cliente*</label>
-                            <input type="text" name="nome" value="Raquel Teixeira">
-                            <p>Proprietário do veículo</p>
-                        </div>
-                        <div class="form-inputbox">
-                            <label for="">Veículo*</label>
-                            <div class="form-status">
-                                <ul class="ul-principal">
-                                    <li class="menu">
-                                        <button type="button" class="form-select" id="select-car">FIAT Strada</button>
-                                        <ul class="form-submenu">
-                                            <li><button type="button" class="option">Volkswagen Fox</button></li>
-                                            <li><button type="button" class="option">FIAT Strada</button></li>
-                                        </ul>
-                                    </li>
-                                </ul>
+
+                        <form method="post">
+                            <div class="form-inputbox">
+                                <label for="cliente">Cliente*</label>
+                                <input
+                                    type="text"
+                                    id="cliente"
+                                    name="nome"
+                                    value="Raquel Teixeira"
+                                    disabled
+                                />
+                                <p>Proprietário do veículo</p>
                             </div>
-                            <p>2 veículo(s) disponível(is)</p>
-                        </div>
-                        <div class="form-inputbox">
-                            <label for="">Mecânico Responsável*</label>
-                            <input type="text" name="mecanico" value="João Armário">
-                            <p>Mecânico receberá esta ordem no seu painel</p>
-                        </div>
-                        <div class="form-inputbox">
-                            <label for="">Queixa do Cliente*</label>
-                            <input type="text" name="pedido" value="Troca de óleo">
-                            <p>Registre o que o cliente relatou — será exibido ao mecânico como referência</p>
-                        </div>
-                        <div class="form-inputbox">
-                            <label for="">Status da Ordem*</label>
-                            <div class="form-status">
-                                <ul class="ul-principal">
-                                    <li class="menu">
-                                        <button type="button" class="form-select" id="select-status">Em Andamento</button>
-                                        <ul class="form-submenu">
-                                            <li><button type="button" class="option">Atrasado</button></li>
-                                            <li><button type="button" class="option">Concluído</button></li>
-                                            <li><button type="button" class="option">Em andamento</button></li>
-                                            <li><button type="button" class="option">Pendente</button></li>
-                                        </ul>
-                                    </li>
-                                </ul>
+
+                            <div class="form-inputbox">
+                                <label for="veiculo">Veículo*</label>
+                                <div class="form-status">
+                                    <ul class="ul-principal">
+                                        <li class="menu">
+                                            <button
+                                                type="button"
+                                                class="form-select"
+                                                id="select-car"
+                                            >
+                                                FIAT Strada
+                                            </button>
+                                            <ul class="form-submenu">
+                                                <li>
+                                                    <button
+                                                        type="button"
+                                                        class="option"
+                                                    >
+                                                        Volkswagen Fox
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button
+                                                        type="button"
+                                                        class="option"
+                                                    >
+                                                        FIAT Strada
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <p>2 veículo(s) disponível(is)</p>
                             </div>
-                            <p>Status atual do serviço</p>
-                        </div>
-                        <div class="form-btn">
-                            <button type="button" class="btn-cancelar">Cancelar</button>
-                            <button type="submit" class="btn-atualizar">
-                                <img src="../../assets/icons/icon-save.svg" alt="">
-                                Atualizar Ordem
-                            </button>
-                        </div>
+
+                            <div class="form-inputbox">
+                                <label for="mecanico"
+                                    ><img
+                                        src="../../assets/icons/icon-wrench-screwdriver.svg"
+                                    />
+                                    Mecânico Responsável*</label
+                                >
+                                <input
+                                    type="text"
+                                    id="mecanico"
+                                    name="mecanico"
+                                    value="João Armário"
+                                />
+                                <div class="input-hint">
+                                    <img
+                                        src="../../assets/icons/icon-gray-wrench.svg"
+                                        alt=""
+                                    />
+                                    <p>
+                                        Mecânico receberá esta ordem no seu
+                                        painel
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="form-inputbox">
+                                <label for="queixa"
+                                    ><img
+                                        src="../../assets/icons/icon-chat-bubble-oval-left-ellipsis.svg"
+                                    />
+                                    Queixa do Cliente*</label
+                                >
+                                <textarea
+                                    id="queixa"
+                                    name="pedido"
+                                    rows="4"
+                                    placeholder="Descreva o problema relatado pelo cliente... Ex: Carro fazendo barulho ao frear, óleo vazando embaixo do motor"
+                                >
+Troca de óleo</textarea
+                                >
+                                <p>
+                                    Registre o que o cliente relatou — será
+                                    exibido ao mecânico como referência
+                                </p>
+                            </div>
+
+                            <div class="form-inputbox">
+                                <label for="status">Status da Ordem*</label>
+                                <div class="form-status">
+                                    <ul class="ul-principal">
+                                        <li class="menu">
+                                            <button
+                                                type="button"
+                                                class="form-select"
+                                                id="select-status"
+                                            >
+                                                Em Andamento
+                                            </button>
+                                            <ul class="form-submenu">
+                                                <li>
+                                                    <button
+                                                        type="button"
+                                                        class="option"
+                                                    >
+                                                        Atrasado
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button
+                                                        type="button"
+                                                        class="option"
+                                                    >
+                                                        Concluído
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button
+                                                        type="button"
+                                                        class="option"
+                                                    >
+                                                        Em andamento
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button
+                                                        type="button"
+                                                        class="option"
+                                                    >
+                                                        Pendente
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <p>Status atual do serviço</p>
+                            </div>
+
+                            <div class="form-btn">
+                                <button type="button" class="btn-cancelar">
+                                    Cancelar
+                                </button>
+                                <button type="submit" class="btn-atualizar">
+                                    <img
+                                        src="../../assets/icons/icon-save.svg"
+                                        alt=""
+                                    />
+                                    <span>Atualizar Ordem</span>
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </main>
         </div>
-    </div>
 
-    <script src="../../js/pages/administrativo/editar-ordem.js"></script>
-    <script src="../../js/components/Sidebar.js"></script>
-</body>
+        <script src="../../js/components/Sidebar.js"></script>
+        <script src="../../js/pages/proprietario/editar-ordem.js"></script>
+    </body>
 </html>

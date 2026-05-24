@@ -1,5 +1,5 @@
 /**
- * @file ordens-de-servico.css
+ * @file listar-ordens.css
  * @description Estilização da tela de Ordens de Serviço.
  * Refatorado para fidelidade visual (Figma) e responsividade milimétrica.
  */
@@ -342,13 +342,45 @@ td {
     }
 
     .order-card {
+        position: relative;
         background-color: rgba(219, 234, 254, 0.5);
-        border: 1.25px solid var(--color-border);
+        border: 1.246px solid var(--color-border);
         border-radius: 8px;
-        padding: 20px;
+        padding: 16px;
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 12px;
+        transition:
+            background-color 0.2s,
+            transform 0.2s,
+            box-shadow 0.2s;
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .order-card:hover {
+        background-color: #f9fafb;
+    }
+
+    .order-card-link {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 10;
+        border-radius: 8px;
+    }
+
+    .order-card-header,
+    .order-card-body {
+        position: relative;
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    .order-card-header .status-badge {
+        pointer-events: auto;
+        z-index: 11;
     }
 
     .order-card-header {
@@ -357,39 +389,42 @@ td {
         align-items: flex-start;
     }
 
-    .order-id {
-        font-size: 14px;
-        color: var(--color-text-muted);
-    }
-
     .order-client {
         font-size: 16px;
-        font-weight: 600;
+        font-weight: 500;
         color: var(--color-text-main);
+        margin-bottom: 4px;
+        line-height: 24px;
     }
 
-    .order-card-body {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
+    .order-id {
+        font-size: 14px;
+        font-weight: 400;
+        color: var(--color-text-muted);
+        line-height: 20px;
     }
 
     .order-card-body p {
         font-size: 14px;
-        line-height: 1.4;
+        color: var(--color-text-muted);
+        margin-bottom: 4px;
+        line-height: 20px;
     }
 
     .order-card-body .label {
-        color: var(--color-text-muted);
-    }
-
-    .order-card-body .value {
+        font-weight: 500;
         color: var(--color-text-main);
     }
 
+    .order-card-body .value {
+        font-weight: 400;
+    }
+
     .order-date {
+        font-weight: 400 !important;
         font-size: 14px;
         color: var(--color-text-muted);
+        margin-top: 8px !important;
     }
 }
 
@@ -400,4 +435,27 @@ td {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+tr {
+    position: relative;
+    transition: background-color 0.2s;
+}
+
+tr:hover {
+    background-color: rgba(219, 234, 254, 0.3);
+}
+
+.row-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.status-badge,
+.actions-container {
+    position: relative;
+    z-index: 2;
 }

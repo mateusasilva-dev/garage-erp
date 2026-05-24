@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Veículos - GarageERP</title>
+        <link
+            rel="icon"
+            href="../../assets/img/favicon-garageerp.png"
+            type="image/png"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="../../css/pages/proprietario/listar-veiculos.css"
+        />
+    </head>
+    <body>
+        <div class="app-layout">
+            <ge-sidebar
+                user-name="Carlos Silva"
+                role="Proprietário"
+                type="proprietario"
+            >
+            </ge-sidebar>
+
+            <main class="main-content">
+                <header class="header">
+                    <div class="header-textos">
+                        <div class="header-titulo"><h1>Veículos</h1></div>
+                        <div class="header-subtitulo">
+                            <p>Gerencie os veículos cadastrados</p>
+                        </div>
+                    </div>
+                    <a href="novo-veiculo.html" class="header-botao">
+                        <img
+                            src="../../assets/icons/icon-white-plus.svg"
+                            alt=""
+                        />
+                        Novo Veículo
+                    </a>
+                </header>
+
+                <section class="pesquisa">
+                    <div class="busca">
+                        <img src="../../assets/icons/icon-search.svg" alt="" />
+                        <input
+                            type="text"
+                            class="search"
+                            placeholder="Buscar por marca, modelo, placa ou cliente..."
+                        />
+                    </div>
+
+                    <div class="lista">
+                        <!-- Veículo 1 -->
+                        <div class="card">
+                            <div class="card-topo">
+                                <div class="icone-carro">
+                                    <img
+                                        src="../../assets/icons/icon-car.svg"
+                                        alt=""
+                                    />
+                                </div>
+                                <div class="card-acoes">
+                                    <a href="editar-veiculo.html">
+                                        <img
+                                            src="../../assets/icons/icon-edit.svg"
+                                            alt="Editar"
+                                        />
+                                    </a>
+                                    <img
+                                        src="../../assets/icons/icon-gray-trash.svg"
+                                        alt="Excluir"
+                                    />
+                                </div>
+                            </div>
+                            <div class="card-veiculo">
+                                <h2 class="veiculo">Volkswagen Gol</h2>
+                                <p class="placa">ABC-1234 • 2020</p>
+                            </div>
+                            <div class="proprietario">
+                                <p class="proprietario-titulo">Proprietário</p>
+                                <p class="proprietario-nome">João Silva</p>
+                            </div>
+                            <a href="veiculo.html" class="historico">
+                                Ver Histórico
+                            </a>
+                        </div>
+
+                        <!-- Veículo 2 -->
+                        <div class="card">
+                            <div class="card-topo">
+                                <div class="icone-carro">
+                                    <img
+                                        src="../../assets/icons/icon-car.svg"
+                                        alt=""
+                                    />
+                                </div>
+                                <div class="card-acoes">
+                                    <a href="editar-veiculo.html">
+                                        <img
+                                            src="../../assets/icons/icon-edit.svg"
+                                            alt="Editar"
+                                        />
+                                    </a>
+                                    <img
+                                        src="../../assets/icons/icon-gray-trash.svg"
+                                        alt="Excluir"
+                                    />
+                                </div>
+                            </div>
+                            <div class="card-veiculo">
+                                <h2 class="veiculo">Fiat Uno</h2>
+                                <p class="placa">DEF-5678 • 2019</p>
+                            </div>
+                            <div class="proprietario">
+                                <p class="proprietario-titulo">Proprietário</p>
+                                <p class="proprietario-nome">Maria Santos</p>
+                            </div>
+                            <a href="veiculo.html" class="historico">
+                                Ver Histórico
+                            </a>
+                        </div>
+
+                        <!-- Veículo 3 -->
+                        <div class="card">
+                            <div class="card-topo">
+                                <div class="icone-carro">
+                                    <img
+                                        src="../../assets/icons/icon-car.svg"
+                                        alt=""
+                                    />
+                                </div>
+                                <div class="card-acoes">
+                                    <a href="editar-veiculo.html">
+                                        <img
+                                            src="../../assets/icons/icon-edit.svg"
+                                            alt="Editar"
+                                        />
+                                    </a>
+                                    <img
+                                        src="../../assets/icons/icon-gray-trash.svg"
+                                        alt="Excluir"
+                                    />
+                                </div>
+                            </div>
+                            <div class="card-veiculo">
+                                <h2 class="veiculo">Chevrolet Onix</h2>
+                                <p class="placa">GHI-9012 • 2021</p>
+                            </div>
+                            <div class="proprietario">
+                                <p class="proprietario-titulo">Proprietário</p>
+                                <p class="proprietario-nome">Pedro Oliveira</p>
+                            </div>
+                            <a href="veiculo.html" class="historico">
+                                Ver Histórico
+                            </a>
+                        </div>
+
+                        <!-- Veículo 4 -->
+                        <div class="card">
+                            <div class="card-topo">
+                                <div class="icone-carro">
+                                    <img
+                                        src="../../assets/icons/icon-car.svg"
+                                        alt=""
+                                    />
+                                </div>
+                                <div class="card-acoes">
+                                    <a href="editar-veiculo.html">
+                                        <img
+                                            src="../../assets/icons/icon-edit.svg"
+                                            alt="Editar"
+                                        />
+                                    </a>
+                                    <img
+                                        src="../../assets/icons/icon-gray-trash.svg"
+                                        alt="Excluir"
+                                    />
+                                </div>
+                            </div>
+                            <div class="card-veiculo">
+                                <h2 class="veiculo">Honda Civic</h2>
+                                <p class="placa">JKL-3456 • 2022</p>
+                            </div>
+                            <div class="proprietario">
+                                <p class="proprietario-titulo">Proprietário</p>
+                                <p class="proprietario-nome">João Silva</p>
+                            </div>
+                            <a href="veiculo.html" class="historico">
+                                Ver Histórico
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <script src="../../js/components/Sidebar.js"></script>
+    </body>
+</html>

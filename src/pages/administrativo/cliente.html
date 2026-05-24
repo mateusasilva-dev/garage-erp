@@ -9,7 +9,16 @@
             href="../../assets/img/favicon-garageerp.png"
             type="image/png"
         />
-        <link rel="stylesheet" href="../../css/pages/cliente.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="../../css/pages/administrativo/cliente.css"
+        />
     </head>
     <body>
         <div class="app-layout">
@@ -21,11 +30,10 @@
             </ge-sidebar>
 
             <main class="main-content">
-                <a href="clientes.html" class="link-voltar">
+                <a href="listar-clientes.html" class="link-voltar">
                     <img
                         src="../../assets/icons/icon-left-arrow.svg"
                         alt="Voltar"
-                        class="icone-inline"
                     />
                     Voltar para Clientes
                 </a>
@@ -35,18 +43,17 @@
                         <div class="avatar-cliente">
                             <img
                                 src="../../assets/icons/icon-white-user.svg"
-                                alt="Cliente"
+                                alt="Avatar"
                                 class="icone-avatar"
                             />
                         </div>
-                        <div>
+                        <div class="info-texto">
                             <h1>João Silva</h1>
                             <div class="dados-contato">
                                 <span>
                                     <img
                                         src="../../assets/icons/icon-email.svg"
-                                        alt="Email"
-                                        class="icone-minimo"
+                                        alt="E-mail"
                                     />
                                     joao@email.com
                                 </span>
@@ -54,160 +61,147 @@
                                     <img
                                         src="../../assets/icons/icon-phone.svg"
                                         alt="Telefone"
-                                        class="icone-minimo"
                                     />
                                     (11) 98765-4321
                                 </span>
                             </div>
                         </div>
                     </div>
-
-                    <a href="editar-cliente.html" class="botao botao-secundario">
+                    <a
+                        href="editar-cliente.html"
+                        class="botao botao-secundario"
+                    >
                         Editar Cliente
                     </a>
                 </section>
 
                 <div class="grade-conteudo">
+                    <!-- Coluna de Veículos -->
                     <section class="cartao cartao-veiculos">
                         <div class="titulo-cartao">
                             <h2>Veículos (2)</h2>
                             <a href="novo-veiculo.html" class="botao">
                                 <img
                                     src="../../assets/icons/icon-white-plus.svg"
-                                    alt="Adicionar"
-                                    class="icone-botao"
+                                    alt=""
                                 />
                                 Adicionar Veículo
                             </a>
                         </div>
-
                         <div class="lista-veiculos">
-                            <div class="campo campo-veiculo">
+                            <a href="veiculo.html" class="campo-veiculo">
                                 <div class="icone-caixa">
                                     <img
                                         src="../../assets/icons/icon-car.svg"
-                                        alt="Veículo"
-                                        class="icone-conteudo"
+                                        alt=""
                                     />
                                 </div>
-                                <div>
+                                <div class="detalhes-veiculo">
                                     <p>Volkswagen Gol</p>
                                     <span>Placa: ABC-1234 • Ano: 2020</span>
                                 </div>
-                            </div>
-
-                            <div class="campo campo-veiculo">
+                            </a>
+                            <a href="veiculo.html" class="campo-veiculo">
                                 <div class="icone-caixa">
                                     <img
                                         src="../../assets/icons/icon-car.svg"
-                                        alt="Veículo"
-                                        class="icone-conteudo"
+                                        alt=""
                                     />
                                 </div>
-                                <div>
+                                <div class="detalhes-veiculo">
                                     <p>Honda Civic</p>
                                     <span>Placa: JKL-3456 • Ano: 2022</span>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </section>
 
+                    <!-- Coluna de Histórico -->
                     <section class="cartao cartao-historico">
-                        <h2>Histórico de Serviços (2)</h2>
-
+                        <div class="titulo-cartao">
+                            <h2>Histórico de Serviços (2)</h2>
+                        </div>
                         <div class="lista-historico">
+                            <!-- Serviço Atrasado -->
                             <div class="bloco-status status-atrasado">
                                 <div class="status-topo">
                                     <div class="linha-status">
                                         <div class="icone-status">
                                             <img
-                                                src="../../assets/icons/icon-red-warning-circle.svg"
-                                                alt="Atrasado"
-                                                class="icone-status-img"
+                                                src="../../assets/icons/icon-gray-warning.svg"
+                                                alt=""
                                             />
                                         </div>
-                                        <div>
+                                        <div class="info-status">
                                             <div class="data-status">
                                                 <img
                                                     src="../../assets/icons/icon-calendar.svg"
-                                                    alt="Calendário"
-                                                    class="icone-minimo"
+                                                    alt=""
                                                 />
                                                 10 de mar. de 2024, 07:00
                                             </div>
                                             <p>Troca de pneus</p>
                                         </div>
                                     </div>
-
-                                    <span class="badge badge-atrasado">
+                                    <div class="badge badge-atrasado">
                                         <img
                                             src="../../assets/icons/icon-red-warning-circle.svg"
-                                            alt="Atrasado"
-                                            class="icone-badge"
+                                            alt=""
                                         />
                                         Atrasado
-                                    </span>
+                                    </div>
                                 </div>
-
                                 <div class="aviso aviso-atrasado">
                                     <img
                                         src="../../assets/icons/icon-red-warning.svg"
-                                        alt="Alerta"
-                                        class="icone-minimo"
+                                        alt=""
                                     />
                                     Atenção: serviço atrasado
                                 </div>
                             </div>
 
+                            <!-- Serviço Concluído -->
                             <div class="bloco-status status-concluido">
                                 <div class="status-topo">
                                     <div class="linha-status">
                                         <div class="icone-status">
                                             <img
-                                                src="../../assets/icons/icon-green-check-circle.svg"
-                                                alt="Concluído"
-                                                class="icone-status-img"
+                                                src="../../assets/icons/icon-gray-check-circle.svg"
+                                                alt=""
                                             />
                                         </div>
-                                        <div>
+                                        <div class="info-status">
                                             <div class="data-status">
                                                 <img
                                                     src="../../assets/icons/icon-calendar.svg"
-                                                    alt="Calendário"
-                                                    class="icone-minimo"
+                                                    alt=""
                                                 />
                                                 01 de mar. de 2024, 05:00
                                             </div>
                                             <p>Troca de óleo e filtros</p>
                                         </div>
                                     </div>
-
-                                    <span class="badge badge-concluido">
+                                    <div class="badge badge-concluido">
                                         <img
-                                            src="../../assets/icons/icon-green-check-circle.svg"
-                                            alt="Concluído"
-                                            class="icone-badge"
+                                            src="../../assets/icons/icon-check-circle.svg"
+                                            alt=""
                                         />
                                         Concluído
-                                    </span>
+                                    </div>
                                 </div>
-
                                 <div class="aviso aviso-concluido">
                                     <img
                                         src="../../assets/icons/icon-green-check-circle.svg"
-                                        alt="Concluído"
-                                        class="icone-minimo"
+                                        alt=""
                                     />
                                     Concluído em 01 de mar. de 2024
                                 </div>
                             </div>
                         </div>
-
-                        <a href="nova-ordem-de-servico.html" class="botao botao-grande">
+                        <a href="nova-ordem.html" class="botao botao-grande">
                             <img
                                 src="../../assets/icons/icon-white-plus.svg"
-                                alt="Nova ordem"
-                                class="icone-botao"
+                                alt=""
                             />
                             Nova Ordem de Serviço
                         </a>
