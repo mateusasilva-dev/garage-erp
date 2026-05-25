@@ -373,7 +373,7 @@ main {
     padding: 24px 24px 0 24px;
     align-items: center;
     gap: 10px;
-    color: va;
+    color: var(--cor1);
 }
 
 .frequency-body {
