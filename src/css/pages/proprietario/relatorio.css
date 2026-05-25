@@ -1,105 +1,102 @@
-*{
+* {
     padding: 0;
     margin: 0;
-    font-family: 'Inter', sans-serif;
     box-sizing: border-box;
 }
 
-:root{
-    --cor-default:#2563EB;
-    --cor1: #1F2937;
-    --cor2:#6B7280;
-    --cor-andamento: #F59E0B;
-    --cor-concluido: #10B981;
-    --cor-pendente: #3B82F6;
-    --cor-atrasado: #EF4444;
-    --cor-background: #E5E7EB;
+:root {
+    --cor-default: #2563eb;
+    --cor1: #1f2937;
+    --cor2: #6b7280;
+    --cor-andamento: #f59e0b;
+    --cor-concluido: #10b981;
+    --cor-pendente: #3b82f6;
+    --cor-atrasado: #ef4444;
+    --cor-background: #e5e7eb;
 }
 
--------------------------------------------------------------------
+/* ------------------------------------------------------------------- */
 html,
 body {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  font-family: 'Inter', sans-serif;
-  background-color: #f3f4f6;
+    height: 100vh;
+    font-family: "Inter", sans-serif;
+    background-color: #f3f4f6;
 }
 
 .app-layout {
-  display: flex;
+    display: flex;
 }
 
 .main-content {
-  flex: 1;
-  padding: 24px;
-  overflow-y: auto; /* O conteúdo da página deve rolar aqui dentro */
+    flex: 1;
+    padding: 32px;
+    overflow-y: auto; /* O conteúdo da página deve rolar aqui dentro */
 }
 
 /* === RESERVA DE ESPAÇO DA SIDEBAR === 
   (Impede a FOUC - Flash of Unstyled Content) */
 ge-sidebar:not(:defined) {
-  display: block;
-  width: 255px;
-  height: 100vh;
-  height: 100dvh;
-  background-color: #1f2937;
-  flex-shrink: 0;
+    display: block;
+    width: 255px;
+    height: 100vh;
+    height: 100dvh;
+    background-color: #1f2937;
+    flex-shrink: 0;
 }
 
 /* Ajustes Mobile do Espaço da Sidebar e Header */
 @media (max-width: 760px) {
-  .app-layout {
-    flex-direction: column;
-  }
-  .main-content {
-    padding-top: 13px; /* Compensa o header mobile de 60px */
-  }
-  ge-sidebar:not(:defined) {
-    width: 100vw;
-    height: 61px;
-    background-color: #f8f9fa;
-    border-bottom: 1.25px solid #e5e7eb;
-  }
+    .app-layout {
+        flex-direction: column;
+    }
+    .main-content {
+        padding: 16px;
+        padding-top: 13px; /* Compensa o header mobile de 60px */
+    }
+    ge-sidebar:not(:defined) {
+        width: 100vw;
+        height: 61px;
+        background-color: #f8f9fa;
+        border-bottom: 1.25px solid #e5e7eb;
+    }
 }
 
-.principal{
+.principal {
     display: flex;
     width: 100%;
-    padding: 4px;
     flex-direction: column;
     align-items: flex-start;
 }
 
 /* Header */
 
-header{
+header {
     padding: 30px;
     display: flex;
     flex-direction: column;
     gap: 40px;
 }
 
-button{
+button {
     all: unset;
     cursor: pointer;
     display: inline-flex;
     gap: 6px;
 }
 
-.button-voltar{
+.button-voltar {
     text-decoration: none;
     color: var(--cor1);
     font-size: 16px;
 }
 
-.header-texto{
+.header-texto {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.header-titulo{
+.header-titulo {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -111,7 +108,7 @@ button{
 
 /*Main*/
 
-main{
+main {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -120,7 +117,7 @@ main{
 
 /*Card-container*/
 
-.card-container{
+.card-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
@@ -128,18 +125,20 @@ main{
     grid-auto-flow: row;
 }
 
-.card{
+.card {
     display: flex;
     width: 100%;
     flex-direction: column;
     justify-content: center;
     border-radius: 8px;
     border: 1.246px solid var(--cor-background);
-    background: #FFF;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.10), 0 1px 2px -1px rgba(0, 0, 0, 0.10);
+    background: #fff;
+    box-shadow:
+        0 1px 3px 0 rgba(0, 0, 0, 0.1),
+        0 1px 2px -1px rgba(0, 0, 0, 0.1);
 }
 
-.card-body{
+.card-body {
     display: flex;
     padding: 7px 24px;
     gap: 16px;
@@ -148,64 +147,63 @@ main{
     align-self: stretch;
 }
 
-.card-img{
+.card-img {
     display: flex;
     padding: 15px;
     border-radius: 12px;
 }
 
-#concluido{
+#concluido {
     border-radius: 12px;
-    background: rgba(16, 185, 129, 0.10);
+    background: rgba(16, 185, 129, 0.1);
 }
 
-.alert-icon{
+.alert-icon {
     display: flex;
     padding: 12px;
     border-radius: 8px;
-    background: rgba(239, 68, 68, 0.20);
+    background: rgba(239, 68, 68, 0.2);
 }
 
-.blue{
+.blue {
     border-radius: 12px;
-    background: rgba(37, 99, 235, 0.10);
+    background: rgba(37, 99, 235, 0.1);
 }
 
-#atrasado{
+#atrasado {
     border-radius: 12px;
-    background: rgba(239, 68, 68, 0.10);
+    background: rgba(239, 68, 68, 0.1);
 }
 
-.card-text{
+.card-text {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
 }
 
-.card-title{
+.card-title {
     color: var(--cor2);
     font-size: 16px;
 }
 
-.card-number{
+.card-number {
     color: var(--cor1);
     font-size: 36px;
     font-weight: 700;
     line-height: 36px; /* 120% */
 }
 
-.card-detail{
+.card-detail {
     color: var(--cor2);
     font-size: 12px;
 }
 
 @media (max-width: 768px) {
-    
 }
 
 @media (max-width: 1024px) {
-    .card-container{
+    .card-container {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 24px;
@@ -213,7 +211,7 @@ main{
         grid-auto-flow: row;
     }
 
-    .card-body{
+    .card-body {
         display: flex;
         flex-direction: column;
     }
@@ -221,7 +219,7 @@ main{
 
 /* Performance Container */
 
-.perfomance-container{
+.perfomance-container {
     display: flex;
     padding: 32px;
     width: 100%;
@@ -229,11 +227,17 @@ main{
     gap: 20px;
     border-radius: 8px;
     border: 2px solid var(--cor-background);
-    background: #FFF;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.10), 0 1px 2px -1px rgba(0, 0, 0, 0.10);
+    background: #fff;
+    box-shadow:
+        0 1px 3px 0 rgba(0, 0, 0, 0.1),
+        0 1px 2px -1px rgba(0, 0, 0, 0.1);
 }
 
-.performance-indicadores{
+.relatorio-titulo {
+    color: var(--cor1);
+}
+
+.performance-indicadores {
     display: flex;
     padding: 0 24px;
     flex-direction: column;
@@ -241,7 +245,7 @@ main{
     gap: 24px;
 }
 
-.performance-grafico{
+.performance-grafico {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -249,7 +253,7 @@ main{
     align-self: stretch;
 }
 
-.performance-barra{
+.performance-barra {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -257,25 +261,25 @@ main{
     height: 57px;
 }
 
-.performance-texto{
+.performance-texto {
     display: flex;
     justify-content: space-between;
     font-size: 16px;
 }
 
 @media (max-width: 1024px) {
-    .perfomance-container img{
+    .perfomance-container img {
         display: none;
     }
 }
 
 /*Barras*/
 
-.barra-container{
+.barra-container {
     width: 100%;
 }
 
-.barra-fundo{
+.barra-fundo {
     height: 12px;
     width: 100%;
     background-color: #e5e7eb;
@@ -284,39 +288,39 @@ main{
     position: relative;
 }
 
-.barra-progresso{
+.barra-progresso {
     height: 100%;
     border-radius: 10px;
     transition: width 0.5s ease;
 }
 
 /* cor específica */
-#barra-concluido{
+#barra-concluido {
     background-color: var(--cor-concluido);
 }
 
-#barra-andamento{
+#barra-andamento {
     background-color: var(--cor-andamento);
 }
 
-#barra-pendente{
+#barra-pendente {
     background-color: var(--cor-pendente);
 }
-#barra-atrasado{
+#barra-atrasado {
     background-color: #ef4444;
 }
 
-.performance-indice{
+.performance-indice {
     color: var(--cor1);
 }
 
-.performance-status{
+.performance-status {
     color: var(--cor2);
 }
 
 /*Graphic*/
 
-.graphic{
+.graphic {
     height: 370px;
     padding: 24px;
     display: flex;
@@ -327,14 +331,16 @@ main{
     font-weight: 500;
     line-height: 27px; /* 150% */
     border-radius: 8px;
-    border: 1.246px solid #E5E7EB;
-    background: #FFF;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.10), 0 1px 2px -1px rgba(0, 0, 0, 0.10);
+    border: 1.246px solid #e5e7eb;
+    background: #fff;
+    box-shadow:
+        0 1px 3px 0 rgba(0, 0, 0, 0.1),
+        0 1px 2px -1px rgba(0, 0, 0, 0.1);
 }
 
 /*Frequency-container*/
 
-.frequency-container{
+.frequency-container {
     display: flex;
     justify-content: space-between;
     justify-content: center;
@@ -342,32 +348,35 @@ main{
 }
 
 @media (max-width: 1024px) {
-    .frequency-container{
+    .frequency-container {
         display: flex;
         flex-direction: column;
     }
 }
 
-.frequency-container-inside{
+.frequency-container-inside {
     display: flex;
     padding: 2px;
     width: 100%;
     gap: 20px;
     flex-direction: column;
     border-radius: 8px;
-    border: 1.246px solid #E5E7EB;
-    background: #FFF;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.10), 0 1px 2px -1px rgba(0, 0, 0, 0.10);
+    border: 1.246px solid #e5e7eb;
+    background: #fff;
+    box-shadow:
+        0 1px 3px 0 rgba(0, 0, 0, 0.1),
+        0 1px 2px -1px rgba(0, 0, 0, 0.1);
 }
 
-.frequency-title{
+.frequency-title {
     display: flex;
     padding: 24px 24px 0 24px;
     align-items: center;
     gap: 10px;
+    color: va;
 }
 
-.frequency-body{
+.frequency-body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -376,40 +385,40 @@ main{
     gap: 12px;
 }
 
-.frequency-card{
+.frequency-card {
     display: flex;
     padding: 12px 12px;
     justify-content: space-between;
     align-items: center;
     align-self: stretch;
     border-radius: 8px;
-    background: rgba(219, 234, 254, 0.50);
+    background: rgba(219, 234, 254, 0.5);
 }
 
-.frequency-numbername{
+.frequency-numbername {
     display: flex;
     align-items: center;
     gap: 25px;
 }
 
-.frequency-number{
+.frequency-number {
     padding: 10px;
     border-radius: 50%;
-    background: rgba(37, 99, 235, 0.10);
-    color: var(--cor-default);;
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--cor-default);
     font-size: 14px;
     font-weight: 700;
     line-height: 20px; /* 142.857% */
 }
 
-.frequency-name{
+.frequency-name {
     color: var(--cor1);
     font-size: 16px;
     font-weight: 400;
     line-height: 24px; /* 150% */
 }
 
-.frequency-cadastro{
+.frequency-cadastro {
     display: flex;
     gap: 15px;
     color: var(--cor2);
@@ -419,7 +428,7 @@ main{
     line-height: 16px; /* 133.333% */
 }
 
-.number-os{
+.number-os {
     color: var(--cor2);
     font-size: 14px;
     font-weight: 400;
