@@ -90,6 +90,35 @@ form {
     gap: 16px;
 }
 
+/* Fallback erro do login */
+#error-message {
+    display: none;
+    background-color: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 8px;
+    height: 50px;
+    align-items: center;
+    padding: 13px;
+    gap: 8px;
+}
+
+#error-message.show {
+    display: flex;
+}
+
+#error-message p {
+    color: #ef4444;
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0;
+}
+
+#error-message svg {
+    width: 16px;
+    height: 16px;
+    color: #ef4444;
+}
+
 /* Grupo de Input (Label + Campo) */
 .input-box {
     display: flex;

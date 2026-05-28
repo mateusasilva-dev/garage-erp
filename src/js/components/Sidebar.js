@@ -739,7 +739,9 @@ class GarageErpSidebar extends HTMLElement {
         // Ação de Logout: Redireciona para o login base
         if (logoutBtn) {
             logoutBtn.addEventListener("click", () => {
-                // FEAT: No futuro, adicionar limpeza de tokens (ex: localStorage.removeItem('authToken'))
+                // Limpa os tokens/status de perfil logado
+                localStorage.removeItem("perfilLogado");
+                // Redireciona para o login
                 window.location.href = "../../index.html";
             });
         }
