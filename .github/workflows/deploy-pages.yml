@@ -1,9 +1,13 @@
-name: Deploy Static Content to Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches: ["main"]
   workflow_dispatch:
+
+# Adota o Node 24
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 permissions:
   contents: read
