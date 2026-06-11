@@ -20,9 +20,10 @@
             href="../../css/pages/administrativo/cliente.css"
         />
 
-        <script src="../../js/services/auth.js"></script>
+        <script src="../../js/utils/formatters.js"></script>
+        <script src="../../js/components/alert-ui-utils.js"></script>
+        <script src="../../js/services/auth-service.js"></script>
     </head>
-
     <body data-perfil-permitido="administrativo">
         <div class="app-layout">
             <ge-sidebar
@@ -31,7 +32,6 @@
                 type="admin"
             >
             </ge-sidebar>
-
             <main class="main-content">
                 <a href="listar-clientes.html" class="link-voltar">
                     <img
@@ -40,7 +40,6 @@
                     />
                     Voltar para Clientes
                 </a>
-
                 <section class="cartao cabecalho-cliente">
                     <div class="linha-info">
                         <div class="avatar-cliente">
@@ -77,7 +76,6 @@
                         Editar Cliente
                     </a>
                 </section>
-
                 <div class="grade-conteudo">
                     <!-- Coluna de Veículos -->
                     <section class="cartao cartao-veiculos">
@@ -118,7 +116,6 @@
                             </a>
                         </div>
                     </section>
-
                     <!-- Coluna de Histórico -->
                     <section class="cartao cartao-historico">
                         <div class="titulo-cartao">
@@ -162,7 +159,6 @@
                                     Atenção: serviço atrasado
                                 </div>
                             </div>
-
                             <!-- Serviço Concluído -->
                             <div class="bloco-status status-concluido">
                                 <div class="status-topo">
@@ -212,7 +208,8 @@
                 </div>
             </main>
         </div>
-
-        <script src="../../js/components/Sidebar.js"></script>
+        <script src="../../js/components/sidebar-component.js"></script>
+        <script src="../../js/repositories/cliente-repository.js"></script>
+        <script src="../../js/controllers/cliente-controller.js"></script>
     </body>
 </html>

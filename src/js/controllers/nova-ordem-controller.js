@@ -101,25 +101,25 @@
 
         function salvarOrdem() {
             if (!campoCliente.value) {
-                alert("Selecione o cliente da ordem.");
+                window.customAlert("Selecione o cliente da ordem.", "warning");
                 campoCliente.focus();
                 return;
             }
 
             if (!campoVeiculo.value) {
-                alert("Selecione o veículo da ordem.");
+                window.customAlert("Selecione o veículo da ordem.", "warning");
                 campoVeiculo.focus();
                 return;
             }
 
             if (!campoQueixa.value.trim()) {
-                alert("Preencha a queixa do cliente.");
+                window.customAlert("Preencha a queixa do cliente.", "warning");
                 campoQueixa.focus();
                 return;
             }
 
             if (!campoStatus.value) {
-                alert("Selecione o status da ordem.");
+                window.customAlert("Selecione o status da ordem.", "warning");
                 campoStatus.focus();
                 return;
             }
@@ -133,7 +133,7 @@
             });
 
             if (!ordem) {
-                alert("Não foi possível criar a ordem de serviço.");
+                window.customAlert("Não foi possível criar a ordem de serviço.", "danger");
                 return;
             }
 

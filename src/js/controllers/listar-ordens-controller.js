@@ -218,14 +218,13 @@
             evento.stopPropagation();
 
             const id = botao.dataset.excluirOrdem;
-            const confirmou = confirm(
+            window.customConfirm(
                 "Deseja excluir a ordem de serviço #" + id + "?",
+                function () {
+                    dados.excluirOrdem(id);
+                    renderizar();
+                }
             );
-
-            if (confirmou) {
-                dados.excluirOrdem(id);
-                renderizar();
-            }
         });
 
         if (campoBusca) {

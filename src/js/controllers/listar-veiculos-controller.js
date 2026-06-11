@@ -1,32 +1,26 @@
 const lista = document.getElementById("lista-veiculos");
 
-const veiculos = VeiculoService.Listar();
+const veiculos = VeiculoStorage.Listar();
 
-function AdicionarEventosExcluir(){
+function AdicionarEventosExcluir() {
     const botaoExcluir = document.querySelectorAll(".btn-excluir");
 
-    botaoExcluir.forEach(botao => {
-        botao.addEventListener(
-            "click",
-            function(){
+    botaoExcluir.forEach((botao) => {
+        botao.addEventListener("click", function () {
+            const id = Number(this.dataset.id);
 
-                const id = Number(this.dataset.id);
-
-                const confirmar = confirm("Você realmente deseja excluir?")
-
-                if(confirmar){
-                    VeiculoService.Excluir(id);
-                    location.reload();
-                }
-            }
-        )
-})
+            window.customConfirm("Você realmente deseja excluir?", function () {
+                VeiculoStorage.Excluir(id);
+                location.reload();
+            });
+        });
+    });
 }
 
-function RenderizarVeiculos(listaVeiculos){
+function RenderizarVeiculos(listaVeiculos) {
     lista.innerHTML = "";
 
-    listaVeiculos.forEach(veiculo => {
+    listaVeiculos.forEach((veiculo) => {
         lista.innerHTML += `
             <div class="card">
                 <div class="card-topo">
@@ -79,7 +73,7 @@ function RenderizarVeiculos(listaVeiculos){
                     Ver Histórico
                 </a>
             </div>
-        `
+        `;
     });
 
     AdicionarEventosExcluir();
@@ -89,36 +83,16 @@ RenderizarVeiculos(veiculos);
 
 const pesquisa = document.getElementById("pesquisa");
 
-pesquisa.addEventListener(
-    "input",
-    function() {
-        const texto = this.value.toLowerCase();
+pesquisa.addEventListener("input", function () {
+    const texto = this.value.toLowerCase();
 
-        const filtrados = veiculos.filter(veiculo =>
-            veiculo.marca
-                    .toLowerCase()
-                    .includes(texto)
+    const filtrados = veiculos.filter(
+        (veiculo) =>
+            veiculo.marca.toLowerCase().includes(texto) ||
+            veiculo.modelo.toLowerCase().includes(texto) ||
+            veiculo.placa.toLowerCase().includes(texto) ||
+            veiculo.proprietario.toLowerCase().includes(texto),
+    );
 
-            ||
-
-            veiculo.modelo
-                .toLowerCase()
-                .includes(texto)
-
-            ||
-
-            veiculo.placa
-                .toLowerCase()
-                .includes(texto)
-
-            ||
-
-            veiculo.proprietario
-                .toLowerCase()
-                .includes(texto)
-        );
-
-        RenderizarVeiculos(filtrados);
-    }
-)
-
+    RenderizarVeiculos(filtrados);
+});

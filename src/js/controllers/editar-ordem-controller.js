@@ -137,7 +137,7 @@
                 evento.preventDefault();
 
                 if (!campoQueixa.value.trim()) {
-                    alert("Preencha a queixa do cliente.");
+                    window.customAlert("Preencha a queixa do cliente.", "warning");
                     campoQueixa.focus();
                     return;
                 }
@@ -150,7 +150,7 @@
                 });
 
                 if (!ordemAtualizada) {
-                    alert("Não foi possível atualizar a ordem de serviço.");
+                    window.customAlert("Não foi possível atualizar a ordem de serviço.", "danger");
                     return;
                 }
 

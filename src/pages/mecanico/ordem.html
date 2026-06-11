@@ -1,244 +1,6 @@
-<!doctype html>
-<html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Ordem de Serviço - GarageERP</title>
-        <link
-            rel="icon"
-            href="../../assets/img/favicon-garageerp.png"
-            type="image/png"
-        />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-            rel="stylesheet"
-        />
-        <link rel="stylesheet" href="../../css/pages/mecanico/ordem.css" />
-
-        <script src="../../js/services/auth.js"></script>
-    </head>
-    <body data-perfil-permitido="mecanico">
-        <div class="app-layout">
-            <!-- ge-sidebar: Componente global de navegação (Não alterar estrutura) -->
-            <ge-sidebar
-                user-name="João Lopes"
-                role="Mecânico"
-                type="mecanico"
-            ></ge-sidebar>
-
-            <div class="principal">
-                <main class="main-content">
-                    <a href="listar-ordens.html" class="voltar">
-                        <img
-                            src="../../assets/icons/icon-left-arrow.svg"
-                            alt="Voltar"
-                        />
-                        Voltar ao Painel
-                    </a>
-
-                    <div class="cartao topo-ordem">
-                        <h1>
-                            Ordem de Serviço #4
-                            <span class="status-atrasado"
-                                ><img
-                                    src="../../assets/icons/icon-red-warning-circle.svg"
-                                    alt=""
-                                    class="icone-badge"
-                                />
-                                Atrasado</span
-                            >
-                        </h1>
-                        <p>Criada em 10/03/2024, 07:00</p>
-                    </div>
-
-                    <div class="grade-duas-colunas">
-                        <div class="cartao">
-                            <h2>Informações do Cliente</h2>
-                            <div class="linha-info">
-                                <div class="avatar">
-                                    <img
-                                        src="../../assets/icons/icon-white-user.svg"
-                                        alt=""
-                                    />
-                                </div>
-                                <div>
-                                    <p>João Silva</p>
-                                    <span>joao@email.com</span>
-                                    <span>(11) 98765-4321</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="cartao">
-                            <h2>Informações do Veículo</h2>
-                            <div class="linha-info">
-                                <div class="icone-caixa">
-                                    <img
-                                        src="../../assets/icons/icon-car.svg"
-                                        alt=""
-                                    />
-                                </div>
-                                <div>
-                                    <p>Honda Civic</p>
-                                    <span>JKL-3456</span>
-                                    <span>Ano: 2022</span>
-                                </div>
-                            </div>
-                            <a href="#" class="link-simples"
-                                >Ver Histórico do Veículo</a
-                            >
-                        </div>
-                    </div>
-
-                    <div class="cartao">
-                        <h2>
-                            <img
-                                src="../../assets/icons/icon-message-square.svg"
-                                alt=""
-                            />
-                            Queixa do Cliente
-                        </h2>
-                        <p class="rotulo">
-                            Problema relatado pelo cliente — use como referência
-                            para os serviços a executar.
-                        </p>
-                        <div class="campo-azul">Troca de pneus</div>
-                    </div>
-
-                    <div class="cartao">
-                        <h2>
-                            <img
-                                src="../../assets/icons/icon-blue-wrench.svg"
-                                alt=""
-                            />
-                            Registro Detalhado de Serviços
-                        </h2>
-
-                        <div class="servico-registrado">
-                            <div class="servico-cabecalho">
-                                <div>
-                                    <span class="numero-servico">1</span>
-                                    <span class="data-servico"
-                                        >16/04/2026, 16:50</span
-                                    >
-                                </div>
-                                <img
-                                    src="../../assets/icons/icon-gray-trash.svg"
-                                    alt="Excluir serviço"
-                                    class="icone-acao"
-                                />
-                            </div>
-
-                            <p class="titulo-servico">
-                                Troca dos pneus dianteiros
-                            </p>
-                            <p class="foto-texto">
-                                <img
-                                    src="../../assets/icons/icon-gallery.svg"
-                                    alt=""
-                                />
-                                1 foto
-                            </p>
-
-                            <div class="pneu">
-                                <img
-                                    src="../../assets/img/pneu-ordem-de-servico.png"
-                                    alt="Pneu do serviço"
-                                    class="imagem-pneu"
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="cartao cartao-formulario">
-                        <h2>
-                            <img
-                                src="../../assets/icons/icon-blue-plus.svg"
-                                alt=""
-                            />
-                            Adicionar Serviço Realizado
-                        </h2>
-
-                        <label class="rotulo-form"
-                            >Descrição do Serviço Realizado *</label
-                        >
-                        <textarea
-                            class="textarea"
-                            placeholder="Ex: Troca de óleo do motor e filtro de óleo — descreva o que foi executado"
-                        ></textarea>
-
-                        <div class="aviso">
-                            <img
-                                src="../../assets/icons/icon-blue-dollar-sign.svg"
-                                alt=""
-                            />
-                            Os valores de peças e mão de obra serão definidos
-                            pelo Administrativo ou Proprietário.
-                        </div>
-
-                        <label class="rotulo-form">
-                            <img
-                                src="../../assets/icons/icon-camera.svg"
-                                alt=""
-                            />
-                            Fotos do Serviço (Opcional — máx. 5)
-                        </label>
-                        <div class="area-upload">
-                            <div class="icone-upload">
-                                <img
-                                    src="../../assets/icons/icon-upload.svg"
-                                    alt=""
-                                />
-                            </div>
-                            <p>Toque para escolher fotos</p>
-                            <span>PNG, JPG, WEBP — até 5 fotos restantes</span>
-                        </div>
-
-                        <button class="botao">
-                            <img
-                                src="../../assets/icons/icon-white-plus.svg"
-                                alt=""
-                                class="icone-botao"
-                            />
-                            Adicionar Serviço
-                        </button>
-                    </div>
-
-                    <div class="cartao">
-                        <h2>Histórico de Status</h2>
-
-                        <div class="bloco-status">
-                            <img
-                                src="../../assets/icons/icon-calendar.svg"
-                                alt=""
-                                class="icone-status-img"
-                            />
-                            <div>
-                                <p>Ordem criada</p>
-                                <span>10/03/2024, 07:00</span>
-                            </div>
-                        </div>
-
-                        <div class="bloco-status">
-                            <img
-                                src="../../assets/icons/icon-calendar.svg"
-                                alt=""
-                                class="icone-status-img"
-                            />
-                            <div>
-                                <p>Última atualização</p>
-                                <span>16/04/2026, 16:50</span>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-            </div>
-        </div>
-
-        <script src="../../js/components/Sidebar.js"></script>
-        <script src="../../js/ordens/dados.js"></script>
-        <script src="../../js/ordens/ordem.js"></script>
-    </body>
-</html>
+<!doctype html><html lang="pt-BR">    <head>        <meta charset="UTF-8" />        <meta name="viewport" content="width=device-width, initial-scale=1.0" />        <title>Ordem de Serviço - GarageERP</title>        <link            rel="icon"            href="../../assets/img/favicon-garageerp.png"            type="image/png"        />        <link rel="preconnect" href="https://fonts.googleapis.com" />        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />        <link            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"            rel="stylesheet"        />        <link rel="stylesheet" href="../../css/pages/mecanico/ordem.css" />        
+        
+                <script src="../../js/utils/formatters.js"></script>
+    <script src="../../js/components/alert-ui-utils.js"></script>
+    <script src="../../js/services/auth-service.js"></script>
+    </head>    <body data-perfil-permitido="mecanico">        <div class="app-layout">            <!-- ge-sidebar: Componente global de navegação (Não alterar estrutura) -->            <ge-sidebar                user-name="João Lopes"                role="Mecânico"                type="mecanico"            ></ge-sidebar>            <div class="principal">                <main class="main-content">                    <a href="listar-ordens.html" class="voltar">                        <img                            src="../../assets/icons/icon-left-arrow.svg"                            alt="Voltar"                        />                        Voltar ao Painel                    </a>                    <div class="cartao topo-ordem">                        <h1>                            Ordem de Serviço #4                            <span class="status-atrasado"                                ><img                                    src="../../assets/icons/icon-red-warning-circle.svg"                                    alt=""                                    class="icone-badge"                                />                                Atrasado</span                            >                        </h1>                        <p>Criada em 10/03/2024, 07:00</p>                    </div>                    <div class="grade-duas-colunas">                        <div class="cartao">                            <h2>Informações do Cliente</h2>                            <div class="linha-info">                                <div class="avatar">                                    <img                                        src="../../assets/icons/icon-white-user.svg"                                        alt=""                                    />                                </div>                                <div>                                    <p>João Silva</p>                                    <span>joao@email.com</span>                                    <span>(11) 98765-4321</span>                                </div>                            </div>                        </div>                        <div class="cartao">                            <h2>Informações do Veículo</h2>                            <div class="linha-info">                                <div class="icone-caixa">                                    <img                                        src="../../assets/icons/icon-car.svg"                                        alt=""                                    />                                </div>                                <div>                                    <p>Honda Civic</p>                                    <span>JKL-3456</span>                                    <span>Ano: 2022</span>                                </div>                            </div>                            <a href="#" class="link-simples"                                >Ver Histórico do Veículo</a                            >                        </div>                    </div>                    <div class="cartao">                        <h2>                            <img                                src="../../assets/icons/icon-message-square.svg"                                alt=""                            />                            Queixa do Cliente                        </h2>                        <p class="rotulo">                            Problema relatado pelo cliente — use como referência                            para os serviços a executar.                        </p>                        <div class="campo-azul">Troca de pneus</div>                    </div>                    <div class="cartao">                        <h2>                            <img                                src="../../assets/icons/icon-blue-wrench.svg"                                alt=""                            />                            Registro Detalhado de Serviços                        </h2>                        <div class="servico-registrado">                            <div class="servico-cabecalho">                                <div>                                    <span class="numero-servico">1</span>                                    <span class="data-servico"                                        >16/04/2026, 16:50</span                                    >                                </div>                                <img                                    src="../../assets/icons/icon-gray-trash.svg"                                    alt="Excluir serviço"                                    class="icone-acao"                                />                            </div>                            <p class="titulo-servico">                                Troca dos pneus dianteiros                            </p>                            <p class="foto-texto">                                <img                                    src="../../assets/icons/icon-gallery.svg"                                    alt=""                                />                                1 foto                            </p>                            <div class="pneu">                                <img                                    src="../../assets/img/pneu-ordem-de-servico.png"                                    alt="Pneu do serviço"                                    class="imagem-pneu"                                />                            </div>                        </div>                    </div>                    <div class="cartao cartao-formulario">                        <h2>                            <img                                src="../../assets/icons/icon-blue-plus.svg"                                alt=""                            />                            Adicionar Serviço Realizado                        </h2>                        <label class="rotulo-form"                            >Descrição do Serviço Realizado *</label                        >                        <textarea                            class="textarea"                            placeholder="Ex: Troca de óleo do motor e filtro de óleo — descreva o que foi executado"                        ></textarea>                        <div class="aviso">                            <img                                src="../../assets/icons/icon-blue-dollar-sign.svg"                                alt=""                            />                            Os valores de peças e mão de obra serão definidos                            pelo Administrativo ou Proprietário.                        </div>                        <label class="rotulo-form">                            <img                                src="../../assets/icons/icon-camera.svg"                                alt=""                            />                            Fotos do Serviço (Opcional — máx. 5)                        </label>                        <div class="area-upload">                            <div class="icone-upload">                                <img                                    src="../../assets/icons/icon-upload.svg"                                    alt=""                                />                            </div>                            <p>Toque para escolher fotos</p>                            <span>PNG, JPG, WEBP — até 5 fotos restantes</span>                        </div>                        <button class="botao">                            <img                                src="../../assets/icons/icon-white-plus.svg"                                alt=""                                class="icone-botao"                            />                            Adicionar Serviço                        </button>                    </div>                    <div class="cartao">                        <h2>Histórico de Status</h2>                        <div class="bloco-status">                            <img                                src="../../assets/icons/icon-calendar.svg"                                alt=""                                class="icone-status-img"                            />                            <div>                                <p>Ordem criada</p>                                <span>10/03/2024, 07:00</span>                            </div>                        </div>                        <div class="bloco-status">                            <img                                src="../../assets/icons/icon-calendar.svg"                                alt=""                                class="icone-status-img"                            />                            <div>                                <p>Última atualização</p>                                <span>16/04/2026, 16:50</span>                            </div>                        </div>                    </div>                </main>            </div>        </div>        <script src="../../js/components/sidebar-component.js"></script>        <script src="../../js/repositories/ordem-repository.js"></script>        <script src="../../js/controllers/ordem-controller.js"></script>    </body></html>

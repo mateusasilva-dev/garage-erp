@@ -670,7 +670,7 @@
 
         function abrirSeletorFotos() {
             if (fotosSelecionadas.length >= LIMITE_FOTOS) {
-                alert("O limite de 5 fotos já foi atingido.");
+                window.customAlert("O limite de 5 fotos já foi atingido.", "warning");
                 return;
             }
 
@@ -713,9 +713,10 @@
             });
 
             if (mensagens.length > 0) {
-                alert(
+                window.customAlert(
                     "Alguns arquivos não foram adicionados:\n\n- " +
                         mensagens.join("\n- "),
+                    "warning"
                 );
             }
 
@@ -752,7 +753,7 @@
 
                 leitor.onerror = function () {
                     arquivosLidos += 1;
-                    alert("Não foi possível ler a foto " + arquivo.name + ".");
+                    window.customAlert("Não foi possível ler a foto " + arquivo.name + ".", "danger");
 
                     if (arquivosLidos === arquivosValidos.length) {
                         inputFotos.value = "";
@@ -772,16 +773,13 @@
         }
 
         function excluirOrdem(ordemId) {
-            const confirmou = confirm(
+            window.customConfirm(
                 "Deseja excluir a ordem de serviço #" + ordemId + "?",
+                function () {
+                    dados.excluirOrdem(ordemId);
+                    window.location.href = "listar-ordens.html";
+                }
             );
-
-            if (!confirmou) {
-                return;
-            }
-
-            dados.excluirOrdem(ordemId);
-            window.location.href = "listar-ordens.html";
         }
 
         function adicionarServico() {
@@ -790,7 +788,7 @@
             const campoMaoObra = document.querySelector("[data-valor-mao-obra]");
 
             if (!descricao || !descricao.value.trim()) {
-                alert("Preencha a descrição do serviço realizado.");
+                window.customAlert("Preencha a descrição do serviço realizado.", "warning");
                 if (descricao) {
                     descricao.focus();
                 }
@@ -810,7 +808,7 @@
                 });
 
                 if (!ordemAtualizada) {
-                    alert("Não foi possível adicionar o serviço realizado.");
+                    window.customAlert("Não foi possível adicionar o serviço realizado.", "danger");
                     return;
                 }
             } catch (erro) {
@@ -818,13 +816,14 @@
                     erro.name === "QuotaExceededError" ||
                     erro.name === "NS_ERROR_DOM_QUOTA_REACHED"
                 ) {
-                    alert(
+                    window.customAlert(
                         "Não há espaço suficiente no navegador para salvar essas fotos. Remova fotos ou serviços antigos e tente novamente.",
+                        "danger"
                     );
                     return;
                 }
 
-                alert("Não foi possível salvar o serviço realizado.");
+                window.customAlert("Não foi possível salvar o serviço realizado.", "danger");
                 return;
             }
 
@@ -833,14 +832,10 @@
         }
 
         function excluirServico(servicoId) {
-            const confirmou = confirm("Deseja excluir este serviço realizado?");
-
-            if (!confirmou) {
-                return;
-            }
-
-            dados.excluirServico(id, servicoId);
-            renderizar();
+            window.customConfirm("Deseja excluir este serviço realizado?", function () {
+                dados.excluirServico(id, servicoId);
+                renderizar();
+            });
         }
 
         function mostrarOrdemNaoEncontrada() {

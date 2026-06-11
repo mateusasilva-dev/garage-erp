@@ -20,9 +20,10 @@
             href="../../css/pages/administrativo/dashboard.css"
         />
 
-        <script src="../../js/services/auth.js"></script>
+        <script src="../../js/utils/formatters.js"></script>
+        <script src="../../js/components/alert-ui-utils.js"></script>
+        <script src="../../js/services/auth-service.js"></script>
     </head>
-
     <body data-perfil-permitido="administrativo">
         <div class="app-layout">
             <ge-sidebar
@@ -31,7 +32,6 @@
                 type="admin"
             >
             </ge-sidebar>
-
             <main class="main-content">
                 <header>
                     <div class="header-text">
@@ -58,7 +58,6 @@
                         </a>
                     </div>
                 </header>
-
                 <!--Alert-Container-->
                 <div class="alert-container">
                     <div class="alert-icon">
@@ -82,7 +81,6 @@
                     </div>
                 </div>
                 <!--Alert-Container-->
-
                 <!--Card-Container-->
                 <div class="card-container">
                     <div class="card">
@@ -143,7 +141,6 @@
                     </div>
                 </div>
                 <!--Card-Container-->
-
                 <!--List Container-->
                 <div class="list-container">
                     <div class="order-list">
@@ -337,7 +334,6 @@
                 </div>
             </main>
         </div>
-
-        <script src="../../js/components/Sidebar.js"></script>
+        <script src="../../js/components/sidebar-component.js"></script>
     </body>
 </html>

@@ -576,24 +576,15 @@
     }
 
     function formatarDataCurta(data) {
-        return new Date(data).toLocaleDateString("pt-BR");
+        return window.Formatters.formatarDataCurta(data);
     }
 
     function formatarDataCompleta(data) {
-        return new Date(data).toLocaleString("pt-BR", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-        });
+        return window.Formatters.formatarDataCompleta(data);
     }
 
     function formatarMoeda(valor) {
-        return Number(valor || 0).toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-        });
+        return window.Formatters.formatarMoeda(valor);
     }
 
     function obterTotal(ordem) {
@@ -603,22 +594,11 @@
     }
 
     function converterValor(valor) {
-        const texto = String(valor || "0")
-            .replace("R$", "")
-            .replace(/\./g, "")
-            .replace(",", ".")
-            .trim();
-
-        return Number(texto) || 0;
+        return window.Formatters.converterValorMoeda(valor);
     }
 
     function escaparHtml(valor) {
-        return String(valor || "")
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
+        return window.Formatters.escaparHtml(valor);
     }
 
     function obterParametroId() {
