@@ -41,7 +41,7 @@
                     Voltar para Veículos
                 </a>
 
-                <form class="card-edicao">
+                <form class="card-edicao" id="form-veiculo">
                     <div>
                         <h1>Novo Veículo</h1>
                         <p class="subtitulo">
@@ -60,6 +60,7 @@
                     <div class="input-box">
                         <label>Proprietário *</label>
                         <input
+                            id="proprietario"
                             type="text"
                             placeholder="Selecione o proprietário"
                         />
@@ -68,25 +69,25 @@
 
                     <div class="input-box">
                         <label>Marca *</label>
-                        <input placeholder="Digite a marca" type="text" />
+                        <input placeholder="Digite a marca" id="marca" type="text" />
                         <p class="ajuda">Ex: Volkswagen, Fiat, Chevrolet</p>
                     </div>
 
                     <div class="input-box">
                         <label>Modelo *</label>
-                        <input placeholder="Digite o modelo" type="text" />
+                        <input placeholder="Digite o modelo" id="modelo" type="text" />
                         <p class="ajuda">Ex: Gol, Uno, Onix</p>
                     </div>
 
                     <div class="input-box">
                         <label>Placa *</label>
-                        <input placeholder="ABC-1234" type="text" />
+                        <input placeholder="ABC-1234" id="placa" type="text" />
                         <p class="ajuda">Formato: ABC-1234</p>
                     </div>
 
                     <div class="input-box">
                         <label>Ano *</label>
-                        <input placeholder="2026" type="text" />
+                        <input placeholder="2026" id="ano" type="text" />
                         <p class="ajuda">Ano de fabricação do veículo</p>
                     </div>
 
@@ -120,6 +121,9 @@
                 </form>
             </main>
         </div>
+
+        <script src="../../js/services/VeiculoService.js"></script>
+        <script src="../../js/controllers/NovoVeiculoController.js"></script>
         <script src="../../js/components/Sidebar.js"></script>
     </body>
 </html>
