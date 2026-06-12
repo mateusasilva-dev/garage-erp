@@ -73,6 +73,7 @@ function AtualizarClientes() {
 }
 
 AtualizarClientes();
+
 function AtualizarBarra(id, valor, total) {
     const pct = Porcentagem(valor, total);
     const barra = document.getElementById("barra-" + id);
