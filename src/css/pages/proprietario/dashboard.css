@@ -305,12 +305,15 @@ header {
 
 @media (max-width: 768px) {
     .card-container {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 24px;
         flex-direction: column;
+        grid-auto-flow: row;
     }
 }
 
-@media (max-width: 1024px) {
+@media (min-width: 769px) and (max-width: 1024px) {
     .card-container {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -505,7 +508,16 @@ header {
     font-weight: 700;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
+    .performance-financeiro-valores {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
     .performance-financeiro-valores {
         display: flex;
         gap: 45px;
