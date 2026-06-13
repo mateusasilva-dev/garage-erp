@@ -43,8 +43,13 @@ ge-sidebar:not(:defined) {
         flex-direction: column;
         gap: 56px;
     }
+
+    .principal{
+        margin-top: 37px;
+    }
+
     .main-content {
-        padding-top: 60px; /* Compensa o header mobile de 60px */
+        padding: 16px;
     }
     ge-sidebar:not(:defined) {
         width: 100vw;
@@ -57,10 +62,10 @@ ge-sidebar:not(:defined) {
 .principal {
     display: flex;
     width: 100%;
-    padding: 30px;
     flex-direction: column;
     align-items: flex-start;
     gap: 24px;
+    padding: 16px;
 }
 
 .button {
@@ -75,7 +80,11 @@ ge-sidebar:not(:defined) {
 
 /* Header */
 
-header {
+header{
+    width: 100%;
+}
+
+.header-container {
     display: flex;
     padding: 10px 25px;
     flex-direction: row;
@@ -155,7 +164,15 @@ header {
 }
 
 @media (max-width: 1024px) {
-    header {
+    .principal{
+        padding: 0;
+    }
+
+    header{
+        padding: 16px;
+    }
+
+    .header-container {
         display: flex;
         flex-direction: column;
         gap: 15px;
@@ -252,8 +269,7 @@ header {
 .card-body {
     display: flex;
     padding: 7px 24px;
-    gap: 16px;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     align-self: stretch;
 }
