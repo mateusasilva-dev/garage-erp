@@ -44,8 +44,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnEditar = document.querySelector(
         ".cabecalho-cliente .botao-secundario",
     );
+    const btnAddVeiculo = document.getElementById("btn-add-veiculo");
+    const btnNovaOrdem = document.getElementById("btn-nova-ordem");
 
-    if (infoTextoH1) infoTextoH1.textContent = cliente.nome;
+    if (infoTextoH1)
+        infoTextoH1.textContent = cliente.nome || "Cliente sem nome";
+
+    // Atualiza URLs dos botões de ação para incluir o clienteId
+    if (btnAddVeiculo) {
+        btnAddVeiculo.href = `novo-veiculo.html?clienteId=${cliente.id}`;
+    }
+    if (btnNovaOrdem) {
+        btnNovaOrdem.href = `nova-ordem.html?clienteId=${cliente.id}`;
+    }
+
     if (avatarContainer) {
         // Primeira letra em destaque
         const primeiraLetra = cliente.nome
@@ -71,19 +83,20 @@ document.addEventListener("DOMContentLoaded", () => {
         btnEditar.href = `editar-cliente.html?id=${cliente.id}`;
     }
 
-    // 2. Preenche os links de adicionar veiculo e criar nova ordem
-    const btnAddVeiculo = document.querySelector(".cartao-veiculos .botao");
-    const btnAddOrdem = document.querySelector(
+    // 2. Links extras dentro dos cartões (seletor alternativo ao do cabeçalho)
+    // FIX: removida redeclaração de btnAddVeiculo que causava SyntaxError.
+    const btnAddVeiculoCartao = document.querySelector(
+        ".cartao-veiculos .botao",
+    );
+    const btnAddOrdemCartao = document.querySelector(
         ".cartao-historico .botao-grande",
     );
 
-    if (btnAddVeiculo) {
-        // Redireciona com query param de clienteId
-        btnAddVeiculo.href = `novo-veiculo.html?clienteId=${cliente.id}`;
+    if (btnAddVeiculoCartao) {
+        btnAddVeiculoCartao.href = `novo-veiculo.html?clienteId=${cliente.id}`;
     }
-    if (btnAddOrdem) {
-        // Redireciona com query param de clienteId
-        btnAddOrdem.href = `nova-ordem.html?clienteId=${cliente.id}`;
+    if (btnAddOrdemCartao) {
+        btnAddOrdemCartao.href = `nova-ordem.html?clienteId=${cliente.id}`;
     }
 
     // 3. Renderiza Veiculos
@@ -155,9 +168,9 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <div class="info-status">
                                     <div class="data-status">
                                         <img src="../../assets/icons/icon-calendar.svg" alt="Data" />
-                                        ${o.data}
+                                        ${o.data || (o.dataCriacao ? o.dataCriacao.slice(0, 10) : "—")}
                                     </div>
-                                    <p>${o.servico}</p>
+                                    <p>${o.servico || o.queixa || "—"}</p>
                                 </div>
                             </div>
                             <div class="badge badge-atrasado">
@@ -181,9 +194,9 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <div class="info-status">
                                     <div class="data-status">
                                         <img src="../../assets/icons/icon-calendar.svg" alt="Data" />
-                                        ${o.data}
+                                        ${o.data || (o.dataCriacao ? o.dataCriacao.slice(0, 10) : "—")}
                                     </div>
-                                    <p>${o.servico}</p>
+                                    <p>${o.servico || o.queixa || "—"}</p>
                                 </div>
                             </div>
                             <div class="badge badge-concluido">
@@ -207,9 +220,9 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <div class="info-status">
                                     <div class="data-status">
                                         <img src="../../assets/icons/icon-calendar.svg" alt="Data" />
-                                        ${o.data}
+                                        ${o.data || (o.dataCriacao ? o.dataCriacao.slice(0, 10) : "—")}
                                     </div>
-                                    <p>${o.servico}</p>
+                                    <p>${o.servico || o.queixa || "—"}</p>
                                 </div>
                             </div>
                             <div class="badge" style="background-color: rgba(245, 158, 11, 0.1); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); display: flex; align-items: center; gap: 4px; padding: 4px 8px; border-radius: 999px; font-size: 12px; font-weight: 500;">
@@ -230,9 +243,9 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <div class="info-status">
                                     <div class="data-status">
                                         <img src="../../assets/icons/icon-calendar.svg" alt="Data" />
-                                        ${o.data}
+                                        ${o.data || (o.dataCriacao ? o.dataCriacao.slice(0, 10) : "—")}
                                     </div>
-                                    <p>${o.servico}</p>
+                                    <p>${o.servico || o.queixa || "—"}</p>
                                 </div>
                             </div>
                             <div class="badge badge-pendente">

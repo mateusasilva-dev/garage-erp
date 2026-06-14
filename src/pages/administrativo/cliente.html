@@ -81,7 +81,11 @@
                     <section class="cartao cartao-veiculos">
                         <div class="titulo-cartao">
                             <h2>Veículos (2)</h2>
-                            <a href="novo-veiculo.html" class="botao">
+                            <a
+                                href="novo-veiculo.html"
+                                class="botao"
+                                id="btn-add-veiculo"
+                            >
                                 <img
                                     src="../../assets/icons/icon-white-plus.svg"
                                     alt=""
@@ -197,7 +201,11 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="nova-ordem.html" class="botao botao-grande">
+                        <a
+                            href="nova-ordem.html"
+                            class="botao botao-grande"
+                            id="btn-nova-ordem"
+                        >
                             <img
                                 src="../../assets/icons/icon-white-plus.svg"
                                 alt=""
@@ -208,7 +216,9 @@
                 </div>
             </main>
         </div>
+
         <script src="../../js/components/sidebar-component.js"></script>
+        <script src="../../js/utils/migrador-storage.js"></script>
         <script src="../../js/repositories/cliente-repository.js"></script>
         <script src="../../js/controllers/cliente-controller.js"></script>
     </body>

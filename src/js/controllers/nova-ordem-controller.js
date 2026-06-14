@@ -10,7 +10,9 @@
         const campoMecanico = document.getElementById("mecanico");
         const campoQueixa = document.getElementById("queixa");
         const campoStatus = document.getElementById("status");
-        const botaoSalvar = document.querySelector(".form-actions .btn-primary");
+        const botaoSalvar = document.querySelector(
+            ".form-actions .btn-primary",
+        );
 
         dados.inicializar();
 
@@ -27,6 +29,18 @@
 
         popularClientes();
         popularMecanicos();
+
+        // Se houver clienteId na URL (vindo do perfil do cliente), seleciona automaticamente
+        const params = new URLSearchParams(window.location.search);
+        const clienteIdUrl = params.get("clienteId");
+        const veiculoIdUrl = params.get("veiculoId");
+        if (clienteIdUrl) {
+            campoCliente.value = clienteIdUrl;
+            popularVeiculos(clienteIdUrl);
+            if (veiculoIdUrl) {
+                campoVeiculo.value = veiculoIdUrl;
+            }
+        }
 
         campoCliente.addEventListener("change", function () {
             popularVeiculos(campoCliente.value);
@@ -58,7 +72,9 @@
                 campoVeiculo.disabled = true;
                 campoVeiculo.innerHTML =
                     '<option value="" disabled selected>Nenhum veículo encontrado</option>';
-                atualizarAjudaVeiculo("Nenhum veículo disponível para este cliente");
+                atualizarAjudaVeiculo(
+                    "Nenhum veículo disponível para este cliente",
+                );
                 return;
             }
 
@@ -69,12 +85,21 @@
             veiculos.forEach(function (veiculo) {
                 const option = document.createElement("option");
                 option.value = veiculo.id;
+                const marca = veiculo.marca ? veiculo.marca + " " : "";
                 option.textContent =
-                    veiculo.modelo + " - " + veiculo.placa + " (" + veiculo.ano + ")";
+                    marca +
+                    (veiculo.modelo || "Modelo não informado") +
+                    " - " +
+                    (veiculo.placa || "Sem placa") +
+                    " (" +
+                    (veiculo.ano || "N/A") +
+                    ")";
                 campoVeiculo.appendChild(option);
             });
 
-            atualizarAjudaVeiculo(veiculos.length + " veículo(s) disponível(is)");
+            atualizarAjudaVeiculo(
+                veiculos.length + " veículo(s) disponível(is)",
+            );
         }
 
         function popularMecanicos() {
@@ -133,7 +158,10 @@
             });
 
             if (!ordem) {
-                window.customAlert("Não foi possível criar a ordem de serviço.", "danger");
+                window.customAlert(
+                    "Não foi possível criar a ordem de serviço.",
+                    "danger",
+                );
                 return;
             }
 

@@ -223,7 +223,7 @@
                 function () {
                     dados.excluirOrdem(id);
                     renderizar();
-                }
+                },
             );
         });
 

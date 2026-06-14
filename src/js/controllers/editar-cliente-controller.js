@@ -48,9 +48,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const emailInput = form.querySelector('input[type="email"]');
 
     // Preenche os inputs com os dados do cliente
-    if (nomeInput) nomeInput.value = cliente.nome;
-    if (telefoneInput) telefoneInput.value = cliente.telefone;
-    if (emailInput) emailInput.value = cliente.email;
+    if (nomeInput) nomeInput.value = cliente.nome || "";
+    if (telefoneInput) telefoneInput.value = cliente.telefone || "";
+    if (emailInput) emailInput.value = cliente.email || "";
 
     // Capitalização inteligente do nome em tempo real (Title Case)
     if (nomeInput) {

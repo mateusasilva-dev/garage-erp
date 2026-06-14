@@ -19,12 +19,10 @@
             rel="stylesheet"
             href="../../css/pages/proprietario/dashboard.css"
         />
-        
-        
-        
+
         <script src="../../js/utils/formatters.js"></script>
-    <script src="../../js/components/alert-ui-utils.js"></script>
-    <script src="../../js/services/auth-service.js"></script>
+        <script src="../../js/components/alert-ui-utils.js"></script>
+        <script src="../../js/services/auth-service.js"></script>
     </head>
     <body data-perfil-permitido="proprietario">
         <div class="app-layout">
@@ -56,7 +54,10 @@
                                 />
                                 <p>Relatórios</p>
                             </a>
-                            <a href="nova-ordem.html" class="header-newOS button">
+                            <a
+                                href="nova-ordem.html"
+                                class="header-newOS button"
+                            >
                                 <img
                                     src="../../assets/icons/icon-white-plus.svg"
                                     alt=""
@@ -67,7 +68,6 @@
                     </div>
                 </header>
                 <main class="main-content">
-
                     <!--Alert-Container-->
                     <div class="alert-container">
                         <div class="alert-icon">
@@ -82,7 +82,11 @@
                             <p class="alert-detail">
                                 Verifique suas ordens atrasadas
                             </p>
-                            <a href="../proprietario/listar-ordens.html" class="button">Ver Ordens Atrasadas</a>
+                            <a
+                                href="../proprietario/listar-ordens.html"
+                                class="button"
+                                >Ver Ordens Atrasadas</a
+                            >
                         </div>
                     </div>
 
@@ -143,7 +147,10 @@
                                     <p class="card-title">
                                         Concluídos (7 dias)
                                     </p>
-                                    <p class="card-number" id="num-concluido"></p>
+                                    <p
+                                        class="card-number"
+                                        id="num-concluido"
+                                    ></p>
                                     <!--Alterar para Javascript-->
                                     <p class="card-detail">Últimos 7 dias</p>
                                 </div>
@@ -290,7 +297,10 @@
                                             <p class="faturamento-texto">
                                                 Faturamento Estimado
                                             </p>
-                                            <p class="faturamento-valor" id="faturamento-estimado">
+                                            <p
+                                                class="faturamento-valor"
+                                                id="faturamento-estimado"
+                                            >
                                                 R$ 0,00
                                             </p>
                                             <!--Alterar para Javascript-->
@@ -302,7 +312,10 @@
                                             <p class="faturamento-texto">
                                                 Ticket Médio
                                             </p>
-                                            <p class="faturamento-valor" id="ticket-medio">
+                                            <p
+                                                class="faturamento-valor"
+                                                id="ticket-medio"
+                                            >
                                                 R$ 0,00
                                             </p>
                                             <!--Alterar para Javascript-->
@@ -315,7 +328,12 @@
                                         <p class="faturamento-texto">
                                             Receita Total (Concluído)
                                         </p>
-                                        <p class="receita-valor" id="receita-total">R$ 0,00</p>
+                                        <p
+                                            class="receita-valor"
+                                            id="receita-total"
+                                        >
+                                            R$ 0,00
+                                        </p>
                                         <!--Alterar para Javascript-->
                                     </div>
                                 </div>
@@ -325,8 +343,10 @@
                             <div class="relatorio-titulo">
                                 <h2>Atividade Recente</h2>
                             </div>
-                            <div class="recente-container" id="atividades-recentes">
-                            </div>
+                            <div
+                                class="recente-container"
+                                id="atividades-recentes"
+                            ></div>
                         </div>
                     </div>
                     <!--Ações Rápidas-->

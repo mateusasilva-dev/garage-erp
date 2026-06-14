@@ -19,12 +19,10 @@
             rel="stylesheet"
             href="../../css/pages/proprietario/novo-veiculo.css"
         />
-        
-        
-        
+
         <script src="../../js/utils/formatters.js"></script>
-    <script src="../../js/components/alert-ui-utils.js"></script>
-    <script src="../../js/services/auth-service.js"></script>
+        <script src="../../js/components/alert-ui-utils.js"></script>
+        <script src="../../js/services/auth-service.js"></script>
     </head>
     <body data-perfil-permitido="proprietario">
         <div class="app-layout">
@@ -58,11 +56,7 @@
                     </div>
                     <div class="form-group">
                         <label for="cliente">Cliente *</label>
-                        <select
-                            id="cliente"
-                            class="form-control"
-                            required
-                        >
+                        <select id="cliente" class="form-control" required>
                             <option value="" disabled selected>
                                 Selecione o cliente...
                             </option>
@@ -127,9 +121,10 @@
             </main>
         </div>
 
+        <script src="../../js/components/sidebar-component.js"></script>
+        <script src="../../js/utils/migrador-storage.js"></script>
         <script src="../../js/repositories/cliente-repository.js"></script>
         <script src="../../js/repositories/veiculo-repository.js"></script>
         <script src="../../js/controllers/novo-veiculo-controller.js"></script>
-        <script src="../../js/components/sidebar-component.js"></script>
     </body>
 </html>

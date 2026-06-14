@@ -2,28 +2,22 @@ console.log(GarageOrdens.listarOrdens());
 
 const ordens = GarageOrdens.listarOrdens();
 
-const ultimasOrdens = ordens.slice(0,5);
+const ultimasOrdens = ordens.slice(0, 5);
 
 const total = ordens.length;
 
-const concluido = ordens.filter(
-    ordem => ordem.status === "concluido"
-).length;
+const concluido = ordens.filter((ordem) => ordem.status === "concluido").length;
 
 const em_andamento = ordens.filter(
-    ordem => ordem.status === "em_andamento"
+    (ordem) => ordem.status === "em_andamento",
 ).length;
 
-const pendente = ordens.filter(
-    ordem => ordem.status === "pendente"
-).length;
+const pendente = ordens.filter((ordem) => ordem.status === "pendente").length;
 
-const atrasado = ordens.filter(
-    ordem => ordem.status === "atrasado"
-).length;
+const atrasado = ordens.filter((ordem) => ordem.status === "atrasado").length;
 
 function Porcentagem(valor, total) {
-    if(total === 0){
+    if (total === 0) {
         return 0;
     }
     return (valor / total) * 100;
@@ -100,17 +94,17 @@ AtualizarBarra("pendente", pendente, total);
 AtualizarBarra("atrasado", atrasado, total);
 
 const receitaTotal = ordens
-    .filter(ordem => ordem.status === "concluido")
+    .filter((ordem) => ordem.status === "concluido")
     .reduce((total, ordem) => {
         return total + GarageOrdens.obterTotal(ordem);
     }, 0);
 
 const faturamentoEstimado = ordens
-    .filter(ordem =>
-        ordem.status === "pendente" ||
-        ordem.status === "em_andamento"
+    .filter(
+        (ordem) =>
+            ordem.status === "pendente" || ordem.status === "em_andamento",
     )
-    .reduce((total, ordem) => { 
+    .reduce((total, ordem) => {
         return total + GarageOrdens.obterTotal(ordem);
     }, 0);
 
@@ -118,63 +112,59 @@ const receitaElemento = document.getElementById("receita-total");
 const faturamentoElemento = document.getElementById("faturamento-estimado");
 const ticketElemento = document.getElementById("ticket-medio");
 
-if(receitaElemento){
-    receitaElemento.textContent =
-        GarageOrdens.formatarMoeda(receitaTotal);
+if (receitaElemento) {
+    receitaElemento.textContent = GarageOrdens.formatarMoeda(receitaTotal);
 }
 
-if(faturamentoElemento){
+if (faturamentoElemento) {
     faturamentoElemento.textContent =
         GarageOrdens.formatarMoeda(faturamentoEstimado);
 }
 
-const ticketMedio = 
-    concluido > 0 ? receitaTotal / concluido : 0;
+const ticketMedio = concluido > 0 ? receitaTotal / concluido : 0;
 
-if(ticketElemento){
-    ticketElemento.textContent = 
-        GarageOrdens.formatarMoeda(ticketMedio);
+if (ticketElemento) {
+    ticketElemento.textContent = GarageOrdens.formatarMoeda(ticketMedio);
 }
 
 const estados = {
-        concluido: {
-            img: "../../assets/icons/icon-green-check-circle.svg",
-            texto: "Concluído",
-        },
-        em_andamento: {
-            img: "../../assets/icons/icon-orange-clock.svg",
-            texto: "Em andamento",
-        },
-        atrasado: {
-            img: "../../assets/icons/icon-red-warning-circle.svg",
-            texto: "Atrasado",
-        },
-        pendente: {
-            img: "../../assets/icons/icon-blue-file.svg",
-            texto: "Pendente",
-        },
-    };
+    concluido: {
+        img: "../../assets/icons/icon-green-check-circle.svg",
+        texto: "Concluído",
+    },
+    em_andamento: {
+        img: "../../assets/icons/icon-orange-clock.svg",
+        texto: "Em andamento",
+    },
+    atrasado: {
+        img: "../../assets/icons/icon-red-warning-circle.svg",
+        texto: "Atrasado",
+    },
+    pendente: {
+        img: "../../assets/icons/icon-blue-file.svg",
+        texto: "Pendente",
+    },
+};
 
 function AtualizarStatus(id, numeroOS, status) {
     const container = document.getElementById("status-os-" + id);
     const img = document.getElementById("img-status-" + id);
     const text = document.getElementById("status-texto-" + id);
     const number = document.getElementById("numero-os-" + id);
-    if(number) number.textContent = `OS #${numeroOS}`;
-    if(container) container.className = "OS-status " + status;
+    if (number) number.textContent = `OS #${numeroOS}`;
+    if (container) container.className = "OS-status " + status;
 
-    if(img && estados[status]) img.src = estados[status].img;
-    if(text && estados[status]) text.textContent = estados[status].texto;
+    if (img && estados[status]) img.src = estados[status].img;
+    if (text && estados[status]) text.textContent = estados[status].texto;
 }
 
 const container = document.getElementById("atividades-recentes");
-    if (container) {
-        container.innerHTML = "";
-        ultimasOrdens.forEach(ordem => {
+if (container) {
+    container.innerHTML = "";
+    ultimasOrdens.forEach((ordem) => {
+        const estado = estados[ordem.status];
 
-            const estado = estados[ordem.status];
-
-            container.innerHTML += `
+        container.innerHTML += `
             <a href="ordem.html?id=${ordem.id}" class="recente-OS-link">
                 <div class="recente-OS">
                     <div class="numero-status">
@@ -199,14 +189,13 @@ const container = document.getElementById("atividades-recentes");
                 </div>
             </a>
                     `;
-        });
-            container.innerHTML += `
+    });
+    container.innerHTML += `
             <a href="listar-ordens.html" class="todas-ordens-button button">
                 <p>Ver Todas as Ordens</p>
             </a>
             `;
-    }
-
+}
 
 //Dashboard Mecanico
 
@@ -228,7 +217,7 @@ const statusMap = {
     atrasado: {
         texto: "Atrasado",
         icone: "../../assets/icons/icon-red-warning-circle.svg",
-        botao: "Ver Serviço",
+        botao: "Ver Detalhes",
         botaoClasse: "b-atrasado",
     },
     concluido: {
@@ -239,44 +228,48 @@ const statusMap = {
     },
 };
 
-containerMecanico.innerHTML = "";
+if (containerMecanico) {
+    containerMecanico.innerHTML = "";
 
-ordens.forEach(ordem => {
-    const status = statusMap[ordem.status];
+    ordens.forEach((ordem) => {
+        const status = statusMap[ordem.status] || statusMap.pendente;
 
-    containerMecanico.innerHTML += `
-        <div class="order-card">
-            <div class="order-info">
-                <div class="order-status-container">
-                    <div class="order-status" id="${ordem.status}">
-                        <img src="${status.icone}" alt="Status" />
-                        <p>${status.texto}</p>
+        containerMecanico.innerHTML += `
+            <a href="ordem.html?id=${ordem.id}" class="order-card-link" style="text-decoration: none; color: inherit;">
+                <div class="order-card">
+                    <div class="order-info">
+                        <div class="order-status-container">
+                            <div class="order-status" id="${ordem.status}">
+                                <img src="${status.icone}" alt="Status" />
+                                <p>${status.texto}</p>
+                            </div>
+
+                            <p class="order-numero">
+                                OS #${ordem.id}
+                            </p>
+                        </div>
+
+                        <div class="order-detail">
+                            <p class="order-client">
+                                ${ordem.cliente.nome}
+                            </p>
+
+                            <p class="order-car">
+                                🚗 ${ordem.veiculo.modelo} - ${ordem.veiculo.placa}
+                            </p>
+
+                            <p class="order-detail">
+                                <strong>Serviços:</strong>
+                                ${ordem.queixa}
+                            </p>
+                        </div>
                     </div>
 
-                    <p class="order-numero">
-                        OS #${ordem.id}
-                    </p>
+                    <div class="button ${status.botaoClasse}">
+                        ${status.botao}
+                    </div>
                 </div>
-
-                <div class="order-detail">
-                    <p class="order-client">
-                        ${ordem.cliente.nome}
-                    </p>
-
-                    <p class="order-car">
-                        🚗 ${ordem.veiculo.modelo} - ${ordem.veiculo.placa}
-                    </p>
-
-                    <p class="order-detail">
-                        <strong>Serviços:</strong>
-                        ${ordem.queixa}
-                    </p>
-                </div>
-            </div>
-
-            <a href="ordem.html?id=${ordem.id}" class="button ${status.botaoClasse}">
-                ${status.botao}
             </a>
-        </div>
-    `;
-});
+        `;
+    });
+}

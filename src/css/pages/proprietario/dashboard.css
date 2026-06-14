@@ -44,7 +44,7 @@ ge-sidebar:not(:defined) {
         gap: 56px;
     }
 
-    .principal{
+    .principal {
         margin-top: 37px;
     }
 
@@ -65,7 +65,7 @@ ge-sidebar:not(:defined) {
     flex-direction: column;
     align-items: flex-start;
     gap: 24px;
-    padding: 16px;
+    padding: 32px;
 }
 
 .button {
@@ -80,7 +80,7 @@ ge-sidebar:not(:defined) {
 
 /* Header */
 
-header{
+header {
     width: 100%;
 }
 
@@ -164,11 +164,11 @@ header{
 }
 
 @media (max-width: 1024px) {
-    .principal{
+    .principal {
         padding: 0;
     }
 
-    header{
+    header {
         padding: 16px;
     }
 

@@ -19,12 +19,10 @@
             rel="stylesheet"
             href="../../css/pages/proprietario/relatorio.css"
         />
-        
-        
-        
+
         <script src="../../js/utils/formatters.js"></script>
-    <script src="../../js/components/alert-ui-utils.js"></script>
-    <script src="../../js/services/auth-service.js"></script>
+        <script src="../../js/components/alert-ui-utils.js"></script>
+        <script src="../../js/services/auth-service.js"></script>
     </head>
     <body data-perfil-permitido="proprietario">
         <div class="app-layout">
@@ -136,8 +134,10 @@
                                 </div>
                                 <div class="card-text">
                                     <p class="card-title">Receita Total</p>
-                                    <p class="card-number" id="num-receita-total">
-                                    </p>
+                                    <p
+                                        class="card-number"
+                                        id="num-receita-total"
+                                    ></p>
                                     <!--Alterar para Javascript-->
                                 </div>
                             </div>
@@ -152,7 +152,10 @@
                                 </div>
                                 <div class="card-text">
                                     <p class="card-title">Receita Média</p>
-                                    <p class="card-number" id="num-receita-media"></p>
+                                    <p
+                                        class="card-number"
+                                        id="num-receita-media"
+                                    ></p>
                                     <!--Alterar para Javascript-->
                                 </div>
                             </div>
@@ -264,7 +267,10 @@
                                 />
                                 <h2>Clientes mais frequentes</h2>
                             </div>
-                            <div class="frequency-body" id="lista-clientes-frequentes"></div>
+                            <div
+                                class="frequency-body"
+                                id="lista-clientes-frequentes"
+                            ></div>
                         </div>
                         <div class="frequency-container-inside">
                             <div class="frequency-title">
@@ -274,13 +280,16 @@
                                 />
                                 <h2>Veiculos com Mais Manutencoes</h2>
                             </div>
-                            <div class="frequency-body" id="lista-veiculos-frequentes">
-                            </div>
+                            <div
+                                class="frequency-body"
+                                id="lista-veiculos-frequentes"
+                            ></div>
                         </div>
                     </div>
                 </main>
             </div>
         </div>
+
         <script src="../../js/components/sidebar-component.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="../../js/repositories/cliente-repository.js"></script>

@@ -1,6 +1,108 @@
-<!doctype html><html lang="pt-BR">    <head>        <meta charset="UTF-8" />        <meta name="viewport" content="width=device-width, initial-scale=1.0" />        <title>Novo Cliente - GarageERP</title>        <link            rel="icon"            href="../../assets/img/favicon-garageerp.png"            type="image/png"        />        <link rel="preconnect" href="https://fonts.googleapis.com" />        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />        <link            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"            rel="stylesheet"        />        <link            rel="stylesheet"            href="../../css/pages/proprietario/novo-cliente.css"        />        
-        
-                <script src="../../js/utils/formatters.js"></script>
-    <script src="../../js/components/alert-ui-utils.js"></script>
-    <script src="../../js/services/auth-service.js"></script>
-    </head>    <body data-perfil-permitido="proprietario">        <div class="app-layout">            <ge-sidebar                user-name="Carlos Silva"                role="Proprietário"                type="proprietario"            >            </ge-sidebar>            <main class="main-content">                <a href="listar-clientes.html" class="link-voltar">                    <img                        src="../../assets/icons/icon-left-arrow.svg"                        alt="Voltar"                    />                    Voltar para Clientes                </a>                <form class="card-edicao">                    <div>                        <h1>Novo Cliente</h1>                        <p class="subtitulo">                            Preencha os dados do novo cliente                        </p>                    </div>                    <div class="alerta-info">                        <img                            src="../../assets/icons/icon-blue-user.svg"                            alt=""                        />                        <span                            >Preencha os dados do cliente. Todos os campos são                            obrigatórios.</span                        >                    </div>                    <div class="input-box">                        <label>Nome Completo *</label>                        <input                            placeholder="Digite o nome completo"                            type="text"                        />                        <p class="ajuda">Nome que aparecerá nos registros</p>                    </div>                    <div class="input-box">                        <label>Telefone *</label>                        <input placeholder="(00) 00000-0000" type="tel" />                        <p class="ajuda">Telefone para contato</p>                    </div>                    <div class="input-box">                        <label>Email *</label>                        <input placeholder="exemplo@email.com" type="email" />                        <p class="ajuda">Email para notificações</p>                    </div>                    <div class="acoes-form">                        <button type="button" class="btn-cancelar">                            Cancelar                        </button>                        <button type="submit" class="btn-atualizar">                            <img                                src="../../assets/icons/icon-save.svg"                                alt=""                            />                            Cadastrar Cliente                        </button>                    </div>                    <div class="proximos-passos">                        <p class="titulo-passos">                            Próximos passos após cadastrar:                        </p>                        <div class="item-passo">                            <img src="../../assets/icons/icon-car.svg" alt="" />                            <span>Cadastrar veículo do cliente</span>                        </div>                    </div>                </form>            </main>        </div>        <script src="../../js/components/sidebar-component.js"></script>        <script src="../../js/repositories/cliente-repository.js"></script>        <script src="../../js/controllers/novo-cliente-controller.js"></script>    </body></html>
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Novo Cliente - GarageERP</title>
+        <link
+            rel="icon"
+            href="../../assets/img/favicon-garageerp.png"
+            type="image/png"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="../../css/pages/proprietario/novo-cliente.css"
+        />
+
+        <script src="../../js/utils/formatters.js"></script>
+        <script src="../../js/components/alert-ui-utils.js"></script>
+        <script src="../../js/services/auth-service.js"></script>
+    </head>
+    <body data-perfil-permitido="proprietario">
+        <div class="app-layout">
+            <ge-sidebar
+                user-name="Carlos Silva"
+                role="Proprietário"
+                type="proprietario"
+            >
+            </ge-sidebar>
+            <main class="main-content">
+                <a href="listar-clientes.html" class="link-voltar">
+                    <img
+                        src="../../assets/icons/icon-left-arrow.svg"
+                        alt="Voltar"
+                    />
+                    Voltar para Clientes
+                </a>
+                <form class="card-edicao">
+                    <div>
+                        <h1>Novo Cliente</h1>
+                        <p class="subtitulo">
+                            Preencha os dados do novo cliente
+                        </p>
+                    </div>
+                    <div class="alerta-info">
+                        <img
+                            src="../../assets/icons/icon-blue-user.svg"
+                            alt=""
+                        />
+                        <span
+                            >Preencha os dados do cliente. Todos os campos são
+                            obrigatórios.</span
+                        >
+                    </div>
+                    <div class="input-box">
+                        <label>Nome Completo *</label>
+                        <input
+                            placeholder="Digite o nome completo"
+                            type="text"
+                        />
+                        <p class="ajuda">Nome que aparecerá nos registros</p>
+                    </div>
+                    <div class="input-box">
+                        <label>Telefone *</label>
+                        <input placeholder="(00) 00000-0000" type="tel" />
+                        <p class="ajuda">Telefone para contato</p>
+                    </div>
+                    <div class="input-box">
+                        <label>Email *</label>
+                        <input placeholder="exemplo@email.com" type="email" />
+                        <p class="ajuda">Email para notificações</p>
+                    </div>
+                    <div class="acoes-form">
+                        <button type="button" class="btn-cancelar">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="btn-atualizar">
+                            <img
+                                src="../../assets/icons/icon-save.svg"
+                                alt=""
+                            />
+                            Cadastrar Cliente
+                        </button>
+                    </div>
+                    <div class="proximos-passos">
+                        <p class="titulo-passos">
+                            Próximos passos após cadastrar:
+                        </p>
+                        <div class="item-passo">
+                            <img src="../../assets/icons/icon-car.svg" alt="" />
+                            <span>Cadastrar veículo do cliente</span>
+                        </div>
+                    </div>
+                </form>
+            </main>
+        </div>
+
+        <script src="../../js/components/sidebar-component.js"></script>
+        <script src="../../js/utils/migrador-storage.js"></script>
+        <script src="../../js/repositories/cliente-repository.js"></script>
+        <script src="../../js/controllers/novo-cliente-controller.js"></script>
+    </body>
+</html>

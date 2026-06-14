@@ -1,50 +1,44 @@
-const VeiculoStorage = {
-    Salvar(veiculo) {
-        const veiculos = JSON.parse(localStorage.getItem("veiculos")) || [];
+/**
+ * Repositório de Veículos - GarageERP
+ *
+ * Gerencia a persistência e lógica de negócio dos veículos
+ * usando o storage unificado "garageerp_ordens_dados".
+ */
 
-        veiculo.id = Date.now().toString();
+(function () {
+    /**
+     * Repositório de Veículos - GarageERP
+     *
+     * Refatorado para delegar ao ClienteStorage, unificando a fonte de verdade.
+     */
+    const VeiculoStorage = {
+        Salvar(veiculo) {
+            // Delega para o ClienteStorage que já lida com o ID e Storage Unificado corretamente
+            return window.ClienteStorage.adicionarVeiculo(
+                veiculo.clienteId,
+                veiculo,
+            );
+        },
 
-        veiculos.push(veiculo);
+        Listar() {
+            return window.ClienteStorage.listarVeiculos();
+        },
 
-        localStorage.setItem("veiculos", JSON.stringify(veiculos));
-    },
+        Buscar(id) {
+            return window.ClienteStorage.buscarVeiculo(id);
+        },
 
-    Listar() {
-        return JSON.parse(localStorage.getItem("veiculos")) || [];
-    },
+        Atualizar(veiculoAtualizado) {
+            return window.ClienteStorage.atualizarVeiculo(
+                veiculoAtualizado.id,
+                veiculoAtualizado,
+            );
+        },
 
-    Buscar(id) {
-        const veiculos = this.Listar();
+        Excluir(id) {
+            return window.ClienteStorage.excluirVeiculo(id);
+        },
+    };
 
-        return veiculos.find(
-            (veiculo) => String(veiculo.id) === String(id)
-        );
-    },
-
-    Atualizar(veiculoAtualizado) {
-        const veiculos = this.Listar();
-
-        const indice = veiculos.findIndex(
-            (veiculo) =>
-                String(veiculo.id) === String(veiculoAtualizado.id)
-        );
-
-        if (indice !== -1) {
-            veiculos[indice] = veiculoAtualizado;
-
-            localStorage.setItem("veiculos", JSON.stringify(veiculos));
-        }
-    },
-
-    Excluir(id) {
-        const veiculos = this.Listar();
-
-        const filtrados = veiculos.filter(
-            (veiculo) => String(veiculo.id) !== String(id)
-        );
-
-        localStorage.setItem("veiculos", JSON.stringify(filtrados));
-    },
-};
-
-window.VeiculoStorage = VeiculoStorage;
+    window.VeiculoStorage = VeiculoStorage;
+})();

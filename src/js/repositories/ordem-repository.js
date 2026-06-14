@@ -78,44 +78,50 @@
             {
                 id: 1,
                 clienteId: 1,
-                modelo: "Volkswagen Gol",
+                marca: "Volkswagen",
+                modelo: "Gol",
                 placa: "ABC-1234",
                 ano: 2020,
             },
             {
                 id: 2,
                 clienteId: 2,
-                modelo: "Fiat Uno",
+                marca: "Fiat",
+                modelo: "Uno",
                 placa: "DEF-5678",
                 ano: 2019,
             },
             {
                 id: 3,
                 clienteId: 3,
-                modelo: "Chevrolet Onix",
+                marca: "Chevrolet",
+                modelo: "Onix",
                 placa: "GHI-9012",
                 ano: 2021,
             },
             {
                 id: 4,
                 clienteId: 1,
-                modelo: "Honda Civic",
+                marca: "Honda",
+                modelo: "Civic",
                 placa: "JKL-3456",
                 ano: 2022,
             },
             {
                 id: 5,
                 clienteId: 4,
-                modelo: "Volkswagen Gol",
+                marca: "Volkswagen",
+                modelo: "Gol",
                 placa: "ABC-1234",
                 ano: 2020,
             },
             {
                 id: 6,
                 clienteId: 5,
-                modelo: "Fiat Uno",
-                placa: "DEF-5678",
-                ano: 2019,
+                marca: "Chevrolet",
+                modelo: "Celta",
+                placa: "XYZ-9876",
+                ano: 2015,
             },
         ];
 
@@ -313,16 +319,21 @@
     function listarOrdens() {
         const dados = obterDados();
         return dados.ordens.slice().sort(function (a, b) {
-            return b.id - a.id;
+            // FIX: ordena numericamente quando possível, mantendo estabilidade para IDs string
+            const na = Number(a.id),
+                nb = Number(b.id);
+            if (!isNaN(na) && !isNaN(nb)) return nb - na;
+            return String(b.id).localeCompare(String(a.id));
         });
     }
 
     function obterOrdem(id) {
-        const numeroId = Number(id);
+        // FIX: comparação por String para suportar IDs numéricos e string
+        const sid = String(id);
         const dados = obterDados();
 
         return dados.ordens.find(function (ordem) {
-            return ordem.id === numeroId;
+            return String(ordem.id) === sid;
         });
     }
 
@@ -331,9 +342,11 @@
     }
 
     function obterVeiculosPorCliente(clienteId) {
-        const numeroClienteId = Number(clienteId);
+        // FIX: comparação por String para suportar IDs numéricos legados (1, 2…)
+        // e IDs prefixados criados pelo novo ClienteStorage (cli_6, cli_7…)
+        const sidCliente = String(clienteId);
         return obterDados().veiculos.filter(function (veiculo) {
-            return veiculo.clienteId === numeroClienteId;
+            return String(veiculo.clienteId) === sidCliente;
         });
     }
 
@@ -343,11 +356,14 @@
 
     function criarOrdem(dadosFormulario) {
         const dados = obterDados();
+        // FIX: comparação por String para suportar IDs numéricos legados e prefixados (vei_*, cli_*)
+        const sidCliente = String(dadosFormulario.clienteId);
+        const sidVeiculo = String(dadosFormulario.veiculoId);
         const cliente = dados.clientes.find(function (item) {
-            return item.id === Number(dadosFormulario.clienteId);
+            return String(item.id) === sidCliente;
         });
         const veiculo = dados.veiculos.find(function (item) {
-            return item.id === Number(dadosFormulario.veiculoId);
+            return String(item.id) === sidVeiculo;
         });
 
         if (!cliente || !veiculo) {
@@ -355,10 +371,15 @@
         }
 
         const agora = new Date().toISOString();
-        const proximoId =
-            dados.ordens.reduce(function (maiorId, ordem) {
-                return Math.max(maiorId, ordem.id);
-            }, 0) + 1;
+        // FIX: gera um ID de ordem único via Date.now para não colidir com IDs
+        // numéricos sequenciais dos dados mockados (1-6) nem com IDs futuros
+        const proximoId = (function () {
+            const maxNumerico = dados.ordens.reduce(function (maiorId, ordem) {
+                const n = Number(ordem.id);
+                return isNaN(n) ? maiorId : Math.max(maiorId, n);
+            }, 0);
+            return maxNumerico + 1;
+        })();
 
         const ordem = {
             id: proximoId,
@@ -392,8 +413,9 @@
             return null;
         }
 
+        // FIX: comparação por String para suportar IDs numéricos e prefixados
         const veiculo = dados.veiculos.find(function (item) {
-            return item.id === Number(campos.veiculoId);
+            return String(item.id) === String(campos.veiculoId);
         });
 
         if (veiculo) {
@@ -421,11 +443,12 @@
 
     function excluirOrdem(id) {
         const dados = obterDados();
-        const numeroId = Number(id);
+        const sid = String(id); // FIX: usar String
         const quantidadeAnterior = dados.ordens.length;
 
         dados.ordens = dados.ordens.filter(function (ordem) {
-            return ordem.id !== numeroId;
+            // FIX: comparação por String
+            return String(ordem.id) !== sid;
         });
 
         salvarDados(dados);
@@ -512,10 +535,50 @@
         return ordem;
     }
 
+    function editarServico(id, servicoId, dadosServico) {
+        const dados = obterDados();
+        const ordem = encontrarOrdem(dados, id);
+
+        if (!ordem || !dadosServico.descricao) {
+            return null;
+        }
+
+        const servico = ordem.servicos.find(function (s) {
+            return s.id === Number(servicoId);
+        });
+
+        if (!servico) {
+            return null;
+        }
+
+        servico.descricao = dadosServico.descricao;
+        servico.pecas = Number(dadosServico.pecas) || 0;
+        servico.maoObra = Number(dadosServico.maoObra) || 0;
+
+        // Se novas fotos foram enviadas, atualizamos. Se for null/undefined mantemos as atuais.
+        if (Array.isArray(dadosServico.fotos)) {
+            servico.fotos = dadosServico.fotos.map(function (foto) {
+                return {
+                    id: foto.id,
+                    nome: foto.nome,
+                    tipo: foto.tipo,
+                    dados: foto.dados,
+                };
+            });
+        }
+
+        ordem.dataAtualizacao = new Date().toISOString();
+        adicionarHistorico(ordem, "Serviço realizado atualizado");
+        salvarDados(dados);
+
+        return ordem;
+    }
+
     function encontrarOrdem(dados, id) {
-        const numeroId = Number(id);
+        // FIX: comparação por String para suportar IDs antigos (Number) e novos (String)
+        const sid = String(id);
         return dados.ordens.find(function (ordem) {
-            return ordem.id === numeroId;
+            return String(ordem.id) === sid;
         });
     }
 
@@ -532,6 +595,7 @@
         return {
             id: veiculo.id,
             clienteId: veiculo.clienteId,
+            marca: veiculo.marca,
             modelo: veiculo.modelo,
             placa: veiculo.placa,
             ano: veiculo.ano,
@@ -589,7 +653,11 @@
 
     function obterTotal(ordem) {
         return ordem.servicos.reduce(function (total, servico) {
-            return total + Number(servico.pecas || 0) + Number(servico.maoObra || 0);
+            return (
+                total +
+                Number(servico.pecas || 0) +
+                Number(servico.maoObra || 0)
+            );
         }, 0);
     }
 
@@ -618,6 +686,7 @@
         alterarStatus: alterarStatus,
         adicionarServico: adicionarServico,
         excluirServico: excluirServico,
+        editarServico: editarServico,
         obterStatus: obterStatus,
         normalizarStatus: normalizarStatus,
         formatarDataCurta: formatarDataCurta,
@@ -628,4 +697,7 @@
         escaparHtml: escaparHtml,
         obterParametroId: obterParametroId,
     };
+
+    // Inicializa os dados mockados se o storage estiver vazio assim que o script é carregado
+    inicializar();
 })();

@@ -8,7 +8,7 @@
         const id = dados.obterParametroId();
         const perfil = document.body.dataset.perfilPermitido;
         const LIMITE_FOTOS = 5;
-        const LIMITE_TAMANHO_FOTO = 500 * 1024;
+        const LIMITE_TAMANHO_FOTO = 5 * 1024 * 1024; // 5 MB
         const TIPOS_FOTO_PERMITIDOS = [
             "image/png",
             "image/jpeg",
@@ -16,6 +16,7 @@
             "image/webp",
         ];
         let fotosSelecionadas = [];
+        let servicoSendoEditadoId = null;
         const container =
             perfil === "mecanico"
                 ? document.querySelector(".main-content")
@@ -89,9 +90,28 @@
         }
 
         function criarHtmlMecanico(ordem) {
+            let botaoTransicao = "";
+            if (ordem.status === "pendente") {
+                botaoTransicao = `
+                    <button type="button" class="botao" data-alterar-status="em_andamento">
+                        <img src="../../assets/icons/icon-play.svg" alt="" class="icone-botao" />
+                        Iniciar Serviço
+                    </button>
+                `;
+            } else if (ordem.status === "em_andamento") {
+                botaoTransicao = `
+                    <button type="button" class="botao botao-concluido" data-alterar-status="concluido">
+                        <img src="../../assets/icons/icon-white-check-circle.svg" alt="" class="icone-botao" />
+                        Concluir Serviço
+                    </button>
+                `;
+            }
+
             return (
                 criarVoltar() +
                 '<div class="cartao topo-ordem">' +
+                '<div class="cabecalho-ordem" style="display: flex; justify-content: space-between; align-items: flex-start;">' +
+                "<div>" +
                 "<h1>Ordem de Serviço #" +
                 ordem.id +
                 " " +
@@ -101,10 +121,17 @@
                 dados.formatarDataCompleta(ordem.dataCriacao) +
                 "</p>" +
                 "</div>" +
+                (botaoTransicao
+                    ? '<div class="acoes-ordem">' + botaoTransicao + "</div>"
+                    : "") +
+                "</div>" +
+                "</div>" +
                 criarInformacoes(ordem, false) +
                 criarQueixa(ordem) +
                 criarServicosMecanico(ordem) +
-                criarFormularioServicoMecanico() +
+                (ordem.status === "em_andamento"
+                    ? criarFormularioServicoMecanico()
+                    : "") +
                 criarHistorico(ordem)
             );
         }
@@ -119,7 +146,12 @@
         }
 
         function criarPainelStatus(ordem) {
-            const status = ["pendente", "em_andamento", "concluido", "atrasado"];
+            const status = [
+                "pendente",
+                "em_andamento",
+                "concluido",
+                "atrasado",
+            ];
             const botoes = status
                 .map(function (item) {
                     const info = dados.obterStatus(item);
@@ -156,6 +188,21 @@
         }
 
         function criarInformacoes(ordem, mostrarLinks) {
+            // Busca dados atualizados dos repositórios
+            const veiculoAtual =
+                window.VeiculoStorage &&
+                typeof window.VeiculoStorage.Buscar === "function"
+                    ? window.VeiculoStorage.Buscar(ordem.veiculo.id)
+                    : null;
+            const clienteAtual =
+                window.ClienteStorage &&
+                typeof window.ClienteStorage.obterPorId === "function"
+                    ? window.ClienteStorage.obterPorId(ordem.cliente.id)
+                    : null;
+
+            const veiculoExibir = veiculoAtual || ordem.veiculo;
+            const clienteExibir = clienteAtual || ordem.cliente;
+
             return (
                 '<div class="grade-duas-colunas">' +
                 '<div class="cartao">' +
@@ -166,19 +213,19 @@
                 "</div>" +
                 "<div>" +
                 "<p>" +
-                dados.escaparHtml(ordem.cliente.nome) +
+                dados.escaparHtml(clienteExibir.nome) +
                 "</p>" +
                 "<span>" +
-                dados.escaparHtml(ordem.cliente.email) +
+                dados.escaparHtml(clienteExibir.email) +
                 "</span>" +
                 "<span>" +
-                dados.escaparHtml(ordem.cliente.telefone) +
+                dados.escaparHtml(clienteExibir.telefone) +
                 "</span>" +
                 "</div>" +
                 "</div>" +
                 (mostrarLinks
                     ? '<a href="cliente.html?id=' +
-                      ordem.cliente.id +
+                      clienteExibir.id +
                       '" class="link-simples">Ver Perfil do Cliente</a>'
                     : "") +
                 "</div>" +
@@ -190,19 +237,24 @@
                 "</div>" +
                 "<div>" +
                 "<p>" +
-                dados.escaparHtml(ordem.veiculo.modelo) +
+                (veiculoExibir.marca
+                    ? dados.escaparHtml(veiculoExibir.marca) + " "
+                    : "") +
+                dados.escaparHtml(
+                    veiculoExibir.modelo || "Modelo não informado",
+                ) +
                 "</p>" +
                 "<span>" +
-                dados.escaparHtml(ordem.veiculo.placa) +
+                dados.escaparHtml(veiculoExibir.placa || "Sem placa") +
                 "</span>" +
                 "<span>Ano: " +
-                dados.escaparHtml(ordem.veiculo.ano) +
+                dados.escaparHtml(veiculoExibir.ano || "N/A") +
                 "</span>" +
                 "</div>" +
                 "</div>" +
                 (mostrarLinks
                     ? '<a href="veiculo.html?id=' +
-                      ordem.veiculo.id +
+                      veiculoExibir.id +
                       '" class="link-simples">Ver Histórico do Veículo</a>'
                     : "") +
                 "</div>" +
@@ -211,7 +263,8 @@
         }
 
         function criarQueixa(ordem) {
-            const classeCampo = perfil === "mecanico" ? "campo-azul" : "campo campo-azul";
+            const classeCampo =
+                perfil === "mecanico" ? "campo-azul" : "campo campo-azul";
 
             return (
                 '<div class="cartao">' +
@@ -247,7 +300,8 @@
         }
 
         function criarServicoGestao(servico, indice) {
-            const total = Number(servico.pecas || 0) + Number(servico.maoObra || 0);
+            const total =
+                Number(servico.pecas || 0) + Number(servico.maoObra || 0);
 
             return (
                 '<div class="servico-registrado" style="min-height: auto; margin-bottom: 16px;">' +
@@ -261,6 +315,9 @@
                 "</span>" +
                 "</div>" +
                 '<div class="acoes-servico">' +
+                '<img src="../../assets/icons/icon-edit.svg" alt="Editar serviço" class="icone-acao" data-editar-servico="' +
+                servico.id +
+                '" style="cursor: pointer; margin-right: 8px;" />' +
                 '<img src="../../assets/icons/icon-gray-trash.svg" alt="Excluir serviço" class="icone-acao" data-excluir-servico="' +
                 servico.id +
                 '" style="cursor: pointer;" />' +
@@ -286,8 +343,13 @@
         }
 
         function criarServicosMecanico(ordem) {
+            const podeEditar = ordem.status === "em_andamento";
             const servicos = ordem.servicos.length
-                ? ordem.servicos.map(criarServicoMecanico).join("")
+                ? ordem.servicos
+                      .map(function (s, i) {
+                          return criarServicoMecanico(s, i, podeEditar);
+                      })
+                      .join("")
                 : criarServicoVazio("Nenhum serviço realizado nesta ordem.");
 
             return (
@@ -301,7 +363,18 @@
             );
         }
 
-        function criarServicoMecanico(servico, indice) {
+        function criarServicoMecanico(servico, indice, podeEditar) {
+            const acoes = podeEditar
+                ? '<div class="acoes-servico">' +
+                  '<img src="../../assets/icons/icon-edit.svg" alt="Editar serviço" class="icone-acao" data-editar-servico="' +
+                  servico.id +
+                  '" style="cursor: pointer; margin-right: 8px;" />' +
+                  '<img src="../../assets/icons/icon-gray-trash.svg" alt="Excluir serviço" class="icone-acao" data-excluir-servico="' +
+                  servico.id +
+                  '" style="cursor: pointer;" />' +
+                  "</div>"
+                : "";
+
             return (
                 '<div class="servico-registrado" style="min-height: auto; margin-bottom: 16px;">' +
                 '<div class="servico-cabecalho">' +
@@ -313,9 +386,7 @@
                 dados.formatarDataCompleta(servico.data) +
                 "</span>" +
                 "</div>" +
-                '<img src="../../assets/icons/icon-gray-trash.svg" alt="Excluir serviço" class="icone-acao" data-excluir-servico="' +
-                servico.id +
-                '" style="cursor: pointer;" />' +
+                acoes +
                 "</div>" +
                 '<p class="titulo-servico">' +
                 dados.escaparHtml(servico.descricao) +
@@ -386,52 +457,128 @@
             );
         }
 
+        function formatarDecimalInicial(valor) {
+            if (valor === undefined || valor === null || valor === "")
+                return "";
+            let num = Number(valor);
+            if (isNaN(num)) return "";
+            let partes = num.toFixed(2).split(".");
+            partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            return partes.join(",");
+        }
+
         function criarFormularioServicoGestao() {
+            const titulo = servicoSendoEditadoId
+                ? "Editar Serviço Realizado"
+                : "Adicionar Serviço Realizado";
+            const textoBotao = servicoSendoEditadoId
+                ? "Salvar Alterações"
+                : "Adicionar Serviço";
+            const iconeBotao = servicoSendoEditadoId
+                ? "../../assets/icons/icon-save.svg"
+                : "../../assets/icons/icon-white-plus.svg";
+            const classeBotao = servicoSendoEditadoId ? "botao" : "botao";
+
+            const ordem = dados.obterOrdem(id);
+            const servico = servicoSendoEditadoId
+                ? ordem.servicos.find(
+                      (s) => s.id === Number(servicoSendoEditadoId),
+                  )
+                : null;
+
+            const descricao = servico ? servico.descricao : "";
+            const pecas = servico ? formatarDecimalInicial(servico.pecas) : "";
+            const maoObra = servico
+                ? formatarDecimalInicial(servico.maoObra)
+                : "";
+
             return (
-                '<div class="cartao cartao-formulario">' +
+                '<div class="cartao cartao-formulario" id="formulario-servico">' +
                 "<h2>" +
                 '<img src="../../assets/icons/icon-blue-plus.svg" alt="" class="icone-titulo-img" />' +
-                "Adicionar Serviço Realizado" +
+                titulo +
                 "</h2>" +
                 '<p class="rotulo">Descrição do Serviço Realizado *</p>' +
-                '<textarea class="textarea" data-descricao-servico placeholder="Ex: Troca de óleo do motor e filtro de óleo — descreva o que foi executado"></textarea>' +
+                '<textarea class="textarea" data-descricao-servico placeholder="Ex: Troca de óleo do motor e filtro de óleo — descreva o que foi executado">' +
+                dados.escaparHtml(descricao) +
+                "</textarea>" +
                 '<div class="grade-campos">' +
                 "<div>" +
                 '<p class="rotulo"><img src="../../assets/icons/icon-gray-dollar-sign.svg" alt="" class="icone-inline" />Custo de Peças (R$)</p>' +
-                '<input class="input" type="text" value="0.00" data-valor-pecas />' +
+                '<input class="input" type="text" value="' +
+                pecas +
+                '" placeholder="0,00" data-valor-pecas />' +
                 "</div>" +
                 "<div>" +
                 '<p class="rotulo"><img src="../../assets/icons/icon-gray-dollar-sign.svg" alt="" class="icone-inline" />Mão de Obra (R$)</p>' +
-                '<input class="input" type="text" value="0.00" data-valor-mao-obra />' +
+                '<input class="input" type="text" value="' +
+                maoObra +
+                '" placeholder="0,00" data-valor-mao-obra />' +
                 "</div>" +
                 "</div>" +
                 criarUploadVisual() +
-                '<button type="button" class="botao" data-adicionar-servico>' +
-                '<img src="../../assets/icons/icon-white-plus.svg" alt="" class="icone-botao" />' +
-                "Adicionar Serviço" +
+                '<div style="display: flex; gap: 12px; margin-top: 16px;">' +
+                '<button type="button" class="' +
+                classeBotao +
+                '" data-adicionar-servico style="flex: 1;">' +
+                '<img src="' +
+                iconeBotao +
+                '" alt="" class="icone-botao" />' +
+                textoBotao +
                 "</button>" +
+                (servicoSendoEditadoId
+                    ? '<button type="button" class="botao-secundario" data-cancelar-edicao style="flex: 1;">Cancelar</button>'
+                    : "") +
+                "</div>" +
                 "</div>"
             );
         }
 
         function criarFormularioServicoMecanico() {
+            const titulo = servicoSendoEditadoId
+                ? "Editar Serviço Realizado"
+                : "Adicionar Serviço Realizado";
+            const textoBotao = servicoSendoEditadoId
+                ? "Salvar Alterações"
+                : "Adicionar Serviço";
+            const iconeBotao = servicoSendoEditadoId
+                ? "../../assets/icons/icon-save.svg"
+                : "../../assets/icons/icon-white-plus.svg";
+
+            const ordem = dados.obterOrdem(id);
+            const servico = servicoSendoEditadoId
+                ? ordem.servicos.find(
+                      (s) => s.id === Number(servicoSendoEditadoId),
+                  )
+                : null;
+            const descricao = servico ? servico.descricao : "";
+
             return (
-                '<div class="cartao cartao-formulario">' +
+                '<div class="cartao cartao-formulario" id="formulario-servico">' +
                 "<h2>" +
                 '<img src="../../assets/icons/icon-blue-plus.svg" alt="" />' +
-                "Adicionar Serviço Realizado" +
+                titulo +
                 "</h2>" +
                 '<label class="rotulo-form">Descrição do Serviço Realizado *</label>' +
-                '<textarea class="textarea" data-descricao-servico placeholder="Ex: Troca de óleo do motor e filtro de óleo — descreva o que foi executado"></textarea>' +
+                '<textarea class="textarea" data-descricao-servico placeholder="Ex: Troca de óleo do motor e filtro de óleo — descreva o que foi executado">' +
+                dados.escaparHtml(descricao) +
+                "</textarea>" +
                 '<div class="aviso">' +
                 '<img src="../../assets/icons/icon-blue-dollar-sign.svg" alt="" />' +
                 "Os valores de peças e mão de obra serão definidos pelo Administrativo ou Proprietário." +
                 "</div>" +
                 criarUploadVisual() +
-                '<button type="button" class="botao" data-adicionar-servico>' +
-                '<img src="../../assets/icons/icon-white-plus.svg" alt="" class="icone-botao" />' +
-                "Adicionar Serviço" +
+                '<div style="display: flex; gap: 12px; margin-top: 16px;">' +
+                '<button type="button" class="botao" data-adicionar-servico style="flex: 1;">' +
+                '<img src="' +
+                iconeBotao +
+                '" alt="" class="icone-botao" />' +
+                textoBotao +
                 "</button>" +
+                (servicoSendoEditadoId
+                    ? '<button type="button" class="botao-secundario" data-cancelar-edicao style="flex: 1;">Cancelar</button>'
+                    : "") +
+                "</div>" +
                 "</div>"
             );
         }
@@ -448,7 +595,7 @@
                 '<img src="../../assets/icons/icon-upload.svg" alt="" />' +
                 "</div>" +
                 "<p>Toque para escolher fotos</p>" +
-                '<span data-contador-fotos>PNG, JPG, WEBP — até 5 fotos restantes</span>' +
+                "<span data-contador-fotos>PNG, JPG, WEBP — até 5 fotos restantes</span>" +
                 "</div>" +
                 '<div class="grade-previas-fotos" data-previas-fotos></div>'
             );
@@ -529,19 +676,38 @@
         }
 
         function criarOutrasManutencoes(ordem) {
+            const veiculoAtual =
+                window.VeiculoStorage &&
+                typeof window.VeiculoStorage.Buscar === "function"
+                    ? window.VeiculoStorage.Buscar(ordem.veiculo.id)
+                    : null;
+            const placaAtual = veiculoAtual
+                ? veiculoAtual.placa
+                : ordem.veiculo.placa;
+
             const outras = dados
                 .listarOrdens()
                 .filter(function (item) {
+                    const itemVeiculo =
+                        window.VeiculoStorage &&
+                        typeof window.VeiculoStorage.Buscar === "function"
+                            ? window.VeiculoStorage.Buscar(item.veiculo.id)
+                            : null;
+                    const itemPlaca = itemVeiculo
+                        ? itemVeiculo.placa
+                        : item.veiculo.placa;
+
                     return (
-                        item.id !== ordem.id &&
-                        item.veiculo.placa === ordem.veiculo.placa
+                        String(item.id) !== String(ordem.id) &&
+                        String(itemPlaca).trim().toLowerCase() ===
+                            String(placaAtual).trim().toLowerCase()
                     );
                 })
                 .slice(0, 3);
 
             const conteudo = outras.length
                 ? outras.map(criarItemOutraManutencao).join("")
-                : '<p class="rotulo">Nenhuma outra manutenção encontrada para este veículo.</p>';
+                : '<p class="rotulo" style="padding: 12px 0; color: #6b7280; font-style: italic;">Não teve outras manutenções.</p>';
 
             return (
                 '<div class="cartao">' +
@@ -554,23 +720,25 @@
             );
         }
 
-        function criarItemOutraManutencao(ordem) {
-            const status = dados.obterStatus(ordem.status);
+        function criarItemOutraManutencao(itemOrdem) {
+            const status = dados.obterStatus(itemOrdem.status);
 
             return (
-                '<div class="manutencao-anterior">' +
+                '<a href="ordem.html?id=' +
+                itemOrdem.id +
+                '" class="manutencao-anterior" style="text-decoration: none; color: inherit; display: flex; cursor: pointer; padding: 12px; border-radius: 8px; transition: background 0.2s;">' +
                 '<div class="icone-manutencao">' +
                 '<img src="../../assets/icons/icon-gray-clock.svg" alt="" />' +
                 "</div>" +
-                '<div class="conteudo-manutencao">' +
+                '<div class="conteudo-manutencao" style="flex: 1;">' +
                 '<div class="cabecalho-manutencao">' +
                 "<div>" +
                 '<p class="data-manutencao">' +
                 '<img src="../../assets/icons/icon-calendar.svg" alt="" class="icone-inline" />' +
-                dados.formatarDataCompleta(ordem.dataCriacao) +
+                dados.formatarDataCompleta(itemOrdem.dataCriacao) +
                 "</p>" +
                 '<p class="titulo-manutencao">' +
-                dados.escaparHtml(ordem.queixa) +
+                dados.escaparHtml(itemOrdem.queixa) +
                 "</p>" +
                 "</div>" +
                 '<span class="status-manutencao">' +
@@ -583,10 +751,10 @@
                 '<p class="tempo-manutencao">' +
                 '<img src="../../assets/icons/icon-orange-clock.svg" alt="" class="icone-inline" />' +
                 "OS #" +
-                ordem.id +
+                itemOrdem.id +
                 "</p>" +
                 "</div>" +
-                "</div>"
+                "</a>"
             );
         }
 
@@ -614,12 +782,20 @@
                 const botaoExcluirOrdem = evento.target.closest(
                     "[data-excluir-ordem]",
                 );
-                const botaoStatus = evento.target.closest("[data-alterar-status]");
+                const botaoStatus = evento.target.closest(
+                    "[data-alterar-status]",
+                );
                 const botaoServico = evento.target.closest(
                     "[data-adicionar-servico]",
                 );
                 const botaoExcluirServico = evento.target.closest(
                     "[data-excluir-servico]",
+                );
+                const botaoEditarServico = evento.target.closest(
+                    "[data-editar-servico]",
+                );
+                const botaoCancelarEdicao = evento.target.closest(
+                    "[data-cancelar-edicao]",
                 );
                 const botaoRemoverFoto = evento.target.closest(
                     "[data-remover-foto]",
@@ -627,7 +803,9 @@
                 const areaUpload = evento.target.closest("[data-area-upload]");
 
                 if (botaoRemoverFoto) {
-                    removerFotoSelecionada(botaoRemoverFoto.dataset.removerFoto);
+                    removerFotoSelecionada(
+                        botaoRemoverFoto.dataset.removerFoto,
+                    );
                     return;
                 }
 
@@ -647,8 +825,24 @@
                     return;
                 }
 
+                if (botaoEditarServico) {
+                    iniciarEdicaoServico(
+                        botaoEditarServico.dataset.editarServico,
+                    );
+                    return;
+                }
+
+                if (botaoCancelarEdicao) {
+                    cancelarEdicaoServico();
+                    return;
+                }
+
                 if (botaoServico) {
-                    adicionarServico();
+                    if (servicoSendoEditadoId) {
+                        salvarEdicaoServico();
+                    } else {
+                        adicionarServico();
+                    }
                     return;
                 }
 
@@ -672,11 +866,31 @@
                     abrirSeletorFotos();
                 }
             });
+
+            document.addEventListener("input", function (evento) {
+                if (
+                    evento.target.matches("[data-valor-pecas]") ||
+                    evento.target.matches("[data-valor-mao-obra]")
+                ) {
+                    let valor = evento.target.value.replace(/\D/g, "");
+                    if (valor === "") {
+                        evento.target.value = "";
+                        return;
+                    }
+                    let numero = (Number(valor) / 100).toFixed(2);
+                    let partes = numero.split(".");
+                    partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                    evento.target.value = partes.join(",");
+                }
+            });
         }
 
         function abrirSeletorFotos() {
             if (fotosSelecionadas.length >= LIMITE_FOTOS) {
-                window.customAlert("O limite de 5 fotos já foi atingido.", "warning");
+                window.customAlert(
+                    "O limite de 5 fotos já foi atingido.",
+                    "warning",
+                );
                 return;
             }
 
@@ -695,16 +909,12 @@
 
             arquivos.forEach(function (arquivo) {
                 if (!TIPOS_FOTO_PERMITIDOS.includes(arquivo.type)) {
-                    mensagens.push(
-                        arquivo.name + ": formato não permitido.",
-                    );
+                    mensagens.push(arquivo.name + ": formato não permitido.");
                     return;
                 }
 
                 if (arquivo.size > LIMITE_TAMANHO_FOTO) {
-                    mensagens.push(
-                        arquivo.name + ": tamanho acima de 500 KB.",
-                    );
+                    mensagens.push(arquivo.name + ": tamanho acima de 500 KB.");
                     return;
                 }
 
@@ -722,7 +932,7 @@
                 window.customAlert(
                     "Alguns arquivos não foram adicionados:\n\n- " +
                         mensagens.join("\n- "),
-                    "warning"
+                    "warning",
                 );
             }
 
@@ -759,7 +969,10 @@
 
                 leitor.onerror = function () {
                     arquivosLidos += 1;
-                    window.customAlert("Não foi possível ler a foto " + arquivo.name + ".", "danger");
+                    window.customAlert(
+                        "Não foi possível ler a foto " + arquivo.name + ".",
+                        "danger",
+                    );
 
                     if (arquivosLidos === arquivosValidos.length) {
                         inputFotos.value = "";
@@ -784,17 +997,24 @@
                 function () {
                     dados.excluirOrdem(ordemId);
                     window.location.href = "listar-ordens.html";
-                }
+                },
             );
         }
 
         function adicionarServico() {
-            const descricao = document.querySelector("[data-descricao-servico]");
+            const descricao = document.querySelector(
+                "[data-descricao-servico]",
+            );
             const campoPecas = document.querySelector("[data-valor-pecas]");
-            const campoMaoObra = document.querySelector("[data-valor-mao-obra]");
+            const campoMaoObra = document.querySelector(
+                "[data-valor-mao-obra]",
+            );
 
             if (!descricao || !descricao.value.trim()) {
-                window.customAlert("Preencha a descrição do serviço realizado.", "warning");
+                window.customAlert(
+                    "Preencha a descrição do serviço realizado.",
+                    "warning",
+                );
                 if (descricao) {
                     descricao.focus();
                 }
@@ -814,7 +1034,10 @@
                 });
 
                 if (!ordemAtualizada) {
-                    window.customAlert("Não foi possível adicionar o serviço realizado.", "danger");
+                    window.customAlert(
+                        "Não foi possível adicionar o serviço realizado.",
+                        "danger",
+                    );
                     return;
                 }
             } catch (erro) {
@@ -824,12 +1047,15 @@
                 ) {
                     window.customAlert(
                         "Não há espaço suficiente no navegador para salvar essas fotos. Remova fotos ou serviços antigos e tente novamente.",
-                        "danger"
+                        "danger",
                     );
                     return;
                 }
 
-                window.customAlert("Não foi possível salvar o serviço realizado.", "danger");
+                window.customAlert(
+                    "Não foi possível salvar o serviço realizado.",
+                    "danger",
+                );
                 return;
             }
 
@@ -838,10 +1064,106 @@
         }
 
         function excluirServico(servicoId) {
-            window.customConfirm("Deseja excluir este serviço realizado?", function () {
-                dados.excluirServico(id, servicoId);
-                renderizar();
-            });
+            window.customConfirm(
+                "Deseja excluir este serviço realizado?",
+                function () {
+                    dados.excluirServico(id, servicoId);
+                    renderizar();
+                },
+            );
+        }
+
+        function iniciarEdicaoServico(servicoId) {
+            const ordem = dados.obterOrdem(id);
+            const servico = ordem.servicos.find(
+                (s) => s.id === Number(servicoId),
+            );
+
+            if (!servico) return;
+
+            servicoSendoEditadoId = servicoId;
+            fotosSelecionadas = servico.fotos
+                ? JSON.parse(JSON.stringify(servico.fotos))
+                : [];
+
+            renderizar();
+
+            const formulario = document.getElementById("formulario-servico");
+            if (formulario) {
+                formulario.scrollIntoView({ behavior: "smooth" });
+            }
+        }
+
+        function cancelarEdicaoServico() {
+            servicoSendoEditadoId = null;
+            fotosSelecionadas = [];
+            renderizar();
+        }
+
+        function salvarEdicaoServico() {
+            const descricao = document.querySelector(
+                "[data-descricao-servico]",
+            );
+            const campoPecas = document.querySelector("[data-valor-pecas]");
+            const campoMaoObra = document.querySelector(
+                "[data-valor-mao-obra]",
+            );
+
+            if (!descricao || !descricao.value.trim()) {
+                window.customAlert(
+                    "Preencha a descrição do serviço realizado.",
+                    "warning",
+                );
+                if (descricao) {
+                    descricao.focus();
+                }
+                return;
+            }
+
+            try {
+                const ordemAtualizada = dados.editarServico(
+                    id,
+                    servicoSendoEditadoId,
+                    {
+                        descricao: descricao.value.trim(),
+                        pecas: campoPecas
+                            ? dados.converterValor(campoPecas.value)
+                            : 0,
+                        maoObra: campoMaoObra
+                            ? dados.converterValor(campoMaoObra.value)
+                            : 0,
+                        fotos: fotosSelecionadas,
+                    },
+                );
+
+                if (!ordemAtualizada) {
+                    window.customAlert(
+                        "Não foi possível salvar as alterações do serviço.",
+                        "danger",
+                    );
+                    return;
+                }
+            } catch (erro) {
+                if (
+                    erro.name === "QuotaExceededError" ||
+                    erro.name === "NS_ERROR_DOM_QUOTA_REACHED"
+                ) {
+                    window.customAlert(
+                        "Não há espaço suficiente no navegador para salvar essas fotos.",
+                        "danger",
+                    );
+                    return;
+                }
+                window.customAlert(
+                    "Não foi possível salvar o serviço.",
+                    "danger",
+                );
+                return;
+            }
+
+            servicoSendoEditadoId = null;
+            fotosSelecionadas = [];
+            renderizar();
         }
 
         function mostrarOrdemNaoEncontrada() {

@@ -31,9 +31,9 @@
         configurarEnvio();
 
         function preencherFormulario() {
-            campoCliente.value = ordem.cliente.nome;
+            campoCliente.value = ordem.cliente.nome || "Cliente não informado";
             campoMecanico.value = ordem.mecanico || "";
-            campoQueixa.value = ordem.queixa;
+            campoQueixa.value = ordem.queixa || "";
 
             veiculoSelecionadoId = ordem.veiculo.id;
             statusSelecionado = ordem.status;
@@ -47,7 +47,9 @@
             const menu = botaoVeiculo.closest(".menu");
             const submenu = menu.querySelector(".form-submenu");
 
-            botaoVeiculo.textContent = ordem.veiculo.modelo;
+            botaoVeiculo.textContent =
+                (ordem.veiculo.marca ? ordem.veiculo.marca + " " : "") +
+                (ordem.veiculo.modelo || "Modelo não informado");
             submenu.innerHTML = veiculos
                 .map(function (veiculo) {
                     return (
@@ -55,9 +57,14 @@
                         '<button type="button" class="option" data-veiculo-id="' +
                         veiculo.id +
                         '">' +
-                        dados.escaparHtml(veiculo.modelo) +
+                        (veiculo.marca
+                            ? dados.escaparHtml(veiculo.marca) + " "
+                            : "") +
+                        dados.escaparHtml(
+                            veiculo.modelo || "Modelo não informado",
+                        ) +
                         " - " +
-                        dados.escaparHtml(veiculo.placa) +
+                        dados.escaparHtml(veiculo.placa || "Sem placa") +
                         "</button>" +
                         "</li>"
                     );
@@ -74,7 +81,8 @@
                 .querySelector("p");
 
             if (ajuda) {
-                ajuda.textContent = veiculos.length + " veículo(s) disponível(is)";
+                ajuda.textContent =
+                    veiculos.length + " veículo(s) disponível(is)";
             }
         }
 
@@ -137,7 +145,10 @@
                 evento.preventDefault();
 
                 if (!campoQueixa.value.trim()) {
-                    window.customAlert("Preencha a queixa do cliente.", "warning");
+                    window.customAlert(
+                        "Preencha a queixa do cliente.",
+                        "warning",
+                    );
                     campoQueixa.focus();
                     return;
                 }
@@ -150,7 +161,10 @@
                 });
 
                 if (!ordemAtualizada) {
-                    window.customAlert("Não foi possível atualizar a ordem de serviço.", "danger");
+                    window.customAlert(
+                        "Não foi possível atualizar a ordem de serviço.",
+                        "danger",
+                    );
                     return;
                 }
 

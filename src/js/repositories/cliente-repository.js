@@ -1,288 +1,226 @@
 /**
- * Servico de Clientes - GarageERP
+ * Repositório de Clientes - GarageERP
  *
- * Este arquivo e responsavel pela persistencia e manipulacao dos dados de clientes,
- * seus veiculos e historico de servicos utilizando o LocalStorage do navegador.
- *
- * A estrutura de dados e normalizada para facilitar a extensao e integracao futura:
- * - 'clientes': Array de objetos cliente { id, nome, email, telefone }
- * - 'veiculos': Array de objetos veiculo { id, clienteId, modelo, placa, ano }
- * - 'ordens': Array de objetos ordem de servico { id, clienteId, veiculoId, servico, status, data, dataFmt, concluidoEm }
- *
- * Regra: Nao contem qualquer manipulacao de DOM, sendo focado exclusivamente em dados.
+ * CORREÇÕES APLICADAS:
+ * - Unificado com a mesma chave "garageerp_ordens_dados" usada pelo GarageOrdens,
+ *   eliminando o conflito de dois storages paralelos com IDs incompatíveis.
+ * - Geração de IDs via Date.now() substituída por um contador global incremental
+ *   com prefixo por tipo (cli_*, vei_*), garantindo que IDs nunca colidam entre
+ *   clientes, veículos e ordens.
+ * - VeiculoStorage (legado) agora delega para cá, tornando-se um adaptador
+ *   transparente em vez de uma segunda fonte de verdade.
  */
 
-// Dados iniciais para simulacao (Mock) com base no design das paginas HTML
-const MOCK_CLIENTES = [
-    {
-        id: "1",
-        nome: "João Silva",
-        email: "joao@email.com",
-        telefone: "(11) 98765-4321",
-    },
-    {
-        id: "2",
-        nome: "Maria Santos",
-        email: "maria@email.com",
-        telefone: "(11) 97654-3210",
-    },
-    {
-        id: "3",
-        nome: "Pedro Oliveira",
-        email: "pedro@email.com",
-        telefone: "(11) 96543-2109",
-    },
-    {
-        id: "4",
-        nome: "Caio Rocha",
-        email: "caio@email.com",
-        telefone: "(83) 28193-1513",
-    },
-    {
-        id: "5",
-        nome: "Erick Barbosa",
-        email: "erick@email.com",
-        telefone: "(32) 92813-1513",
-    },
-];
+(function () {
+    const CHAVE_UNIFICADA = "garageerp_ordens_dados";
 
-const MOCK_VEICULOS = [
-    {
-        id: "v1",
-        clienteId: "1",
-        modelo: "Volkswagen Gol",
-        placa: "ABC-1234",
-        ano: "2020",
-    },
-    {
-        id: "v2",
-        clienteId: "1",
-        modelo: "Honda Civic",
-        placa: "JKL-3456",
-        ano: "2022",
-    },
-    {
-        id: "v3",
-        clienteId: "2",
-        modelo: "Fiat Uno",
-        placa: "DEF-5678",
-        ano: "2019",
-    },
-    {
-        id: "v4",
-        clienteId: "3",
-        modelo: "Chevrolet Onix",
-        placa: "GHI-9012",
-        ano: "2021",
-    },
-];
+    // ─── Helpers de storage ───────────────────────────────────────────────────────
 
-const MOCK_ORDENS = [
-    {
-        id: "o1",
-        clienteId: "1",
-        veiculoId: "v1",
-        servico: "Troca de pneus",
-        status: "atrasado", // status: atrasado, concluido, andamento, pendente
-        data: "10 de mar. de 2024, 07:00",
-        dataFmt: "2024-03-10T07:00",
-        concluidoEm: null,
-    },
-    {
-        id: "o2",
-        clienteId: "1",
-        veiculoId: "v2",
-        servico: "Troca de óleo e filtros",
-        status: "concluido",
-        data: "01 de mar. de 2024, 05:00",
-        dataFmt: "2024-03-01T05:00",
-        concluidoEm: "01 de mar. de 2024",
-    },
-];
-
-/**
- * Inicializa o LocalStorage com os dados mockados caso as chaves correspondentes nao existam.
- */
-function inicializarLocalStorage() {
-    if (!localStorage.getItem("clientes")) {
-        localStorage.setItem("clientes", JSON.stringify(MOCK_CLIENTES));
-    }
-    if (!localStorage.getItem("veiculos")) {
-        localStorage.setItem("veiculos", JSON.stringify(MOCK_VEICULOS));
-    }
-    if (!localStorage.getItem("ordens")) {
-        localStorage.setItem("ordens", JSON.stringify(MOCK_ORDENS));
-    }
-}
-
-// Executa a inicializacao automaticamente ao carregar o script
-inicializarLocalStorage();
-
-// Servico exportado globalmente para uso nos controllers
-const ClienteStorage = {
-    /**
-     * Retorna a lista de todos os clientes.
-     * Permite busca opcional por nome, email ou telefone.
-     * @param {string} [busca] - Termo de pesquisa para filtrar clientes.
-     * @returns {Array} - Array de clientes filtrados.
-     */
-    listar(busca = "") {
-        const clientes = JSON.parse(localStorage.getItem("clientes") || "[]");
-        if (!busca) {
-            return clientes;
+    function obterDadosUnificados() {
+        const raw = localStorage.getItem(CHAVE_UNIFICADA);
+        if (!raw) return { clientes: [], veiculos: [], ordens: [] };
+        try {
+            return JSON.parse(raw);
+        } catch (e) {
+            return { clientes: [], veiculos: [], ordens: [] };
         }
-        const termo = busca.toLowerCase().trim();
-        return clientes.filter(
-            (c) =>
-                (c.nome && c.nome.toLowerCase().includes(termo)) ||
-                (c.email && c.email.toLowerCase().includes(termo)) ||
-                (c.telefone && c.telefone.toLowerCase().includes(termo)),
-        );
-    },
+    }
 
-    /**
-     * Obtem um cliente pelo ID, realizando o join com seus veiculos e historico de ordens.
-     * @param {string} id - ID do cliente.
-     * @returns {Object|null} - Objeto do cliente populado ou null se nao encontrado.
-     */
-    obterPorId(id) {
-        const clientes = JSON.parse(localStorage.getItem("clientes") || "[]");
-        const cliente = clientes.find((c) => String(c.id) === String(id));
-        if (!cliente) return null;
+    function salvarDadosUnificados(dados) {
+        localStorage.setItem(CHAVE_UNIFICADA, JSON.stringify(dados));
+    }
 
-        // Join de Veiculos
-        const veiculos = JSON.parse(localStorage.getItem("veiculos") || "[]");
-        cliente.veiculos = veiculos.filter(
-            (v) => String(v.clienteId) === String(id),
-        );
+    // ─── Geração de IDs únicos globais ────────────────────────────────────────────
 
-        // Join de Ordens (Historico de Servicos)
-        const ordens = JSON.parse(localStorage.getItem("ordens") || "[]");
-        cliente.historico = ordens.filter(
-            (o) => String(o.clienteId) === String(id),
-        );
+    function proximoId(dados, tipo) {
+        const contadores = dados._contadores || {};
+        const atual = contadores[tipo] || 0;
+        const novo = atual + 1;
+        contadores[tipo] = novo;
+        dados._contadores = contadores;
+        return tipo + "_" + novo;
+    }
 
-        return cliente;
-    },
+    // ─── ClienteStorage ───────────────────────────────────────────────────────────
 
-    /**
-     * Cadastra um novo cliente no LocalStorage.
-     * @param {Object} dadosCliente - Dados do cliente { nome, email, telefone }.
-     * @returns {Object} - O cliente cadastrado com seu ID gerado.
-     */
-    criar(dadosCliente) {
-        const clientes = JSON.parse(localStorage.getItem("clientes") || "[]");
+    const ClienteStorage = {
+        listar(busca = "") {
+            const dados = obterDadosUnificados();
+            const clientes = dados.clientes || [];
+            if (!busca) return clientes;
+            const termo = busca.toLowerCase().trim();
+            return clientes.filter(
+                (c) =>
+                    (c.nome && c.nome.toLowerCase().includes(termo)) ||
+                    (c.email && c.email.toLowerCase().includes(termo)) ||
+                    (c.telefone && c.telefone.toLowerCase().includes(termo)),
+            );
+        },
 
-        const novoCliente = {
-            id: Date.now().toString(),
-            nome: dadosCliente.nome || "",
-            email: dadosCliente.email || "",
-            telefone: dadosCliente.telefone || "",
-        };
+        obterPorId(id) {
+            const dados = obterDadosUnificados();
+            const sid = String(id);
+            const cliente = (dados.clientes || []).find(
+                (c) => String(c.id) === sid,
+            );
+            if (!cliente) return null;
 
-        clientes.push(novoCliente);
-        localStorage.setItem("clientes", JSON.stringify(clientes));
-        return novoCliente;
-    },
+            // Join de veículos
+            cliente.veiculos = (dados.veiculos || []).filter(
+                (v) => String(v.clienteId) === sid,
+            );
 
-    /**
-     * Atualiza os dados de um cliente ja cadastrado.
-     * @param {string} id - ID do cliente.
-     * @param {Object} dadosNovos - Campos a atualizar { nome, email, telefone }.
-     * @returns {Object|null} - O cliente atualizado ou null se nao encontrado.
-     */
-    atualizar(id, dadosNovos) {
-        const clientes = JSON.parse(localStorage.getItem("clientes") || "[]");
-        const index = clientes.findIndex((c) => String(c.id) === String(id));
-        if (index === -1) return null;
+            // Join de ordens (histórico de serviços)
+            cliente.historico = (dados.ordens || []).filter((o) => {
+                const oid =
+                    o.clienteId !== undefined
+                        ? String(o.clienteId)
+                        : o.cliente
+                          ? String(o.cliente.id)
+                          : null;
+                return oid === sid;
+            });
 
-        clientes[index] = {
-            ...clientes[index],
-            nome:
-                dadosNovos.nome !== undefined
-                    ? dadosNovos.nome
-                    : clientes[index].nome,
-            email:
-                dadosNovos.email !== undefined
-                    ? dadosNovos.email
-                    : clientes[index].email,
-            telefone:
-                dadosNovos.telefone !== undefined
-                    ? dadosNovos.telefone
-                    : clientes[index].telefone,
-        };
+            return cliente;
+        },
 
-        localStorage.setItem("clientes", JSON.stringify(clientes));
-        return clientes[index];
-    },
+        criar(dadosCliente) {
+            const dados = obterDadosUnificados();
+            const novoCliente = {
+                id: proximoId(dados, "cli"),
+                nome: dadosCliente.nome || "",
+                email: dadosCliente.email || "",
+                telefone: dadosCliente.telefone || "",
+            };
+            dados.clientes = dados.clientes || [];
+            dados.clientes.push(novoCliente);
+            salvarDadosUnificados(dados);
+            return novoCliente;
+        },
 
-    /**
-     * Exclui um cliente e realiza a remocao em cascata de seus veiculos e ordens.
-     * @param {string} id - ID do cliente a ser removido.
-     * @returns {boolean} - true se a delecao foi concluida.
-     */
-    excluir(id) {
-        // Remove o cliente
-        let clientes = JSON.parse(localStorage.getItem("clientes") || "[]");
-        clientes = clientes.filter((c) => String(c.id) !== String(id));
-        localStorage.setItem("clientes", JSON.stringify(clientes));
+        atualizar(id, dadosNovos) {
+            const dados = obterDadosUnificados();
+            const clientes = dados.clientes || [];
+            const sid = String(id);
+            const index = clientes.findIndex((c) => String(c.id) === sid);
+            if (index === -1) return null;
 
-        // Remocao em cascata dos veiculos do cliente
-        let veiculos = JSON.parse(localStorage.getItem("veiculos") || "[]");
-        veiculos = veiculos.filter((v) => String(v.clienteId) !== String(id));
-        localStorage.setItem("veiculos", JSON.stringify(veiculos));
+            clientes[index] = {
+                ...clientes[index],
+                nome:
+                    dadosNovos.nome !== undefined
+                        ? dadosNovos.nome
+                        : clientes[index].nome,
+                email:
+                    dadosNovos.email !== undefined
+                        ? dadosNovos.email
+                        : clientes[index].email,
+                telefone:
+                    dadosNovos.telefone !== undefined
+                        ? dadosNovos.telefone
+                        : clientes[index].telefone,
+            };
 
-        // Remocao em cascata das ordens de servico do cliente
-        let ordens = JSON.parse(localStorage.getItem("ordens") || "[]");
-        ordens = ordens.filter((o) => String(o.clienteId) !== String(id));
-        localStorage.setItem("ordens", JSON.stringify(ordens));
+            dados.clientes = clientes;
+            salvarDadosUnificados(dados);
+            return clientes[index];
+        },
 
-        return true;
-    },
+        excluir(id) {
+            const dados = obterDadosUnificados();
+            const sid = String(id);
 
-    /**
-     * Adiciona um veiculo associado a um cliente.
-     * @param {string} clienteId - ID do proprietario do veiculo.
-     * @param {Object} dadosVeiculo - { modelo, placa, ano }.
-     * @returns {Object} - O veiculo cadastrado com seu ID gerado.
-     */
-    adicionarVeiculo(clienteId, dadosVeiculo) {
-        const veiculos = JSON.parse(localStorage.getItem("veiculos") || "[]");
-        const novoVeiculo = {
-            id: "v_" + Date.now().toString(),
-            clienteId: String(clienteId),
-            modelo: dadosVeiculo.modelo || "",
-            placa: dadosVeiculo.placa || "",
-            ano: dadosVeiculo.ano || "",
-        };
-        veiculos.push(novoVeiculo);
-        localStorage.setItem("veiculos", JSON.stringify(veiculos));
-        return novoVeiculo;
-    },
+            dados.clientes = (dados.clientes || []).filter(
+                (c) => String(c.id) !== sid,
+            );
+            dados.veiculos = (dados.veiculos || []).filter(
+                (v) => String(v.clienteId) !== sid,
+            );
 
-    /**
-     * Adiciona uma ordem de servico associada a um cliente.
-     * @param {string} clienteId - ID do cliente.
-     * @param {Object} dadosOrdem - { veiculoId, servico, status, data, dataFmt, concluidoEm }.
-     * @returns {Object} - A ordem cadastrada com seu ID gerado.
-     */
-    adicionarOrdem(clienteId, dadosOrdem) {
-        const ordens = JSON.parse(localStorage.getItem("ordens") || "[]");
-        const novaOrdem = {
-            id: "o_" + Date.now().toString(),
-            clienteId: String(clienteId),
-            veiculoId: dadosOrdem.veiculoId || "",
-            servico: dadosOrdem.servico || "",
-            status: dadosOrdem.status || "pendente",
-            data: dadosOrdem.data || new Date().toLocaleString("pt-BR"),
-            dataFmt: dadosOrdem.dataFmt || new Date().toISOString(),
-            concluidoEm: dadosOrdem.concluidoEm || null,
-        };
-        ordens.push(novaOrdem);
-        localStorage.setItem("ordens", JSON.stringify(ordens));
-        return novaOrdem;
-    },
-};
+            // Remove ordens do cliente
+            dados.ordens = (dados.ordens || []).filter((o) => {
+                const oid =
+                    o.clienteId !== undefined
+                        ? String(o.clienteId)
+                        : o.cliente
+                          ? String(o.cliente.id)
+                          : null;
+                return oid !== sid;
+            });
 
-// Vincula ao escopo global (window)
-window.ClienteStorage = ClienteStorage;
+            salvarDadosUnificados(dados);
+            return true;
+        },
+
+        // ── Veículos (helpers usados pelo VeiculoStorage) ─────────────────
+
+        adicionarVeiculo(clienteId, dadosVeiculo) {
+            const dados = obterDadosUnificados();
+            const novoVeiculo = {
+                id: proximoId(dados, "vei"),
+                clienteId: String(clienteId),
+                marca: dadosVeiculo.marca || "",
+                modelo: dadosVeiculo.modelo || "",
+                placa: dadosVeiculo.placa || "",
+                ano: dadosVeiculo.ano || "",
+            };
+            dados.veiculos = dados.veiculos || [];
+            dados.veiculos.push(novoVeiculo);
+            salvarDadosUnificados(dados);
+            return novoVeiculo;
+        },
+
+        atualizarVeiculo(id, dadosNovos) {
+            const dados = obterDadosUnificados();
+            const veiculos = dados.veiculos || [];
+            const sid = String(id);
+            const index = veiculos.findIndex((v) => String(v.id) === sid);
+            if (index === -1) return null;
+
+            veiculos[index] = {
+                ...veiculos[index],
+                ...dadosNovos,
+                id: veiculos[index].id,
+            };
+            dados.veiculos = veiculos;
+            salvarDadosUnificados(dados);
+            return veiculos[index];
+        },
+
+        buscarVeiculo(id) {
+            const dados = obterDadosUnificados();
+            const sid = String(id);
+            return (
+                (dados.veiculos || []).find((v) => String(v.id) === sid) || null
+            );
+        },
+
+        excluirVeiculo(id) {
+            const dados = obterDadosUnificados();
+            const sid = String(id);
+            dados.veiculos = (dados.veiculos || []).filter(
+                (v) => String(v.id) !== sid,
+            );
+            // Também remove ordens vinculadas ao veículo
+            dados.ordens = (dados.ordens || []).filter((o) => {
+                const ovid =
+                    o.veiculoId !== undefined
+                        ? String(o.veiculoId)
+                        : o.veiculo
+                          ? String(o.veiculo.id)
+                          : null;
+                return ovid !== sid;
+            });
+            salvarDadosUnificados(dados);
+            return true;
+        },
+
+        listarVeiculos() {
+            return obterDadosUnificados().veiculos || [];
+        },
+    };
+
+    // ─── Exposição global ─────────────────────────────────────────────────────────
+
+    window.ClienteStorage = ClienteStorage;
+})();
